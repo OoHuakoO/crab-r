@@ -14,6 +14,14 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-CrabR-CrabRTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-CrabR-CrabRTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		19D9665EC80E40D3986B6F97 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44664AF6D9C8428C8C96336B /* DMSans-Bold.ttf */; };
+		E33EB83C6EAB48B9B4A119A9 /* DMSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9082FE9A0E27419FA4D3980A /* DMSans-Light.ttf */; };
+		4ECE083EA3AD4ABABA10913E /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 632F0E6BD21D471BA277A509 /* DMSans-Medium.ttf */; };
+		AA07071929B44B64AC4EE922 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0623408B231148E6832B0C77 /* DMSans-Regular.ttf */; };
+		18AD801222BC41FB8F61264B /* Sarabun-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A2610CC480334FDAB2388291 /* Sarabun-Bold.ttf */; };
+		CEC94D5FB1F6426FA3EA481D /* Sarabun-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */; };
+		F502F84953594123AB9CC067 /* Sarabun-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */; };
+		DE8E9011D7EC4791A5D80544 /* Sarabun-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +44,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = CrabR/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = CrabR/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = CrabR/main.m; sourceTree = "<group>"; };
-	    13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = CrabR/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = CrabR/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-CrabR-CrabRTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CrabR-CrabRTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-CrabR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrabR.debug.xcconfig"; path = "Target Support Files/Pods-CrabR/Pods-CrabR.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-CrabR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrabR.release.xcconfig"; path = "Target Support Files/Pods-CrabR/Pods-CrabR.release.xcconfig"; sourceTree = "<group>"; };
@@ -45,6 +53,14 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = CrabR/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-CrabR-CrabRTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrabR-CrabRTests.release.xcconfig"; path = "Target Support Files/Pods-CrabR-CrabRTests/Pods-CrabR-CrabRTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		44664AF6D9C8428C8C96336B /* DMSans-Bold.ttf */ = {isa = PBXFileReference; name = "DMSans-Bold.ttf"; path = "../assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9082FE9A0E27419FA4D3980A /* DMSans-Light.ttf */ = {isa = PBXFileReference; name = "DMSans-Light.ttf"; path = "../assets/fonts/DMSans-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		632F0E6BD21D471BA277A509 /* DMSans-Medium.ttf */ = {isa = PBXFileReference; name = "DMSans-Medium.ttf"; path = "../assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0623408B231148E6832B0C77 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; name = "DMSans-Regular.ttf"; path = "../assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A2610CC480334FDAB2388291 /* Sarabun-Bold.ttf */ = {isa = PBXFileReference; name = "Sarabun-Bold.ttf"; path = "../assets/fonts/Sarabun-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */ = {isa = PBXFileReference; name = "Sarabun-Light.ttf"; path = "../assets/fonts/Sarabun-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */ = {isa = PBXFileReference; name = "Sarabun-Medium.ttf"; path = "../assets/fonts/Sarabun-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */ = {isa = PBXFileReference; name = "Sarabun-Regular.ttf"; path = "../assets/fonts/Sarabun-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +140,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				47EAAA9AA211497092AF9F93 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -149,6 +166,22 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		47EAAA9AA211497092AF9F93 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				44664AF6D9C8428C8C96336B /* DMSans-Bold.ttf */,
+				9082FE9A0E27419FA4D3980A /* DMSans-Light.ttf */,
+				632F0E6BD21D471BA277A509 /* DMSans-Medium.ttf */,
+				0623408B231148E6832B0C77 /* DMSans-Regular.ttf */,
+				A2610CC480334FDAB2388291 /* Sarabun-Bold.ttf */,
+				EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */,
+				D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */,
+				FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -245,6 +278,14 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				19D9665EC80E40D3986B6F97 /* DMSans-Bold.ttf in Resources */,
+				E33EB83C6EAB48B9B4A119A9 /* DMSans-Light.ttf in Resources */,
+				4ECE083EA3AD4ABABA10913E /* DMSans-Medium.ttf in Resources */,
+				AA07071929B44B64AC4EE922 /* DMSans-Regular.ttf in Resources */,
+				18AD801222BC41FB8F61264B /* Sarabun-Bold.ttf in Resources */,
+				CEC94D5FB1F6426FA3EA481D /* Sarabun-Light.ttf in Resources */,
+				F502F84953594123AB9CC067 /* Sarabun-Medium.ttf in Resources */,
+				DE8E9011D7EC4791A5D80544 /* Sarabun-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
