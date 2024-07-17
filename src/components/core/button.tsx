@@ -9,7 +9,7 @@ const Button = ({ mode, style, children, ...props }: Props) => (
     <PaperButton
         style={[
             styles.button,
-            mode === 'contained' && { backgroundColor: theme.colors.primary },
+            mode === 'contained' && { backgroundColor: theme.colors.backdrop },
             style
         ]}
         labelStyle={styles.text}

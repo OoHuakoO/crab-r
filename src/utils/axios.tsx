@@ -1,5 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { SettingParams } from '@src/typings/login';
 import axios, {
     AxiosError,
     AxiosRequestConfig,
@@ -9,9 +7,7 @@ import axios, {
 export const apiInstances = axios.create();
 
 const getBaseURL = async () => {
-    const settings = await AsyncStorage.getItem('Settings');
-    const jsonSettings: SettingParams = JSON.parse(settings);
-    return `https://${jsonSettings?.server}`;
+    return `https://crab-r-service.onrender.com`;
 };
 
 apiInstances.interceptors.request.use(
@@ -34,25 +30,9 @@ apiInstances.interceptors.request.use(
     }
 );
 
-export interface ErrorDataResponse {
-    name: string;
-    debug: string;
-    message: string;
-    arguments: string[];
-    context: any;
-}
-
-export interface ErrorResponse {
-    code: number;
-    message: string;
-    data: ErrorDataResponse;
-}
-
 export interface Response<T = any> {
-    id: string;
-    jsonrpc?: number;
-    result?: T;
-    error?: ErrorResponse;
+    data?: T;
+    status?: number;
 }
 
 export async function get<T = any>(
@@ -68,15 +48,10 @@ export async function post<T = any>(
     data?: any,
     config?: AxiosRequestConfig<any> | undefined
 ): Promise<Response<T>> {
-    const settings = await AsyncStorage.getItem('Settings');
-    const jsonSettings: SettingParams = JSON.parse(settings);
     const convertData = {
         jsonrpc: '2.0',
         params: {
-            ...data,
-            db: jsonSettings?.db,
-            login: data?.login ? data?.login : jsonSettings?.login,
-            password: data?.password ? data?.password : jsonSettings?.password
+            ...data
         }
     };
     const res = await apiInstances.post<Response<T>>(url, convertData, config);
@@ -88,15 +63,10 @@ export async function put<T = any>(
     data?: any,
     config?: AxiosRequestConfig<any> | undefined
 ): Promise<Response<T>> {
-    const settings = await AsyncStorage.getItem('Settings');
-    const jsonSettings: SettingParams = JSON.parse(settings);
     const convertData = {
         jsonrpc: '2.0',
         params: {
-            ...data,
-            db: jsonSettings?.db,
-            login: data?.login ? data?.login : jsonSettings?.login,
-            password: data?.password ? data?.password : jsonSettings?.password
+            ...data
         }
     };
     const res = await apiInstances.put<Response<T>>(url, convertData, config);
@@ -107,15 +77,10 @@ export async function postDelete<T = any>(
     url: string,
     data?: any
 ): Promise<Response<T>> {
-    const settings = await AsyncStorage.getItem('Settings');
-    const jsonSettings: SettingParams = JSON.parse(settings);
     const convertData = {
         jsonrpc: '2.0',
         params: {
-            ...data,
-            db: jsonSettings?.db,
-            login: data?.login ? data?.login : jsonSettings?.login,
-            password: data?.password ? data?.password : jsonSettings?.password
+            ...data
         }
     };
     const res = await apiInstances.delete<Response<T>>(url, {
