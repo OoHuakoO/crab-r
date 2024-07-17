@@ -84,10 +84,10 @@ const styles = StyleSheet.create({
     input: {
         height: 48,
         borderColor: theme.colors.textGray,
-        borderWidth: 1,
+        borderWidth: 0.5,
         paddingHorizontal: 10,
         borderRadius: 10,
-        fontFamily: 'DMSans-Bold',
+        fontFamily: 'K2D-Medium',
         color: theme.colors.textGray
     },
     error: {

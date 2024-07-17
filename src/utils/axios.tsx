@@ -52,11 +52,7 @@ export async function post<T = any>(
     data?: any,
     config?: AxiosRequestConfig<any> | undefined
 ): Promise<Response<T>> {
-    const convertData = {
-        jsonrpc: '2.0',
-        params: data
-    };
-    const res = await apiInstances.post<Response<T>>(url, convertData, config);
+    const res = await apiInstances.post<Response<T>>(url, data, config);
     return res.data;
 }
 
@@ -65,11 +61,7 @@ export async function put<T = any>(
     data?: any,
     config?: AxiosRequestConfig<any> | undefined
 ): Promise<Response<T>> {
-    const convertData = {
-        jsonrpc: '2.0',
-        params: data
-    };
-    const res = await apiInstances.put<Response<T>>(url, convertData, config);
+    const res = await apiInstances.put<Response<T>>(url, data, config);
     return res.data;
 }
 
@@ -77,12 +69,8 @@ export async function postDelete<T = any>(
     url: string,
     data?: any
 ): Promise<Response<T>> {
-    const convertData = {
-        jsonrpc: '2.0',
-        params: data
-    };
     const res = await apiInstances.delete<Response<T>>(url, {
-        data: convertData
+        data: data
     });
     return res.data;
 }

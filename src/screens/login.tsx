@@ -1,76 +1,64 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { BackHandler, SafeAreaView, View } from 'react-native';
+import {
+    BackHandler,
+    SafeAreaView,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 import InputText from '@src/components/core/inputeText';
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
-import ToastComponent from '@src/components/core/toast';
+import Button from '@src/components/core/button';
+import { STATUS_CODE } from '@src/constant';
+import { Login } from '@src/services/login';
+import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
+import { LoginState } from '@src/typings/common';
 import { LoginParams } from '@src/typings/login';
 import { PublicStackParamsList } from '@src/typings/navigation';
 import { Controller, useForm } from 'react-hook-form';
-import { StyleSheet } from 'react-native';
-import { Portal } from 'react-native-paper';
+import { Image, StyleSheet } from 'react-native';
+import { Portal, Text } from 'react-native-paper';
 
 type LoginScreenProps = NativeStackScreenProps<PublicStackParamsList, 'Login'>;
 
 const LoginScreen: FC<LoginScreenProps> = (props) => {
     const { navigation } = props;
-
+    const setLogin = useSetRecoilState<LoginState>(loginState);
     const form = useForm<LoginParams>({});
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
-
+    const [contentDialog, setContentDialog] = useState<string>('');
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
-    // const handleLogin = useCallback(
-    //     async (data: LoginParams) => {
-    //         try {
-    //             const response = await Login({
-    //                 login: data?.login,
-    //                 password: data?.password
-    //             });
-    //             if (
-    //                 response?.error ||
-    //                 data?.login === '' ||
-    //                 data?.password === ''
-    //             ) {
-    //                 setVisibleDialog(true);
-    //                 setContentDialog('Email Or Password Incorrect');
-    //                 return;
-    //             }
-    //             const loginObj = {
-    //                 session_id: response?.result?.session_id,
-    //                 uid: response?.result?.uid
-    //             };
-    //             setLogin(loginObj);
-    //             await AsyncStorage.setItem('Login', JSON.stringify(loginObj));
-
-    //             const settings = await AsyncStorage.getItem('Settings');
-    //             const jsonSettings: SettingParams = JSON.parse(settings);
-    //             await AsyncStorage.setItem(
-    //                 'Settings',
-    //                 JSON.stringify({
-    //                     ...jsonSettings,
-    //                     login: data?.login,
-    //                     password: data?.password
-    //                 })
-    //             );
-
-    //             handleCreateDevice(data?.login, data?.password);
-    //             handleActiveUser(data?.login, data?.password);
-
-    //             setTimeout(() => {
-    //                 setToast({ open: true, text: 'Login Successfully' });
-    //             }, 0);
-    //         } catch (err) {
-    //             console.log(err);
-    //             setVisibleDialog(true);
-    //             setContentDialog(`Something went wrong login`);
-    //         }
-    //     },
-    //     [handleActiveUser, handleCreateDevice, setLogin, setToast]
-    // );
+    const handleLogin = useCallback(
+        async (data: LoginParams) => {
+            try {
+                const response = await Login({
+                    email: data?.email,
+                    password: data?.password
+                });
+                if (response?.status !== STATUS_CODE.CODE_200) {
+                    setVisibleDialog(true);
+                    setContentDialog('Email Or Password Incorrect');
+                    return;
+                }
+                const loginObj = {
+                    role: response?.data?.role,
+                    token: response?.data?.token
+                };
+                setLogin(loginObj);
+                await AsyncStorage.setItem('Login', JSON.stringify(loginObj));
+            } catch (err) {
+                console.log(err);
+                setVisibleDialog(true);
+                setContentDialog(`Something went wrong login`);
+            }
+        },
+        [setLogin]
+    );
 
     const handleVisiblePassword = useCallback(() => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -99,13 +87,21 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
             <Portal>
                 <AlertDialog
                     visible={visibleDialog}
+                    textContent={contentDialog}
                     handleClose={handleCloseDialog}
                     handleConfirm={handleCloseDialog}
                 />
             </Portal>
             <View style={styles.sectionLogin}>
+                <View style={styles.imagesContainer}>
+                    <Image
+                        style={styles.image}
+                        source={require('../../assets/images/carbRIcon.png')}
+                        resizeMode="contain"
+                    />
+                </View>
                 <Controller
-                    name="login"
+                    name="email"
                     defaultValue=""
                     control={form?.control}
                     render={({ field }) => (
@@ -136,16 +132,20 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
                         />
                     )}
                 />
-                {/* <TouchableOpacity onPress={form?.handleSubmit(handleLogin)}>
+                <TouchableOpacity onPress={form?.handleSubmit(handleLogin)}>
                     <Button mode="contained">
-                        <Text variant="titleMedium" style={styles.textLogin}>
-                            Login
+                        <Text style={styles.textLogin}>ลงชื่อเข้าใช้</Text>
+                    </Button>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={form?.handleSubmit(handleLogin)}>
+                    <Button mode="text">
+                        <Text variant="titleMedium" style={styles.textRegister}>
+                            สมัครสมาชิก
                         </Text>
                     </Button>
-                </TouchableOpacity> */}
+                </TouchableOpacity>
             </View>
-
-            <ToastComponent />
         </SafeAreaView>
     );
 };
@@ -154,30 +154,38 @@ const styles = StyleSheet.create({
     container: {
         flex: 1
     },
-
     sectionLogin: {
-        padding: 16
+        paddingHorizontal: 50,
+        paddingTop: 50
+    },
+    image: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10
+    },
+    imagesContainer: {
+        width: 150,
+        height: 150,
+        borderRadius: 10,
+        alignSelf: 'center',
+        marginBottom: 20
     },
     label: {
         color: theme.colors.secondary
     },
     textLogin: {
+        fontFamily: 'K2D-Medium',
         color: theme.colors.white,
-        fontWeight: '700'
+        fontSize: 15,
+        letterSpacing: 0.1,
+        lineHeight: 20
     },
-    textRetail: {
-        textAlign: 'center'
-    },
-    boxRetail: {
-        padding: 16,
-        alignSelf: 'center'
-    },
-    settingButton: {
-        zIndex: 1,
-        position: 'absolute',
-        margin: 16,
-        right: 0,
-        bottom: 0
+    textRegister: {
+        fontFamily: 'K2D-Medium',
+        color: theme.colors.textGray,
+        fontSize: 15,
+        letterSpacing: 0.1,
+        lineHeight: 20
     }
 });
 

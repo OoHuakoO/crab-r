@@ -9,7 +9,9 @@ const Button = ({ mode, style, children, ...props }: Props) => (
     <PaperButton
         style={[
             styles.button,
-            mode === 'contained' && { backgroundColor: theme.colors.backdrop },
+            mode === 'contained' && {
+                backgroundColor: theme.colors.primary
+            },
             style
         ]}
         labelStyle={styles.text}
@@ -25,7 +27,6 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 50,
         justifyContent: 'center',
-        marginVertical: 10,
         alignSelf: 'center'
     },
     text: {
