@@ -12,11 +12,11 @@ const getBaseURL = async () => {
 
 apiInstances.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
+        config.baseURL = await getBaseURL();
+        config.responseType = 'json';
         if (config.data instanceof FormData) {
             config.headers.set('Content-Type', 'multipart/form-data');
         } else {
-            config.baseURL = await getBaseURL();
-            config.responseType = 'json';
             config.headers.set(
                 'content-type',
                 'application/json;charset=UTF-8'
@@ -50,9 +50,7 @@ export async function post<T = any>(
 ): Promise<Response<T>> {
     const convertData = {
         jsonrpc: '2.0',
-        params: {
-            ...data
-        }
+        params: data
     };
     const res = await apiInstances.post<Response<T>>(url, convertData, config);
     return res.data;
@@ -65,9 +63,7 @@ export async function put<T = any>(
 ): Promise<Response<T>> {
     const convertData = {
         jsonrpc: '2.0',
-        params: {
-            ...data
-        }
+        params: data
     };
     const res = await apiInstances.put<Response<T>>(url, convertData, config);
     return res.data;
@@ -79,9 +75,7 @@ export async function postDelete<T = any>(
 ): Promise<Response<T>> {
     const convertData = {
         jsonrpc: '2.0',
-        params: {
-            ...data
-        }
+        params: data
     };
     const res = await apiInstances.delete<Response<T>>(url, {
         data: convertData
