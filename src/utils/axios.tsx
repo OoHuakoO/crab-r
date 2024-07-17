@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, {
     AxiosError,
     AxiosRequestConfig,
@@ -6,14 +7,17 @@ import axios, {
 
 export const apiInstances = axios.create();
 
-const getBaseURL = async () => {
-    return `https://crab-r-service.onrender.com`;
+const getToken = async () => {
+    const token = await AsyncStorage.getItem('Token');
+    const jsonToken = JSON.parse(token);
+    return jsonToken || '';
 };
 
 apiInstances.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
-        config.baseURL = await getBaseURL();
+        config.baseURL = `https://crab-r-service.onrender.com`;
         config.responseType = 'json';
+        config.headers.set('Authorization', `Bearer ${getToken()}`);
         if (config.data instanceof FormData) {
             config.headers.set('Content-Type', 'multipart/form-data');
         } else {
