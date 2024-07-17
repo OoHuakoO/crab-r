@@ -18,6 +18,22 @@
       "sha1": "ac9a042a40e49e8cdbfe0e64e84d9b1c5724e98d"
     },
     {
+      "path": "assets/fonts/K2D-Bold.ttf",
+      "sha1": "a1c0d2ca862a2e6e95725c5b693da7b4f13c14ae"
+    },
+    {
+      "path": "assets/fonts/K2D-Light.ttf",
+      "sha1": "cc2e4019be0cbe767776d8663ed9d188f79e0891"
+    },
+    {
+      "path": "assets/fonts/K2D-Medium.ttf",
+      "sha1": "fb3f0367528e94dde5f96fde52280fa70aa352f4"
+    },
+    {
+      "path": "assets/fonts/K2D-Regular.ttf",
+      "sha1": "0b9dc056d96e700bf4405e1e1e5f6b6a14d56d8e"
+    },
+    {
       "path": "assets/fonts/Sarabun-Bold.ttf",
       "sha1": "8a5854cb1d43fe0caf68d4f82a62c3dfd4f5cb5a"
     },

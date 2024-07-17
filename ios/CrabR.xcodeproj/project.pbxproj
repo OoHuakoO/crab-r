@@ -22,6 +22,10 @@
 		CEC94D5FB1F6426FA3EA481D /* Sarabun-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */; };
 		F502F84953594123AB9CC067 /* Sarabun-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */; };
 		DE8E9011D7EC4791A5D80544 /* Sarabun-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */; };
+		6A033CAE2C6F4044B199D0DB /* K2D-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 61A4FE768A4A4BA7A532272F /* K2D-Bold.ttf */; };
+		37A45E99428A48BFAA1D04D4 /* K2D-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7161DA3D17BC498DB1B8457B /* K2D-Light.ttf */; };
+		92847A0AA9C04B7AAC8C37F8 /* K2D-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0FB8A6C47F764609A2DC45DE /* K2D-Medium.ttf */; };
+		CC105DCA89064EF19C981A8D /* K2D-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7145CC1B1864357A5EF05CD /* K2D-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +65,10 @@
 		EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */ = {isa = PBXFileReference; name = "Sarabun-Light.ttf"; path = "../assets/fonts/Sarabun-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */ = {isa = PBXFileReference; name = "Sarabun-Medium.ttf"; path = "../assets/fonts/Sarabun-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */ = {isa = PBXFileReference; name = "Sarabun-Regular.ttf"; path = "../assets/fonts/Sarabun-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		61A4FE768A4A4BA7A532272F /* K2D-Bold.ttf */ = {isa = PBXFileReference; name = "K2D-Bold.ttf"; path = "../assets/fonts/K2D-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		7161DA3D17BC498DB1B8457B /* K2D-Light.ttf */ = {isa = PBXFileReference; name = "K2D-Light.ttf"; path = "../assets/fonts/K2D-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0FB8A6C47F764609A2DC45DE /* K2D-Medium.ttf */ = {isa = PBXFileReference; name = "K2D-Medium.ttf"; path = "../assets/fonts/K2D-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D7145CC1B1864357A5EF05CD /* K2D-Regular.ttf */ = {isa = PBXFileReference; name = "K2D-Regular.ttf"; path = "../assets/fonts/K2D-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +186,10 @@
 				EC43540D3E8543DFB0D7618F /* Sarabun-Light.ttf */,
 				D93F3A1F2CBE45CC8080BFED /* Sarabun-Medium.ttf */,
 				FDAD3809AB7948C58DE76F6F /* Sarabun-Regular.ttf */,
+				61A4FE768A4A4BA7A532272F /* K2D-Bold.ttf */,
+				7161DA3D17BC498DB1B8457B /* K2D-Light.ttf */,
+				0FB8A6C47F764609A2DC45DE /* K2D-Medium.ttf */,
+				D7145CC1B1864357A5EF05CD /* K2D-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -286,6 +298,10 @@
 				CEC94D5FB1F6426FA3EA481D /* Sarabun-Light.ttf in Resources */,
 				F502F84953594123AB9CC067 /* Sarabun-Medium.ttf in Resources */,
 				DE8E9011D7EC4791A5D80544 /* Sarabun-Regular.ttf in Resources */,
+				6A033CAE2C6F4044B199D0DB /* K2D-Bold.ttf in Resources */,
+				37A45E99428A48BFAA1D04D4 /* K2D-Light.ttf in Resources */,
+				92847A0AA9C04B7AAC8C37F8 /* K2D-Medium.ttf in Resources */,
+				CC105DCA89064EF19C981A8D /* K2D-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
