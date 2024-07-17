@@ -9,5 +9,6 @@ export const colorConfig = {
     black: '#000000',
     textGray: '#828282',
     buttonCancel: '#FF6C6C',
-    success: '#63CA7F'
+    success: '#63CA7F',
+    secondaryContainer: 'transparent'
 };
