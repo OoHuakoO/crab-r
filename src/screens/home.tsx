@@ -34,7 +34,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
             <View style={styles.imagesContainer}>
                 <Image
                     style={styles.image}
-                    source={require('../../assets/images/carbRIcon.png')}
+                    source={require('../../assets/images/crabRText.png')}
                     resizeMode="contain"
                 />
             </View>
