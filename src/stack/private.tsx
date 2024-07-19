@@ -1,4 +1,3 @@
-import HomeScreen from '@src/screens/home';
 import ProfileScreen from '@src/screens/profile';
 import { theme } from '@src/theme';
 import React, { memo } from 'react';
@@ -6,6 +5,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
+import homeStack from './homeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 const PrivateStack = () => {
@@ -20,8 +20,8 @@ const PrivateStack = () => {
             }}
         >
             <Tab.Screen
-                name="Home"
-                component={HomeScreen}
+                name="HomeStack"
+                component={homeStack}
                 options={{
                     // eslint-disable-next-line react/no-unstable-nested-components
                     tabBarIcon: ({ color }) => (

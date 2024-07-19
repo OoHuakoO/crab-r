@@ -17,7 +17,7 @@ apiInstances.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
         config.baseURL = `https://crab-r-service.onrender.com`;
         config.responseType = 'json';
-        config.headers.set('Authorization', `Bearer ${getToken()}`);
+        config.headers.set('Authorization', `Bearer ${await getToken()}`);
         if (config.data instanceof FormData) {
             config.headers.set('Content-Type', 'multipart/form-data');
         } else {

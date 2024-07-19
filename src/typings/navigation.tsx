@@ -11,3 +11,9 @@ export type PrivateStackParamsList = {
     Home: undefined;
     Profile: undefined;
 };
+
+export type HomeStackParamsList = {
+    Home: undefined;
+    Knowledge: undefined;
+    SaveData: undefined;
+};

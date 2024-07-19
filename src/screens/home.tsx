@@ -1,47 +1,38 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { PrivateStackParamsList } from '@src/typings/navigation';
-import React, { FC, useEffect } from 'react';
+import { theme } from '@src/theme';
+import { HomeStackParamsList } from '@src/typings/navigation';
+import React, { FC } from 'react';
 import {
-    BackHandler,
     Image,
-    SafeAreaView,
+    ScrollView,
     StyleSheet,
     Text,
+    TouchableOpacity,
     View
 } from 'react-native';
 
-type HomeScreenProps = NativeStackScreenProps<PrivateStackParamsList, 'Home'>;
+type HomeScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Home'>;
 
 const HomeScreen: FC<HomeScreenProps> = (props) => {
     const { navigation } = props;
 
-    useEffect(() => {
-        const onBackPress = () => {
-            BackHandler.exitApp();
-            return true;
-        };
-        const subscription = BackHandler.addEventListener(
-            'hardwareBackPress',
-            onBackPress
-        );
-        return () => {
-            subscription.remove();
-        };
-    }, [navigation]);
-
     return (
-        <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.header}>
-                <Image
-                    style={styles.logo}
-                    source={require('../../assets/images/crabRText.png')}
-                    resizeMode="contain"
-                />
-                <Image
-                    style={styles.crabImage}
-                    source={require('../../assets/images/crabR.png')}
-                    resizeMode="contain"
-                />
+                <View style={styles.imageCrabRTextContainer}>
+                    <Image
+                        style={styles.imageCrabRText}
+                        source={require('../../assets/images/crabRText.png')}
+                        resizeMode="contain"
+                    />
+                </View>
+                <View style={styles.imageCrabContainer}>
+                    <Image
+                        style={styles.imageCrab}
+                        source={require('../../assets/images/crabR.png')}
+                        resizeMode="contain"
+                    />
+                </View>
             </View>
             <View style={styles.text}>
                 <Text style={styles.thaiText}>
@@ -55,53 +46,90 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                     มหาวิทยาลัยราชภัฏรำไพพรรณี จ.จันทบุรี
                 </Text>
             </View>
-            <View style={styles.buttonContainer}>
-                <View style={styles.button}>
-                    <Image
-                        source={require('../../assets/images/bookIcon.png')}
-                        style={styles.buttonIcon}
-                    />
-                    <View style={styles.buttonTextContainer}>
-                        <Text style={styles.buttonText}>องค์ความรู้</Text>
-                        <Text style={styles.buttonSubtext}>Knowledge</Text>
+            <View style={styles.menuContainer}>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('Knowledge');
+                    }}
+                    style={styles.rowMenu1}
+                >
+                    <View style={styles.imageBookIconContainer}>
+                        <Image
+                            source={require('../../assets/images/bookIcon.png')}
+                            style={styles.imageBookIcon}
+                        />
                     </View>
-                </View>
-                <View style={styles.button}>
-                    <Image
-                        source={require('../../assets/images/bookIcon.png')}
-                        style={styles.buttonIcon}
-                    />
-                    <View style={styles.buttonTextContainer}>
-                        <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
-                        <Text style={styles.buttonSubtext}>Save Data</Text>
+                    <View style={styles.textContainer}>
+                        <View>
+                            <Text style={styles.buttonText}>องค์ความรู้</Text>
+                            <Text style={styles.buttonSubtext}>Knowledge</Text>
+                        </View>
                     </View>
-                </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('SaveData');
+                    }}
+                    style={styles.rowMenu2}
+                >
+                    <View style={styles.imagePencilBookIconContainer}>
+                        <Image
+                            source={require('../../assets/images/pencilBookIcon.png')}
+                            style={styles.imagePencilBookIcon}
+                        />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <View>
+                            <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
+                            <Text style={styles.buttonSubtext}>Save Data</Text>
+                        </View>
+                    </View>
+                </TouchableOpacity>
             </View>
-        </SafeAreaView>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#133D79',
-        height: '64%'
+        backgroundColor: '#133D79'
     },
     header: {
-        backgroundColor: '#FFFFFF',
         alignItems: 'center',
-        height: '34%'
+        height: 275,
+        backgroundColor: theme.colors.white
     },
-
-    logo: {
-        width: 300,
+    imageCrabRTextContainer: {
+        width: '100%',
         height: 100,
-        marginBottom: 2
+        marginTop: 20
     },
-    crabImage: {
-        width: 440,
-        height: 278
+    imageCrabRText: {
+        width: '100%',
+        height: '100%'
     },
+    imageCrabContainer: {
+        width: '100%',
+        height: '100%'
+    },
+    imageCrab: { width: '100%', height: '100%' },
+    imagePencilBookIconContainer: {
+        width: 100,
+        height: 100,
+        position: 'absolute',
+        zIndex: 1,
+        left: -40
+    },
+    imagePencilBookIcon: { width: '100%', height: '100%' },
+    imageBookIconContainer: {
+        width: 100,
+        height: 100,
+        position: 'absolute',
+        zIndex: 1,
+        left: -40
+    },
+    imageBookIcon: { width: '100%', height: '100%' },
     text: {
         marginTop: 130
     },
@@ -122,44 +150,45 @@ const styles = StyleSheet.create({
         letterSpacing: 0.1,
         lineHeight: 20
     },
-    buttonContainer: {
-        padding: 20,
-        marginTop: 10
+    menuContainer: {
+        padding: 30,
+        marginTop: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    button: {
+    rowMenu1: {
         flexDirection: 'row',
+        position: 'relative',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        marginBottom: 33,
-        width: 250,
-        height: 75,
-        marginLeft: 85
+        marginBottom: 50,
+        width: '70%'
     },
-    buttonIcon: {
-        width: 113,
-        height: 113,
-        marginLeft: -65
+    rowMenu2: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        width: '70%'
     },
-    buttonTextContainer: {
-        flex: 1
+    textContainer: {
+        padding: 5,
+        borderRadius: 20,
+        backgroundColor: theme.colors.secondary,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     buttonText: {
-        fontFamily: 'K2D-Regular',
+        fontFamily: 'K2D-Bold',
         fontSize: 22,
-        letterSpacing: 0,
-        lineHeight: 28,
-        fontWeight: 'bold',
-        color: '#133D79',
-        marginLeft: 20
+        color: theme.colors.primary,
+        marginLeft: 20,
+        marginBottom: -10
     },
     buttonSubtext: {
-        fontFamily: 'K2D-Regular',
+        fontFamily: 'K2D-Bold',
         fontSize: 16,
-        letterSpacing: 0.15,
-        lineHeight: 24,
-        fontWeight: 'bold',
-        color: '#133D79',
+        color: theme.colors.primary,
         marginLeft: 20
     },
     divider: {
