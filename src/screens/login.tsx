@@ -176,16 +176,12 @@ const styles = StyleSheet.create({
     textLogin: {
         fontFamily: 'K2D-Medium',
         color: theme.colors.white,
-        fontSize: 15,
-        letterSpacing: 0.1,
-        lineHeight: 20
+        fontSize: 15
     },
     textRegister: {
         fontFamily: 'K2D-Medium',
         color: theme.colors.textGray,
-        fontSize: 15,
-        letterSpacing: 0.1,
-        lineHeight: 20
+        fontSize: 15
     }
 });
 

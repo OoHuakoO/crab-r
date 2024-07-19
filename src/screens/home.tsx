@@ -93,7 +93,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#133D79'
+        backgroundColor: theme.colors.primary
     },
     header: {
         alignItems: 'center',
@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         position: 'absolute',
-        zIndex: 1,
-        left: -40
+        left: -40,
+        zIndex: 1
     },
     imagePencilBookIcon: { width: '100%', height: '100%' },
     imageBookIconContainer: {
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     },
     thaiText: {
         textAlign: 'center',
-        color: '#FFFFFF',
+        color: theme.colors.white,
         marginBottom: 10,
         fontFamily: 'K2D-Regular',
         fontSize: 22,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     },
     companyText: {
         textAlign: 'center',
-        color: '#FFFFFF',
+        color: theme.colors.white,
         fontFamily: 'K2D-Regular',
         fontSize: 14,
         letterSpacing: 0.1,
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
     },
     divider: {
         height: 3,
-        backgroundColor: '#FFFFFF',
+        color: theme.colors.white,
         width: '90%',
         alignSelf: 'center',
         marginTop: 2,
