@@ -1,28 +1,237 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import { Text } from 'react-native-paper';
 
 type KnowledgeScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
     'Knowledge'
 >;
 
-const KnowledgeScreen: FC<KnowledgeScreenProps> = () => {
+const Header: FC = () => (
+    <View style={styles.header}>
+        <View style={styles.headerContainer}>
+            <View style={styles.columnHeader}>
+                <View style={styles.imageCrabRTextContainer}>
+                    <Image
+                        style={styles.imageCrabRText}
+                        source={require('../../assets/images/crabRText.png')}
+                        resizeMode="contain"
+                    />
+                </View>
+                <View style={styles.imagePttepContainer}>
+                    <Image
+                        style={styles.imagePttep}
+                        source={require('../../assets/images/pttep.png')}
+                        resizeMode="contain"
+                    />
+                </View>
+                <View style={styles.imageUniversityContainer}>
+                    <Image
+                        style={styles.imageUniversity}
+                        source={require('../../assets/images/university.png')}
+                        resizeMode="contain"
+                    />
+                </View>
+            </View>
+        </View>
+    </View>
+);
+
+const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
+    const { navigation } = props;
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    style={styles.logo}
-                    source={require('../../assets/images/crabRText.png')}
-                    resizeMode="contain"
-                />
-                <Image
-                    style={styles.crabImage}
-                    source={require('../../assets/images/crabR.png')}
-                    resizeMode="contain"
-                />
-            </View>
+            <Header />
+            <ScrollView style={styles.scrollView}>
+                <View style={styles.columnTitle}>
+                    <View style={styles.imageBookKnowledgeContainer}>
+                        <Image
+                            source={require('../../assets/images/bookKnowledge.png')}
+                            style={styles.imageBookKnowledge}
+                        />
+                    </View>
+                    <View style={styles.knowledgeContainer}>
+                        <View>
+                            <Text style={styles.buttonText}>องค์ความรู้</Text>
+                            <Text style={styles.buttonSubtext}>Knowledge</Text>
+                        </View>
+                    </View>
+                </View>
+                <View style={styles.divider} />
+                <View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu1}
+                    >
+                        <View style={styles.imageCrabCircuitContainer}>
+                            <Image
+                                source={require('../../assets/images/crabCircuit.png')}
+                                style={styles.imageCrabCircuit}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลวงจรปู
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Crab circuit information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu2}
+                    >
+                        <View style={styles.imageHighAndLowContainer}>
+                            <Image
+                                source={require('../../assets/images/highAndLow.png')}
+                                style={styles.imageHighAndLow}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลน้ำขึ้น-น้ำลง
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    High and low tide information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu3}
+                    >
+                        <View style={styles.imagePhContainer}>
+                            <Image
+                                source={require('../../assets/images/ph.png')}
+                                style={styles.imagePh}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลค่ากรด-ด่าง (pH)
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Acid-alkaline (ph) value information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu4}
+                    >
+                        <View style={styles.imageAlkalinityTotalContainer}>
+                            <Image
+                                source={require('../../assets/images/alkalinityTotal.png')}
+                                style={styles.imageAlkalinityTotal}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลค่าอัลคาไลนิตี้รวม
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Total alkalinity data
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu5}
+                    >
+                        <View style={styles.imageAmmoniaContainer}>
+                            <Image
+                                source={require('../../assets/images/ammonia.png')}
+                                style={styles.imageAmmonia}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลค่าแอมโมเนีย
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Ammonia value information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu6}
+                    >
+                        <View style={styles.imageMgContainer}>
+                            <Image
+                                source={require('../../assets/images/mg.png')}
+                                style={styles.imageMg}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลค่าแมกนีเซียมและแคลเซียม
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Magnesium and calcium information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Home');
+                        }}
+                        style={styles.rowMenu7}
+                    >
+                        <View style={styles.imageChlorineContainer}>
+                            <Image
+                                source={require('../../assets/images/cl.png')}
+                                style={styles.imageChlorine}
+                            />
+                        </View>
+                        <View style={styles.textContainer}>
+                            <View>
+                                <Text style={styles.columnButtonText}>
+                                    ข้อมูลค่าคลอลีน
+                                </Text>
+                                <Text style={styles.columnButtonSubtext}>
+                                    Chlorine value information
+                                </Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
@@ -30,92 +239,252 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#133D79',
-        height: '64%'
+        backgroundColor: theme.colors.primary
     },
     header: {
-        backgroundColor: '#FFFFFF',
-        alignItems: 'center',
-        height: '34%'
+        height: 65,
+        backgroundColor: theme.colors.white,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1000
     },
-
-    logo: {
-        width: 300,
-        height: 100,
-        marginBottom: 2
+    scrollView: {
+        flex: 1,
+        marginTop: 65
     },
-    crabImage: {
-        width: 440,
-        height: 278
+    headerContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    text: {
-        marginTop: 130
+    imageCrabRTextContainer: {
+        width: '70%',
+        height: 70,
+        marginTop: 15,
+        marginLeft: -70
     },
-    thaiText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        marginBottom: 10,
-        fontFamily: 'K2D-Regular',
-        fontSize: 22,
-        letterSpacing: 0,
-        lineHeight: 28
+    imagePttepContainer: {
+        width: '20%',
+        height: 50,
+        marginTop: 15,
+        marginLeft: 70
     },
-    companyText: {
-        textAlign: 'center',
-        color: '#FFFFFF',
-        fontFamily: 'K2D-Regular',
-        fontSize: 14,
-        letterSpacing: 0.1,
-        lineHeight: 20
-    },
-    buttonContainer: {
-        padding: 20,
-        marginTop: 10
-    },
-    button: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        marginBottom: 33,
-        width: 250,
-        height: 75,
-        marginLeft: 85
-    },
-    buttonIcon: {
-        width: 113,
-        height: 113,
-        marginLeft: -65
-    },
-    buttonTextContainer: {
-        flex: 1
-    },
-    buttonText: {
-        fontFamily: 'K2D-Regular',
-        fontSize: 22,
-        letterSpacing: 0,
-        lineHeight: 28,
-        fontWeight: 'bold',
-        color: '#133D79',
+    imageUniversityContainer: {
+        width: '15%',
+        height: 50,
+        marginTop: 15,
         marginLeft: 20
     },
+    imageCrabRText: {
+        width: '100%',
+        height: '100%'
+    },
+    imagePttep: {
+        width: '100%',
+        height: '100%'
+    },
+    imageUniversity: {
+        width: '100%',
+        height: '100%'
+    },
+    columnHeader: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '70%'
+    },
+    columnTitle: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '70%'
+    },
+    imageBookKnowledgeContainer: {
+        width: 100,
+        height: 100,
+        position: 'absolute',
+        zIndex: 1,
+        left: 60
+    },
+    imageBookKnowledge: {
+        width: 120,
+        height: 130,
+        position: 'absolute',
+        zIndex: 1,
+        top: -5
+    },
+    knowledgeContainer: {
+        marginTop: 40,
+        marginLeft: 180,
+        width: 180,
+        height: 90
+    },
+    buttonText: {
+        fontSize: 32,
+        fontFamily: 'K2D-Bold',
+        marginLeft: 20,
+        marginBottom: -10,
+        color: theme.colors.white
+    },
     buttonSubtext: {
+        fontFamily: 'K2D-Bold',
+        fontSize: 24,
+        color: theme.colors.white,
+        marginLeft: 20
+    },
+    columnButtonText: {
+        fontFamily: 'K2D-Bold',
+        fontSize: 18,
+        color: theme.colors.primary,
+        marginLeft: 20,
+        marginBottom: -10
+    },
+    columnButtonSubtext: {
         fontFamily: 'K2D-Regular',
         fontSize: 16,
-        letterSpacing: 0.15,
-        lineHeight: 24,
-        fontWeight: 'bold',
-        color: '#133D79',
+        color: theme.colors.primary,
         marginLeft: 20
     },
     divider: {
         height: 3,
-        backgroundColor: '#FFFFFF',
+        backgroundColor: theme.colors.white,
         width: '90%',
         alignSelf: 'center',
-        marginTop: 2,
-        marginBottom: 8
-    }
+        marginTop: -40,
+        marginBottom: 15
+    },
+    menuContainer: {
+        padding: 30,
+        marginTop: 10,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    rowMenu1: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: 15
+    },
+    textContainer: {
+        padding: 5,
+        borderRadius: 20,
+        backgroundColor: theme.colors.secondary,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 80
+    },
+    imageCrabCircuitContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageCrabCircuit: { width: '100%', height: '100%' },
+    rowMenu2: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: -15
+    },
+    imageHighAndLowContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageHighAndLow: { width: '100%', height: '100%' },
+    rowMenu3: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: -15
+    },
+    imagePhContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imagePh: { width: '100%', height: '100%' },
+    rowMenu4: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: -15
+    },
+    imageAlkalinityTotalContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageAlkalinityTotal: { width: '100%', height: '100%' },
+    rowMenu5: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: -15
+    },
+    imageAmmoniaContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageAmmonia: { width: '100%', height: '100%' },
+    rowMenu6: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%',
+        marginTop: -15
+    },
+    imageMgContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageMg: { width: '100%', height: '100%' },
+    rowMenu7: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 40,
+        width: '75%',
+        marginTop: -15
+    },
+    imageChlorineContainer: {
+        width: 90,
+        height: 90,
+        position: 'absolute',
+        zIndex: 1,
+        left: 25
+    },
+    imageChlorine: { width: '100%', height: '100%' }
 });
 
 export default KnowledgeScreen;
