@@ -1,4 +1,5 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import Header from '@src/components/core/header';
 import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
@@ -16,36 +17,6 @@ type KnowledgeScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
     'Knowledge'
 >;
-
-const Header: FC = () => (
-    <View style={styles.header}>
-        <View style={styles.headerContainer}>
-            <View style={styles.columnHeader}>
-                <View style={styles.imageCrabRTextContainer}>
-                    <Image
-                        style={styles.imageCrabRText}
-                        source={require('../../assets/images/crabRText.png')}
-                        resizeMode="contain"
-                    />
-                </View>
-                <View style={styles.imagePttepContainer}>
-                    <Image
-                        style={styles.imagePttep}
-                        source={require('../../assets/images/pttep.png')}
-                        resizeMode="contain"
-                    />
-                </View>
-                <View style={styles.imageUniversityContainer}>
-                    <Image
-                        style={styles.imageUniversity}
-                        source={require('../../assets/images/university.png')}
-                        resizeMode="contain"
-                    />
-                </View>
-            </View>
-        </View>
-    </View>
-);
 
 const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
     const { navigation } = props;
@@ -241,60 +212,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: theme.colors.primary
     },
-    header: {
-        height: 65,
-        backgroundColor: theme.colors.white,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000
-    },
     scrollView: {
         flex: 1,
         marginTop: 65
-    },
-    headerContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    imageCrabRTextContainer: {
-        width: '70%',
-        height: 70,
-        marginTop: 15,
-        marginLeft: -70
-    },
-    imagePttepContainer: {
-        width: '20%',
-        height: 50,
-        marginTop: 15,
-        marginLeft: 70
-    },
-    imageUniversityContainer: {
-        width: '15%',
-        height: 50,
-        marginTop: 15,
-        marginLeft: 20
-    },
-    imageCrabRText: {
-        width: '100%',
-        height: '100%'
-    },
-    imagePttep: {
-        width: '100%',
-        height: '100%'
-    },
-    imageUniversity: {
-        width: '100%',
-        height: '100%'
-    },
-    columnHeader: {
-        flexDirection: 'row',
-        position: 'relative',
-        alignItems: 'center',
-        marginBottom: 50,
-        width: '70%'
     },
     columnTitle: {
         flexDirection: 'row',
