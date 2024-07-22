@@ -53,11 +53,9 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
                             />
                         </View>
                         <View style={styles.textContainer}>
-                            <View>
-                                <Text style={styles.columnButtonText}>
-                                    บันทึกข้อมูลคุณภาพน้ำ{'\n'}ก่อนเข้าบ่อพักน้ำ
-                                </Text>
-                            </View>
+                            <Text style={styles.columnButtonText}>
+                                บันทึกข้อมูลคุณภาพน้ำ{'\n'}ก่อนเข้าบ่อพักน้ำ
+                            </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -73,12 +71,10 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
                             />
                         </View>
                         <View style={styles.textContainer}>
-                            <View>
-                                <Text style={styles.columnButtonText}>
-                                    บันทึกข้อมูลคุณภาพน้ำ{'\n'}หลังการพักน้ำได้
-                                    7 วัน
-                                </Text>
-                            </View>
+                            <Text style={styles.columnButtonText}>
+                                บันทึกข้อมูลคุณภาพน้ำ{'\n'}หลังการพักน้ำได้ 7
+                                วัน
+                            </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         flex: 1,
-        marginTop: 65
+        marginTop: 80
     },
     columnTitle: {
         flexDirection: 'row',
@@ -160,8 +156,7 @@ const styles = StyleSheet.create({
         fontFamily: 'K2D-Bold',
         fontSize: 18,
         color: theme.colors.primary,
-        marginLeft: 20,
-        marginBottom: -10
+        marginLeft: 20
     },
     divider: {
         height: 3,

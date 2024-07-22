@@ -60,10 +60,8 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         />
                     </View>
                     <View style={styles.textContainer}>
-                        <View>
-                            <Text style={styles.buttonText}>องค์ความรู้</Text>
-                            <Text style={styles.buttonSubtext}>Knowledge</Text>
-                        </View>
+                        <Text style={styles.buttonText}>องค์ความรู้</Text>
+                        <Text style={styles.buttonSubtext}>Knowledge</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -118,7 +116,7 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         position: 'absolute',
-        left: -40,
+        left: -20,
         zIndex: 1
     },
     imagePencilBookIcon: { width: '100%', height: '100%' },
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
         height: 100,
         position: 'absolute',
         zIndex: 1,
-        left: -40
+        left: -20
     },
     imageBookIcon: { width: '100%', height: '100%' },
     text: {
@@ -162,13 +160,13 @@ const styles = StyleSheet.create({
         position: 'relative',
         alignItems: 'center',
         marginBottom: 50,
-        width: '70%'
+        width: '75%'
     },
     rowMenu2: {
         flexDirection: 'row',
         position: 'relative',
         alignItems: 'center',
-        width: '70%'
+        width: '75%'
     },
     textContainer: {
         padding: 5,
@@ -176,7 +174,8 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.secondary,
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginLeft: 20
     },
     buttonText: {
         fontFamily: 'K2D-Bold',
