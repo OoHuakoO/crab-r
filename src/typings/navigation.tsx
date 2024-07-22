@@ -5,6 +5,7 @@ export type RootStackParamsList = {
 
 export type PublicStackParamsList = {
     Login: undefined;
+    Register: undefined;
 };
 
 export type PrivateStackParamsList = {

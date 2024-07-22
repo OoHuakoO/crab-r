@@ -1,10 +1,5 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import {
-    BackHandler,
-    SafeAreaView,
-    TouchableOpacity,
-    View
-} from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import { SafeAreaView, TouchableOpacity, View } from 'react-native';
 
 import InputText from '@src/components/core/inputeText';
 
@@ -13,7 +8,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Button from '@src/components/core/button';
 import { STATUS_CODE } from '@src/constant';
-import { Login } from '@src/services/login';
+import { Register } from '@src/services/login';
 import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { LoginState } from '@src/typings/common';
@@ -23,9 +18,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import { Portal, Text } from 'react-native-paper';
 
-type LoginScreenProps = NativeStackScreenProps<PublicStackParamsList, 'Login'>;
+type RegisterScreenProps = NativeStackScreenProps<
+    PublicStackParamsList,
+    'Register'
+>;
 
-const LoginScreen: FC<LoginScreenProps> = (props) => {
+const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     const { navigation } = props;
     const setLogin = useSetRecoilState<LoginState>(loginState);
     const form = useForm<LoginParams>({});
@@ -33,16 +31,16 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
     const [contentDialog, setContentDialog] = useState<string>('');
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
-    const handleLogin = useCallback(
+    const handleRegister = useCallback(
         async (data: LoginParams) => {
             try {
-                const response = await Login({
+                const response = await Register({
                     email: data?.email,
                     password: data?.password
                 });
                 if (response?.status !== STATUS_CODE.CODE_200) {
                     setVisibleDialog(true);
-                    setContentDialog('Email Or Password Incorrect');
+                    setContentDialog('User already exist');
                     return;
                 }
                 const loginObj = {
@@ -54,7 +52,7 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
             } catch (err) {
                 console.log(err);
                 setVisibleDialog(true);
-                setContentDialog(`Something went wrong login`);
+                setContentDialog(`Something went wrong register`);
             }
         },
         [setLogin]
@@ -67,20 +65,6 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
     const handleCloseDialog = () => {
         setVisibleDialog(false);
     };
-
-    useEffect(() => {
-        const onBackPress = () => {
-            BackHandler.exitApp();
-            return true;
-        };
-        const subscription = BackHandler.addEventListener(
-            'hardwareBackPress',
-            onBackPress
-        );
-        return () => {
-            subscription.remove();
-        };
-    }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -132,20 +116,20 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
                         />
                     )}
                 />
-                <TouchableOpacity onPress={form?.handleSubmit(handleLogin)}>
+                <TouchableOpacity onPress={form?.handleSubmit(handleRegister)}>
                     <Button mode="contained">
-                        <Text style={styles.textLogin}>ลงชื่อเข้าใช้</Text>
+                        <Text style={styles.textLogin}>สมัครสมาชิก</Text>
                     </Button>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                     onPress={() => {
-                        navigation.navigate('Register');
+                        navigation.navigate('Login');
                     }}
                 >
                     <Button mode="text">
                         <Text variant="titleMedium" style={styles.textRegister}>
-                            สมัครสมาชิก
+                            ลงชื่อเข้าใช้
                         </Text>
                     </Button>
                 </TouchableOpacity>
@@ -189,4 +173,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default LoginScreen;
+export default RegisterScreen;
