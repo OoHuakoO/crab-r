@@ -1,17 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '@src/components/core/header';
+import HeaderSection from '@src/components/core/headerSection';
+import MenuList from '@src/components/core/menuList';
 import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
-import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    TouchableOpacity,
-    View
-} from 'react-native';
-import { Text } from 'react-native-paper';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 type SaveDataScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
@@ -20,83 +14,49 @@ type SaveDataScreenProps = NativeStackScreenProps<
 
 const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
     const { navigation } = props;
+    const menu = [
+        {
+            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
+            textSubtitle: '',
+            image: require('../../assets/images/before.png'),
+            path: 'Home'
+        },
+        {
+            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
+            textSubtitle: '',
+            image: require('../../assets/images/after.png'),
+            path: 'Home'
+        },
+        {
+            textTitle: 'บันทึกข้อมูล\nการเพาะฟัก',
+            textSubtitle: '',
+            image: require('../../assets/images/hatching.png'),
+            path: 'Home'
+        }
+    ];
     return (
         <SafeAreaView style={styles.container}>
             <Header />
             <ScrollView style={styles.scrollView}>
-                <View style={styles.columnTitle}>
-                    <View style={styles.imageSaveDataContainer}>
-                        <Image
-                            source={require('../../assets/images/saveData.png')}
-                            style={styles.imageSaveData}
+                <HeaderSection
+                    image={require('../../assets/images/saveData.png')}
+                    textTitle="บันทึกข้อมูล"
+                    textSubtitle="Save Data"
+                />
+                <View style={styles.menuListContainer}>
+                    {menu?.map((item, index) => (
+                        <MenuList
+                            key={`menu-list-${index}`}
+                            handlePress={() =>
+                                navigation.navigate(
+                                    item?.path as keyof HomeStackParamsList
+                                )
+                            }
+                            textTitle={item?.textTitle}
+                            textSubtitle={item?.textSubtitle}
+                            image={item?.image}
                         />
-                    </View>
-                    <View style={styles.SaveDataContainer}>
-                        <View>
-                            <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
-                            <Text style={styles.buttonSubtext}>Save Data</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.divider} />
-                <View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('Home');
-                        }}
-                        style={styles.rowMenu1}
-                    >
-                        <View style={styles.imageBeforeContainer}>
-                            <Image
-                                source={require('../../assets/images/before.png')}
-                                style={styles.imageBefore}
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.columnButtonText}>
-                                บันทึกข้อมูลคุณภาพน้ำ{'\n'}ก่อนเข้าบ่อพักน้ำ
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('Home');
-                        }}
-                        style={styles.rowMenu2}
-                    >
-                        <View style={styles.imageAfterContainer}>
-                            <Image
-                                source={require('../../assets/images/after.png')}
-                                style={styles.imageAfter}
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <Text style={styles.columnButtonText}>
-                                บันทึกข้อมูลคุณภาพน้ำ{'\n'}หลังการพักน้ำได้ 7
-                                วัน
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('Home');
-                        }}
-                        style={styles.rowMenu3}
-                    >
-                        <View style={styles.imageHatchingContainer}>
-                            <Image
-                                source={require('../../assets/images/hatching.png')}
-                                style={styles.imageHatching}
-                            />
-                        </View>
-                        <View style={styles.textContainer}>
-                            <View>
-                                <Text style={styles.columnButtonText}>
-                                    บันทึกข้อมูลการเพาะฟัก
-                                </Text>
-                            </View>
-                        </View>
-                    </TouchableOpacity>
+                    ))}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -111,6 +71,10 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         marginTop: 80
+    },
+    menuListContainer: {
+        alignItems: 'center',
+        marginTop: 20
     },
     columnTitle: {
         flexDirection: 'row',

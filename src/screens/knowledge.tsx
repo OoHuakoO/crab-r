@@ -1,17 +1,11 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '@src/components/core/header';
+import HeaderSection from '@src/components/core/headerSection';
 import MenuList from '@src/components/core/menuList';
 import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
-import {
-    Image,
-    SafeAreaView,
-    ScrollView,
-    StyleSheet,
-    View
-} from 'react-native';
-import { Text } from 'react-native-paper';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 type KnowledgeScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
@@ -68,21 +62,11 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
         <SafeAreaView style={styles.container}>
             <Header />
             <ScrollView style={styles.scrollView}>
-                <View style={styles.columnTitle}>
-                    <View style={styles.imageBookKnowledgeContainer}>
-                        <Image
-                            source={require('../../assets/images/bookKnowledge.png')}
-                            style={styles.imageBookKnowledge}
-                        />
-                    </View>
-                    <View style={styles.knowledgeContainer}>
-                        <View>
-                            <Text style={styles.buttonText}>องค์ความรู้</Text>
-                            <Text style={styles.buttonSubtext}>Knowledge</Text>
-                        </View>
-                    </View>
-                </View>
-                <View style={styles.divider} />
+                <HeaderSection
+                    image={require('../../assets/images/bookKnowledge.png')}
+                    textTitle="องค์ความรู้"
+                    textSubtitle="Knowledge"
+                />
                 <View style={styles.menuListContainer}>
                     {menu?.map((item, index) => (
                         <MenuList
@@ -112,50 +96,9 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 75
     },
-    columnTitle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 20,
-        justifyContent: 'center'
-    },
     menuListContainer: {
         alignItems: 'center',
         marginTop: 20
-    },
-    imageBookKnowledgeContainer: {
-        width: 100,
-        height: 100
-    },
-    imageBookKnowledge: {
-        width: 120,
-        height: 130,
-        position: 'absolute',
-        zIndex: 1
-    },
-    knowledgeContainer: {
-        marginTop: 40,
-        width: 180,
-        height: 90
-    },
-    buttonText: {
-        fontSize: 32,
-        fontFamily: 'K2D-Bold',
-        marginLeft: 20,
-        marginBottom: -10,
-        color: theme.colors.white
-    },
-    buttonSubtext: {
-        fontFamily: 'K2D-Bold',
-        fontSize: 24,
-        color: theme.colors.white,
-        marginLeft: 20
-    },
-    divider: {
-        height: 3,
-        backgroundColor: theme.colors.white,
-        width: '90%',
-        alignSelf: 'center',
-        marginBottom: 15
     }
 });
 

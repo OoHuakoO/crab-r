@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import { theme } from '@src/theme';
 import React, { FC } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
@@ -6,7 +7,7 @@ interface MenuListProps {
     handlePress: () => void;
     image: any;
     textTitle: string;
-    textSubtitle: string;
+    textSubtitle?: string;
 }
 
 const MenuList: FC<MenuListProps> = (props) => {
@@ -18,10 +19,19 @@ const MenuList: FC<MenuListProps> = (props) => {
             </View>
             <View style={styles.textContainer}>
                 <View style={styles.textBox}>
-                    <Text style={styles.columnButtonText}>{textTitle}</Text>
-                    <Text style={styles.columnButtonSubtext}>
-                        {textSubtitle}
+                    <Text
+                        style={[
+                            styles.columnButtonText,
+                            { marginBottom: textSubtitle ? -10 : 0 }
+                        ]}
+                    >
+                        {textTitle}
                     </Text>
+                    {textSubtitle && (
+                        <Text style={styles.columnButtonSubtext}>
+                            {textSubtitle}
+                        </Text>
+                    )}
                 </View>
             </View>
         </TouchableOpacity>
@@ -64,8 +74,7 @@ const styles = StyleSheet.create({
         fontFamily: 'K2D-Bold',
         fontSize: 16,
         color: theme.colors.primary,
-        marginLeft: 20,
-        marginBottom: -10
+        marginLeft: 20
     },
     columnButtonSubtext: {
         fontFamily: 'K2D-Regular',
