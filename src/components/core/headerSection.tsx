@@ -1,24 +1,57 @@
+/* eslint-disable react-native/no-inline-styles */
 import { theme } from '@src/theme';
 import React, { FC } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { DimensionValue, Image, StyleSheet, Text, View } from 'react-native';
 
 interface HeaderSectionProps {
     image: any;
     textTitle: string;
-    textSubtitle: string;
+    textSubtitle?: string;
+    widthContainer?: DimensionValue;
+    marginBottomTextTitle?: number;
+    fontSizeTextTitle?: number;
 }
 
 const HeaderSection: FC<HeaderSectionProps> = (props) => {
-    const { image, textTitle, textSubtitle } = props;
+    const {
+        image,
+        textTitle,
+        textSubtitle,
+        marginBottomTextTitle,
+        fontSizeTextTitle
+    } = props;
     return (
-        <View>
+        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
             <View style={styles.columnTitle}>
                 <View style={styles.imageContainer}>
-                    <Image source={image} style={styles.image} />
+                    <Image
+                        source={image}
+                        resizeMode="contain"
+                        style={styles.image}
+                    />
                 </View>
-                <View>
-                    <Text style={styles.buttonText}>{textTitle}</Text>
-                    <Text style={styles.buttonSubtext}>{textSubtitle}</Text>
+                <View style={styles.boxText}>
+                    <View style={{ flexDirection: 'row' }}>
+                        <Text
+                            style={[
+                                styles.buttonText,
+                                {
+                                    marginBottom: marginBottomTextTitle
+                                        ? marginBottomTextTitle
+                                        : -10,
+                                    fontSize: fontSizeTextTitle
+                                        ? fontSizeTextTitle
+                                        : 32
+                                }
+                            ]}
+                        >
+                            {textTitle}
+                        </Text>
+                    </View>
+
+                    {textSubtitle && (
+                        <Text style={styles.buttonSubtext}>{textSubtitle}</Text>
+                    )}
                 </View>
             </View>
             <View style={styles.divider} />
@@ -34,30 +67,28 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         marginTop: 10,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        width: '100%'
     },
     imageContainer: {
         width: 90,
-        height: 90,
-        justifyContent: 'center',
-        alignItems: 'center'
+        height: 90
     },
     image: {
-        width: '90%',
+        width: '100%',
         height: '100%'
     },
+    boxText: {
+        marginLeft: 20
+    },
     buttonText: {
-        fontSize: 32,
         fontFamily: 'K2D-Bold',
-        marginLeft: 20,
-        marginBottom: -20,
         color: theme.colors.white
     },
     buttonSubtext: {
         fontFamily: 'K2D-Bold',
         fontSize: 24,
-        color: theme.colors.white,
-        marginLeft: 20
+        color: theme.colors.white
     },
     divider: {
         height: 5,

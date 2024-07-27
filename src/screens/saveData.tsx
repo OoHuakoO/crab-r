@@ -19,19 +19,19 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
             textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
             textSubtitle: '',
             image: require('../../assets/images/before.png'),
-            path: 'Home'
+            path: 'SaveWaterBefore'
         },
         {
             textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
             textSubtitle: '',
             image: require('../../assets/images/after.png'),
-            path: 'Home'
+            path: 'SaveWaterAfter'
         },
         {
             textTitle: 'บันทึกข้อมูลการเพาะฟัก',
             textSubtitle: '',
             image: require('../../assets/images/hatching.png'),
-            path: 'Home',
+            path: 'SaveCrabHatch',
             padding: 15
         }
     ];
@@ -77,126 +77,7 @@ const styles = StyleSheet.create({
     menuListContainer: {
         alignItems: 'center',
         marginTop: 20
-    },
-    columnTitle: {
-        flexDirection: 'row',
-        position: 'relative',
-        alignItems: 'center',
-        marginBottom: 70,
-        width: '70%'
-    },
-    imageSaveDataContainer: {
-        width: 100,
-        height: 100,
-        position: 'absolute',
-        zIndex: 1,
-        left: 55
-    },
-    imageSaveData: {
-        width: 110,
-        height: 120,
-        position: 'absolute',
-        zIndex: 1,
-        top: 1
-    },
-    SaveDataContainer: {
-        marginTop: 25,
-        marginLeft: 175,
-        width: 180,
-        height: 90
-    },
-    buttonText: {
-        fontSize: 32,
-        fontFamily: 'K2D-Bold',
-        marginLeft: 15,
-        marginBottom: -10,
-        color: theme.colors.white
-    },
-    buttonSubtext: {
-        fontFamily: 'K2D-Bold',
-        fontSize: 24,
-        color: theme.colors.white,
-        marginLeft: 20
-    },
-    columnButtonText: {
-        fontFamily: 'K2D-Bold',
-        fontSize: 18,
-        color: theme.colors.primary,
-        marginLeft: 20
-    },
-    divider: {
-        height: 3,
-        backgroundColor: theme.colors.white,
-        width: '90%',
-        alignSelf: 'center',
-        marginTop: -40,
-        marginBottom: 15
-    },
-    menuContainer: {
-        padding: 30,
-        marginTop: 10,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    textContainer: {
-        padding: 5,
-        borderRadius: 20,
-        backgroundColor: theme.colors.secondary,
-        width: '100%',
-        height: 70,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft: 80
-    },
-    rowMenu1: {
-        flexDirection: 'row',
-        position: 'relative',
-        alignItems: 'center',
-        marginBottom: 25,
-        width: '75%',
-        marginTop: 15
-    },
-    imageBeforeContainer: {
-        width: 95,
-        height: 95,
-        position: 'absolute',
-        zIndex: 1,
-        left: 25
-    },
-    imageBefore: { width: '100%', height: '100%' },
-    rowMenu2: {
-        flexDirection: 'row',
-        position: 'relative',
-        alignItems: 'center',
-        marginBottom: 25,
-        width: '75%',
-        marginTop: 15
-    },
-    imageAfterContainer: {
-        width: 95,
-        height: 95,
-        position: 'absolute',
-        zIndex: 1,
-        left: 25
-    },
-    imageAfter: { width: '100%', height: '100%' },
-    rowMenu3: {
-        flexDirection: 'row',
-        position: 'relative',
-        alignItems: 'center',
-        marginBottom: 25,
-        width: '75%',
-        marginTop: 15
-    },
-    imageHatchingContainer: {
-        width: 95,
-        height: 95,
-        position: 'absolute',
-        zIndex: 1,
-        left: 25
-    },
-    imageHatching: { width: '100%', height: '100%' }
+    }
 });
 
 export default SaveDataScreen;

@@ -17,4 +17,7 @@ export type HomeStackParamsList = {
     Home: undefined;
     Knowledge: undefined;
     SaveData: undefined;
+    SaveWaterBefore: undefined;
+    SaveWaterAfter: undefined;
+    SaveCrabHatch: undefined;
 };

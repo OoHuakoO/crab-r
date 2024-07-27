@@ -1,7 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeSreen from '@src/screens/home';
 import knowledgeScreen from '@src/screens/knowledge';
-import saveDataScreen from '@src/screens/saveData';
+import SaveCrabHatchScreen from '@src/screens/saveCrabHatch';
+import SaveDataScreen from '@src/screens/saveData';
+import SaveWaterAfterScreen from '@src/screens/saveWaterAfter';
+import SaveWaterBeforeScreen from '@src/screens/saveWaterBefore';
+
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { memo } from 'react';
 
@@ -28,7 +32,28 @@ const HomeStack = () => {
                 options={{
                     headerShown: false
                 }}
-                component={saveDataScreen}
+                component={SaveDataScreen}
+            />
+            <Stack.Screen
+                name="SaveWaterBefore"
+                options={{
+                    headerShown: false
+                }}
+                component={SaveWaterBeforeScreen}
+            />
+            <Stack.Screen
+                name="SaveWaterAfter"
+                options={{
+                    headerShown: false
+                }}
+                component={SaveWaterAfterScreen}
+            />
+            <Stack.Screen
+                name="SaveCrabHatch"
+                options={{
+                    headerShown: false
+                }}
+                component={SaveCrabHatchScreen}
             />
         </Stack.Navigator>
     );
