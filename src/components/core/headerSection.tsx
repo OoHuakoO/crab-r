@@ -38,10 +38,12 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         width: 90,
-        height: 90
+        height: 90,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     image: {
-        width: '100%',
+        width: '90%',
         height: '100%'
     },
     buttonText: {

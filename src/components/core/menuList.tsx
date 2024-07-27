@@ -8,16 +8,22 @@ interface MenuListProps {
     image: any;
     textTitle: string;
     textSubtitle?: string;
+    padding?: number;
 }
 
 const MenuList: FC<MenuListProps> = (props) => {
-    const { handlePress, image, textTitle, textSubtitle } = props;
+    const { handlePress, image, textTitle, textSubtitle, padding } = props;
     return (
         <TouchableOpacity onPress={handlePress} style={styles.rowMenu}>
             <View style={styles.imageContainer}>
                 <Image source={image} style={styles.image} />
             </View>
-            <View style={styles.textContainer}>
+            <View
+                style={[
+                    styles.textContainer,
+                    { padding: padding ? padding : 5 }
+                ]}
+            >
                 <View style={styles.textBox}>
                     <Text
                         style={[
@@ -64,7 +70,6 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     textContainer: {
-        padding: 5,
         borderRadius: 20,
         backgroundColor: theme.colors.secondary,
         width: '100%',

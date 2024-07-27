@@ -28,10 +28,11 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
             path: 'Home'
         },
         {
-            textTitle: 'บันทึกข้อมูล\nการเพาะฟัก',
+            textTitle: 'บันทึกข้อมูลการเพาะฟัก',
             textSubtitle: '',
             image: require('../../assets/images/hatching.png'),
-            path: 'Home'
+            path: 'Home',
+            padding: 15
         }
     ];
     return (
@@ -55,6 +56,7 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
                             textTitle={item?.textTitle}
                             textSubtitle={item?.textSubtitle}
                             image={item?.image}
+                            padding={item?.padding}
                         />
                     ))}
                 </View>
