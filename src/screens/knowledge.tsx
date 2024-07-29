@@ -25,7 +25,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลน้ำขึ้น-น้ำลง',
             textSubtitle: 'High and low tide information',
             image: require(`../../assets/images/highAndLow.png`),
-            path: 'Home'
+            path: 'Tide'
         },
         {
             textTitle: 'ข้อมูลค่ากรด-ด่าง (pH)',

@@ -5,6 +5,7 @@ import SaveCrabHatchScreen from '@src/screens/saveCrabHatch';
 import SaveDataScreen from '@src/screens/saveData';
 import SaveWaterAfterScreen from '@src/screens/saveWaterAfter';
 import SaveWaterBeforeScreen from '@src/screens/saveWaterBefore';
+import TideScreen from '@src/screens/tide';
 
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { memo } from 'react';
@@ -54,6 +55,13 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={SaveCrabHatchScreen}
+            />
+            <Stack.Screen
+                name="Tide"
+                options={{
+                    headerShown: false
+                }}
+                component={TideScreen}
             />
         </Stack.Navigator>
     );

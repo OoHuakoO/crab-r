@@ -16,6 +16,7 @@ export type PrivateStackParamsList = {
 export type HomeStackParamsList = {
     Home: undefined;
     Knowledge: undefined;
+    Tide: undefined;
     SaveData: undefined;
     SaveWaterBefore: undefined;
     SaveWaterAfter: undefined;
