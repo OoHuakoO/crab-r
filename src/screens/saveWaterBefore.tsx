@@ -11,7 +11,7 @@ import { theme } from '@src/theme';
 import { LocationResponse } from '@src/typings/location';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import { PoolResponse } from '@src/typings/pool';
-import { SaveWaterBefore } from '@src/typings/saveWaterBefore';
+import { SaveWaterBefore } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
@@ -117,11 +117,9 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = () => {
                         case 'ph':
                             setSelectedImagePh(uri);
                             break;
-
                         case 'alkaline':
                             setSelectedImageAlkaline(uri);
                             break;
-
                         default:
                             break;
                     }
@@ -173,11 +171,9 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = () => {
                                 case 'ph':
                                     setSelectedImagePh(uri);
                                     break;
-
                                 case 'alkaline':
                                     setSelectedImageAlkaline(uri);
                                     break;
-
                                 default:
                                     break;
                             }
@@ -192,25 +188,21 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = () => {
                         console.log('User cancelled camera');
                     } else if (response.errorCode) {
                         console.log('Camera Error: ', response.errorMessage);
-                    } else {
+                    } else if (
+                        response?.assets &&
+                        response?.assets?.length > 0
+                    ) {
+                        const uri = response.assets[0].uri;
                         switch (type) {
                             case 'salinity':
-                                setSelectedImageSalinity(
-                                    response?.assets?.[0]?.base64
-                                );
+                                setSelectedImageSalinity(uri);
                                 break;
                             case 'ph':
-                                setSelectedImagePh(
-                                    response?.assets?.[0]?.base64
-                                );
+                                setSelectedImagePh(uri);
                                 break;
-
                             case 'alkaline':
-                                setSelectedImageAlkaline(
-                                    response?.assets?.[0]?.base64
-                                );
+                                setSelectedImageAlkaline(uri);
                                 break;
-
                             default:
                                 break;
                         }
@@ -269,7 +261,6 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = () => {
             }
 
             const res = await CreateWaterQualityBefore(formData);
-            console.log('res', res);
             if (res?.status === 200) {
                 console.log('success');
             }

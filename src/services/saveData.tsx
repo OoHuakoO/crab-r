@@ -6,3 +6,9 @@ export function CreateWaterQualityBefore(
 ): Promise<Response<any>> {
     return post<any>('/water-quality-before/createWaterQualityBefore', params);
 }
+
+export function CreateWaterQualityAfter(
+    params: FormData
+): Promise<Response<any>> {
+    return post<any>('/water-quality-after/createWaterQualityAfter', params);
+}
