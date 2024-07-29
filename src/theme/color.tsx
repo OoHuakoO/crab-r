@@ -10,5 +10,9 @@ export const colorConfig = {
     textGray: '#828282',
     buttonCancel: '#FF6C6C',
     success: '#63CA7F',
-    secondaryContainer: 'transparent'
+    secondaryContainer: 'transparent',
+    borderAutocomplete: '#A1A1A1',
+    blackGray: '#121212',
+    buttonConfirm: '#386BA9',
+    textBody: '#828282'
 };

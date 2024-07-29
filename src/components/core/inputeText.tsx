@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { theme } from '@src/theme';
@@ -10,15 +11,19 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface InputTextProps extends TextInputProps {
     errorText?: string;
     placeholder?: string;
     width?: number;
+    marginBottomContainer?: number;
     borderColor?: string;
     secureText?: boolean;
+    camera?: boolean;
     isPasswordVisible?: boolean;
     handleVisiblePassword?: () => void;
+    handleTogglePopupCamera?: () => void;
 }
 
 const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
@@ -26,18 +31,33 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
         placeholder,
         errorText,
         width,
+        marginBottomContainer,
         borderColor,
         secureText,
+        camera,
         isPasswordVisible,
-        handleVisiblePassword
+        handleVisiblePassword,
+        handleTogglePopupCamera
     } = props;
     return (
-        <View style={styles.container}>
+        <View
+            style={[
+                styles.container,
+                {
+                    marginBottom: marginBottomContainer
+                        ? marginBottomContainer
+                        : 20
+                }
+            ]}
+        >
             <TextInput
                 style={[
                     styles.input,
-                    { width: width || '100%' },
-                    { borderColor: borderColor || 'gray' }
+                    {
+                        width: width || '100%',
+                        borderColor: borderColor || 'gray',
+                        backgroundColor: theme.colors.white
+                    }
                 ]}
                 placeholder={placeholder}
                 {...(isPasswordVisible !== undefined && {
@@ -65,6 +85,18 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
                     )}
                 </TouchableOpacity>
             )}
+            {camera && (
+                <TouchableOpacity
+                    style={styles.toggle}
+                    onPress={handleTogglePopupCamera}
+                >
+                    <MaterialCommunityIcons
+                        name="camera-plus"
+                        size={30}
+                        color={theme.colors.primary}
+                    />
+                </TouchableOpacity>
+            )}
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
         </View>
     );
@@ -78,8 +110,7 @@ const styles = StyleSheet.create({
     container: {
         width: '100%',
         justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20
+        alignItems: 'center'
     },
     input: {
         height: 48,

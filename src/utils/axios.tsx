@@ -8,9 +8,9 @@ import axios, {
 export const apiInstances = axios.create();
 
 const getToken = async () => {
-    const token = await AsyncStorage.getItem('Token');
-    const jsonToken = JSON.parse(token);
-    return jsonToken || '';
+    const login = await AsyncStorage.getItem('Login');
+    const jsonLogin = JSON.parse(login);
+    return jsonLogin?.token || '';
 };
 
 apiInstances.interceptors.request.use(
