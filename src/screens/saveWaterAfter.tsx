@@ -266,6 +266,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = () => {
             }
         } catch (err) {
             console.log(err);
+            setContentDialog('Something went wrong save data');
         }
     };
 

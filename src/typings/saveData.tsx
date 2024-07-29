@@ -9,3 +9,10 @@ export interface SaveWaterAfter {
     calcium: string;
     magnesium: string;
 }
+
+export interface CreateCrabHatchParams {
+    location: string;
+    pool: string;
+    crabEggColor: string;
+    releaseDate: string;
+}
