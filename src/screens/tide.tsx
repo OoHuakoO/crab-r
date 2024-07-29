@@ -14,7 +14,9 @@ const TideScreen: FC<TideScreenProps> = () => {
         <SafeAreaView style={styles.container}>
             <Header />
             <WebView
-                source={{ uri: 'https://reactnative.dev/' }}
+                source={{
+                    uri: 'https://www.thailandtidetables.com/%E0%B9%84%E0%B8%97%E0%B8%A2/%E0%B8%81%E0%B8%A3%E0%B8%B2%E0%B8%9F%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%82%E0%B8%B6%E0%B9%89%E0%B8%99%E0%B8%99%E0%B9%89%E0%B8%B3%E0%B8%A5%E0%B8%87-%E0%B9%81%E0%B8%AB%E0%B8%A5%E0%B8%A1%E0%B8%AA%E0%B8%B4%E0%B8%87%E0%B8%AB%E0%B9%8C-%E0%B8%88%E0%B8%B1%E0%B8%99%E0%B8%97%E0%B8%9A%E0%B8%B8%E0%B8%A3%E0%B8%B5-477.php'
+                }}
                 style={{ flex: 1 }}
             />
         </SafeAreaView>
@@ -29,10 +31,6 @@ const styles = StyleSheet.create({
     scrollView: {
         flex: 1,
         marginTop: 75
-    },
-    menuListContainer: {
-        alignItems: 'center',
-        marginTop: 20
     }
 });
 
