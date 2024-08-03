@@ -11,6 +11,7 @@ export type PublicStackParamsList = {
 export type PrivateStackParamsList = {
     Home: undefined;
     Profile: undefined;
+    Setting: undefined;
 };
 
 export type HomeStackParamsList = {

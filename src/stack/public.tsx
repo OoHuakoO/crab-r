@@ -1,5 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import LoginScreen from '@src/screens/login';
+import RegisterScreen from '@src/screens/register';
 import { PublicStackParamsList } from '@src/typings/navigation';
 import React from 'react';
 
@@ -14,6 +15,13 @@ const PublicStack = () => {
                     headerShown: false
                 }}
                 component={LoginScreen}
+            />
+            <Stack.Screen
+                name="Register"
+                options={{
+                    headerShown: false
+                }}
+                component={RegisterScreen}
             />
         </Stack.Navigator>
     );

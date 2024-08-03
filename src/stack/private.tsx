@@ -4,6 +4,7 @@ import React, { memo } from 'react';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
+import SettingScreen from '@src/screens/setting';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import homeStack from './homeStack';
 
@@ -61,7 +62,7 @@ const PrivateStack = () => {
                         <FeatherIcon name="settings" size={28} color={color} />
                     )
                 }}
-                component={ProfileScreen}
+                component={SettingScreen}
             />
         </Tab.Navigator>
     );

@@ -21,7 +21,7 @@ import { LoginParams } from '@src/typings/login';
 import { PublicStackParamsList } from '@src/typings/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
-import { Portal, Text } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 
 type LoginScreenProps = NativeStackScreenProps<PublicStackParamsList, 'Login'>;
 
@@ -84,14 +84,13 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Portal>
-                <AlertDialog
-                    visible={visibleDialog}
-                    textContent={contentDialog}
-                    handleClose={handleCloseDialog}
-                    handleConfirm={handleCloseDialog}
-                />
-            </Portal>
+            <AlertDialog
+                visible={visibleDialog}
+                textContent={contentDialog}
+                handleClose={handleCloseDialog}
+                handleConfirm={handleCloseDialog}
+            />
+
             <View style={styles.sectionLogin}>
                 <View style={styles.imagesContainer}>
                     <Image
