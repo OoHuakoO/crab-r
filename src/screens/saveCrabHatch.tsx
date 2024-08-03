@@ -1,15 +1,23 @@
-/* eslint-disable @typescript-eslint/no-shadow */
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import HeaderSection from '@src/components/core/headerSection';
+import InputText from '@src/components/core/inputeText';
+import { GetCrabEggColors } from '@src/services/eggColor';
 import { GetLocations } from '@src/services/location';
 import { GetPools } from '@src/services/pool';
 import { CreateCrabHatch } from '@src/services/saveData';
 import { theme } from '@src/theme';
+import { EggColorResponse } from '@src/typings/eggColor';
 import { LocationResponse } from '@src/typings/location';
-import { HomeStackParamsList } from '@src/typings/navigation';
+import {
+    HomeStackParamsList,
+    PrivateStackParamsList
+} from '@src/typings/navigation';
 import { PoolResponse } from '@src/typings/pool';
+import { parseDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
     SafeAreaView,
@@ -18,21 +26,17 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
-import { Dropdown } from 'react-native-element-dropdown';
-
-import InputText from '@src/components/core/inputeText';
-import { GetCrabEggColors } from '@src/services/eggColor';
-import { EggColorResponse } from '@src/typings/eggColor';
-import { parseDateString } from '@src/utils/time-manager';
 import DatePicker from 'react-native-date-picker';
+import { Dropdown } from 'react-native-element-dropdown';
 import { Text } from 'react-native-paper';
 
-type SaveCrabHatchScreenProps = NativeStackScreenProps<
-    HomeStackParamsList,
-    'SaveCrabHatch'
+type SaveCrabHatchScreenProps = CompositeScreenProps<
+    NativeStackScreenProps<HomeStackParamsList, 'SaveCrabHatch'>,
+    BottomTabScreenProps<PrivateStackParamsList>
 >;
 
 const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
+    // const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [listEggColor, setListEggColor] = useState<EggColorResponse[]>([]);
@@ -41,8 +45,10 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
     const [selectEggColor, setSelectEggColor] = useState<string>('');
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
-    const [date, setDate] = useState(new Date());
-    const [openDate, setOpenDate] = useState(false);
+    const [crabEggScoopDate, setCrabEggScoopDate] = useState(new Date());
+    const [openCrabEggScoopDate, setOpenCrabEggScoopDate] = useState(false);
+    const [crabReleaseDate, setCrabReleaseDate] = useState(new Date());
+    const [openCrabReleaseDate, setOpenCrabReleaseDate] = useState(false);
 
     const handleCloseDialog = useCallback(() => {
         setVisibleDialog(false);
@@ -101,7 +107,8 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
                 location: selectLocation,
                 pool: selectPool,
                 crabEggColor: selectEggColor,
-                releaseDate: parseDateString(date.toString())
+                crabEggScoopDate: parseDateString(crabEggScoopDate.toString()),
+                crabReleaseDate: parseDateString(crabReleaseDate.toString())
             });
             if (res?.status === 200) {
                 console.log('success');
@@ -194,14 +201,18 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
                     </Text>
                     <TouchableOpacity
                         onPress={() => {
-                            setOpenDate(true);
-                            setDate(new Date());
+                            setOpenCrabEggScoopDate(true);
+                            setCrabEggScoopDate(new Date());
                         }}
                     >
                         <InputText
                             placeholder="Date"
                             value={
-                                date ? parseDateString(date.toString()) : null
+                                crabEggScoopDate
+                                    ? parseDateString(
+                                          crabEggScoopDate.toString()
+                                      )
+                                    : null
                             }
                             readOnly
                         />
@@ -210,14 +221,53 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
                     <DatePicker
                         modal
                         mode="date"
-                        open={openDate}
-                        date={date}
+                        open={openCrabEggScoopDate}
+                        date={crabEggScoopDate}
                         onConfirm={(date) => {
-                            setOpenDate(false);
-                            setDate(date);
+                            setOpenCrabEggScoopDate(false);
+                            setCrabEggScoopDate(date);
                         }}
                         onCancel={() => {
-                            setOpenDate(false);
+                            setOpenCrabEggScoopDate(false);
+                        }}
+                    />
+
+                    <Text
+                        variant="bodyLarge"
+                        style={styles.textTitleCrabReleaseDate}
+                    >
+                        วันปล่อยลูกปู
+                    </Text>
+                    <TouchableOpacity
+                        onPress={() => {
+                            setOpenCrabReleaseDate(true);
+                            setCrabReleaseDate(new Date());
+                        }}
+                    >
+                        <InputText
+                            placeholder="Date"
+                            value={
+                                crabReleaseDate
+                                    ? parseDateString(
+                                          crabReleaseDate.toString()
+                                      )
+                                    : null
+                            }
+                            readOnly
+                        />
+                    </TouchableOpacity>
+
+                    <DatePicker
+                        modal
+                        mode="date"
+                        open={openCrabReleaseDate}
+                        date={crabReleaseDate}
+                        onConfirm={(date) => {
+                            setOpenCrabReleaseDate(false);
+                            setCrabReleaseDate(date);
+                        }}
+                        onCancel={() => {
+                            setOpenCrabReleaseDate(false);
                         }}
                     />
 
@@ -288,6 +338,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: theme.colors.white,
         marginVertical: 10
+    },
+    textTitleCrabReleaseDate: {
+        fontSize: 16,
+        color: theme.colors.white,
+        marginBottom: 10,
+        marginTop: -5
     },
     buttonApply: {
         paddingVertical: 12,

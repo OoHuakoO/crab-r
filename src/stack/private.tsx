@@ -1,19 +1,20 @@
 import ProfileScreen from '@src/screens/profile';
+import SettingScreen from '@src/screens/setting';
 import { theme } from '@src/theme';
 import React, { memo } from 'react';
+import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-
-import SettingScreen from '@src/screens/setting';
-import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
-import homeStack from './homeStack';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import HistoryStack from './historyStack';
+import HomeStack from './homeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 const PrivateStack = () => {
     return (
         <Tab.Navigator
             labeled={false}
-            initialRouteName="Home"
+            initialRouteName="HomeStack"
             activeColor={theme.colors.gold}
             inactiveColor={theme.colors.black}
             barStyle={{
@@ -22,7 +23,7 @@ const PrivateStack = () => {
         >
             <Tab.Screen
                 name="HomeStack"
-                component={homeStack}
+                component={HomeStack}
                 options={{
                     // eslint-disable-next-line react/no-unstable-nested-components
                     tabBarIcon: ({ color }) => (
@@ -31,14 +32,18 @@ const PrivateStack = () => {
                 }}
             />
             <Tab.Screen
-                name="Profile"
+                name="HistoryStack"
                 options={{
                     // eslint-disable-next-line react/no-unstable-nested-components
                     tabBarIcon: ({ color }) => (
-                        <FeatherIcon name="user" size={30} color={color} />
+                        <MaterialCommunityIcons
+                            name="history"
+                            size={30}
+                            color={color}
+                        />
                     )
                 }}
-                component={ProfileScreen}
+                component={HistoryStack}
             />
             <Tab.Screen
                 name="Notification"

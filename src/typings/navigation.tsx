@@ -1,3 +1,5 @@
+import { NavigatorScreenParams } from '@react-navigation/native';
+
 export type RootStackParamsList = {
     PrivateStack: undefined;
     PublicStack: undefined;
@@ -8,12 +10,6 @@ export type PublicStackParamsList = {
     Register: undefined;
 };
 
-export type PrivateStackParamsList = {
-    Home: undefined;
-    Profile: undefined;
-    Setting: undefined;
-};
-
 export type HomeStackParamsList = {
     Home: undefined;
     Knowledge: undefined;
@@ -22,4 +18,14 @@ export type HomeStackParamsList = {
     SaveWaterBefore: undefined;
     SaveWaterAfter: undefined;
     SaveCrabHatch: undefined;
+};
+
+export type HistoryStackParamsList = {
+    HistorySaveData: undefined;
+};
+
+export type PrivateStackParamsList = {
+    HomeStack: NavigatorScreenParams<HomeStackParamsList>;
+    HistoryStack: NavigatorScreenParams<HistoryStackParamsList>;
+    Setting: undefined;
 };

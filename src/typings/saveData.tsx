@@ -14,5 +14,6 @@ export interface CreateCrabHatchParams {
     location: string;
     pool: string;
     crabEggColor: string;
-    releaseDate: string;
+    crabEggScoopDate: string;
+    crabReleaseDate: string;
 }
