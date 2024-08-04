@@ -21,7 +21,7 @@ const AmmoniaScreen: FC<AmmoniaScreenProps> = () => {
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
-                    image={require('../../assets/images/phWhite.png')}
+                    image={require('../../assets/images/ammoniaIcon.png')}
                     textTitle="ข้อมูลค่าแอมโมเนีย"
                     textSubtitle="Ammonia Value Information"
                 />
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     },
     imageGraphBox: {
         width: 380,
-        height: 200
+        height: 220
     },
     image: {
         width: '100%',

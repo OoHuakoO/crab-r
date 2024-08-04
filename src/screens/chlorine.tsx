@@ -21,7 +21,7 @@ const CholineScreen: FC<CholineScreenProps> = () => {
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
-                    image={require('../../assets/images/phWhite.png')}
+                    image={require('../../assets/images/chlorineIcon.png')}
                     textTitle="ข้อมูลค่าคลอรีน"
                     textSubtitle="Chlorine Value Information"
                 />

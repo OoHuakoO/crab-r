@@ -1,9 +1,11 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AlkalineScreen from '@src/screens/alkaline';
 import AmmoniaScreen from '@src/screens/ammonia';
 import ChlorineScreen from '@src/screens/chlorine';
 import CrabCircleScreen from '@src/screens/crabCircle';
 import HomeSreen from '@src/screens/home';
 import knowledgeScreen from '@src/screens/knowledge';
+import MagnesiumScreen from '@src/screens/magnesium';
 import PhScreen from '@src/screens/ph';
 import SaveCrabHatchScreen from '@src/screens/saveCrabHatch';
 import SaveDataScreen from '@src/screens/saveData';
@@ -94,6 +96,20 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={ChlorineScreen}
+            />
+            <Stack.Screen
+                name="Magnesium"
+                options={{
+                    headerShown: false
+                }}
+                component={MagnesiumScreen}
+            />
+            <Stack.Screen
+                name="Alkaline"
+                options={{
+                    headerShown: false
+                }}
+                component={AlkalineScreen}
             />
         </Stack.Navigator>
     );

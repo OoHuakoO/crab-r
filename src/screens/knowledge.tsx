@@ -37,7 +37,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลค่าอัลคาไลนิตี้รวม',
             textSubtitle: 'Total alkalinity data',
             image: require(`../../assets/images/alkalinityTotal.png`),
-            path: 'Home'
+            path: 'Alkaline'
         },
         {
             textTitle: 'ข้อมูลค่าแอมโมเนีย',
@@ -49,7 +49,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลค่าแมกนีเซียมและแคลเซียม',
             textSubtitle: 'Magnesium and calcium information',
             image: require(`../../assets/images/mg.png`),
-            path: 'Home'
+            path: 'Magnesium'
         },
         {
             textTitle: 'ข้อมูลค่าคลอลีน',

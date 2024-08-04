@@ -15,5 +15,6 @@ export const colorConfig = {
     blackGray: '#121212',
     buttonConfirm: '#386BA9',
     textBody: '#828282',
-    textYellow: '#FBAF41'
+    textYellow: '#FBAF41',
+    backgroundImg: '#1F3F77'
 };
