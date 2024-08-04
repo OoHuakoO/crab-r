@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CrabCircleScreen from '@src/screens/crabCircle';
 import HomeSreen from '@src/screens/home';
 import knowledgeScreen from '@src/screens/knowledge';
+import PhScreen from '@src/screens/ph';
 import SaveCrabHatchScreen from '@src/screens/saveCrabHatch';
 import SaveDataScreen from '@src/screens/saveData';
 import SaveWaterAfterScreen from '@src/screens/saveWaterAfter';
@@ -62,6 +64,20 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={TideScreen}
+            />
+            <Stack.Screen
+                name="CrabCircle"
+                options={{
+                    headerShown: false
+                }}
+                component={CrabCircleScreen}
+            />
+            <Stack.Screen
+                name="Ph"
+                options={{
+                    headerShown: false
+                }}
+                component={PhScreen}
             />
         </Stack.Navigator>
     );

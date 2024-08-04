@@ -456,20 +456,20 @@ const styles = StyleSheet.create({
         color: theme.colors.blackGray
     },
     placeholderStyle: {
-        fontFamily: 'DMSans-Regular',
+        fontFamily: 'K2D-Regular',
         fontSize: 16,
         color: theme.colors.textBody
     },
     selectedTextStyle: {
         fontSize: 16,
         color: theme.colors.blackGray,
-        fontFamily: 'DMSans-Regular'
+        fontFamily: 'K2D-Regular'
     },
     inputSearchStyle: {
         height: 40,
         fontSize: 16,
         color: theme.colors.blackGray,
-        fontFamily: 'DMSans-Regular'
+        fontFamily: 'K2D-Regular'
     },
     dropdownItem: {
         padding: 17,
@@ -481,7 +481,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         color: theme.colors.blackGray,
-        fontFamily: 'DMSans-Regular'
+        fontFamily: 'K2D-Regular'
     },
     textTitle: {
         fontSize: 16,

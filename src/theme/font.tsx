@@ -50,19 +50,19 @@ export const fontConfig = {
         fontFamily: 'K2D-Regular',
         fontSize: 14,
         letterSpacing: 0.1,
-        lineHeight: 20
+        lineHeight: 22
     },
     titleMedium: {
         fontFamily: 'K2D-Regular',
         fontSize: 16,
         letterSpacing: 0.15,
-        lineHeight: 24
+        lineHeight: 26
     },
     titleLarge: {
         fontFamily: 'K2D-Regular',
         fontSize: 22,
         letterSpacing: 0,
-        lineHeight: 28
+        lineHeight: 30
     },
 
     // Label

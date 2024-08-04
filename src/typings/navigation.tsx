@@ -18,6 +18,8 @@ export type HomeStackParamsList = {
     SaveWaterBefore: undefined;
     SaveWaterAfter: undefined;
     SaveCrabHatch: undefined;
+    CrabCircle: undefined;
+    Ph: undefined;
 };
 
 export type HistoryStackParamsList = {

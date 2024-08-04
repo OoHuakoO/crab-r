@@ -12,14 +12,14 @@ type KnowledgeScreenProps = NativeStackScreenProps<
     'Knowledge'
 >;
 
-const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
+const HistoryListScreen: FC<KnowledgeScreenProps> = (props) => {
     const { navigation } = props;
     const menu = [
         {
             textTitle: 'ข้อมูลวงจรปู',
             textSubtitle: 'Crab circuit information',
             image: require(`../../assets/images/crabCircuit.png`),
-            path: 'CrabCircle'
+            path: 'Home'
         },
         {
             textTitle: 'ข้อมูลน้ำขึ้น-น้ำลง',
@@ -31,7 +31,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลค่ากรด-ด่าง (pH)',
             textSubtitle: 'Acid-alkaline (ph) value information',
             image: require(`../../assets/images/ph.png`),
-            path: 'Ph'
+            path: 'Home'
         },
         {
             textTitle: 'ข้อมูลค่าอัลคาไลนิตี้รวม',
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default KnowledgeScreen;
+export default HistoryListScreen;

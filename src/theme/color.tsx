@@ -14,5 +14,6 @@ export const colorConfig = {
     borderAutocomplete: '#A1A1A1',
     blackGray: '#121212',
     buttonConfirm: '#386BA9',
-    textBody: '#828282'
+    textBody: '#828282',
+    textYellow: '#FBAF41'
 };

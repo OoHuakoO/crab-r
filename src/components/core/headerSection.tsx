@@ -41,7 +41,7 @@ const HeaderSection: FC<HeaderSectionProps> = (props) => {
                                         : -10,
                                     fontSize: fontSizeTextTitle
                                         ? fontSizeTextTitle
-                                        : 32
+                                        : 28
                                 }
                             ]}
                         >
@@ -50,7 +50,11 @@ const HeaderSection: FC<HeaderSectionProps> = (props) => {
                     </View>
 
                     {textSubtitle && (
-                        <Text style={styles.buttonSubtext}>{textSubtitle}</Text>
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text style={styles.buttonSubtext}>
+                                {textSubtitle}
+                            </Text>
+                        </View>
                     )}
                 </View>
             </View>
@@ -68,7 +72,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10,
         justifyContent: 'center',
-        width: '100%'
+        width: '75%'
     },
     imageContainer: {
         width: 90,
@@ -87,8 +91,10 @@ const styles = StyleSheet.create({
     },
     buttonSubtext: {
         fontFamily: 'K2D-Bold',
-        fontSize: 24,
-        color: theme.colors.white
+        fontSize: 20,
+        color: theme.colors.white,
+        flex: 1,
+        flexWrap: 'wrap'
     },
     divider: {
         height: 5,
