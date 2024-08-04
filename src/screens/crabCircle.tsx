@@ -97,10 +97,12 @@ const styles = StyleSheet.create({
         marginBottom: 30
     },
     textTitle: {
-        color: theme.colors.textYellow
+        color: theme.colors.textYellow,
+        fontSize: 20
     },
     textDescription: {
         color: theme.colors.white,
+        fontSize: 16,
         marginLeft: 20
     }
 });

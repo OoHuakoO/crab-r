@@ -49,7 +49,7 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                 <View style={styles.imageContainer}>
                     <View style={styles.imageBox}>
                         <Image
-                            source={require('../../assets/images/magnesiumImg2.png')}
+                            source={require('../../assets/images/magnesiumImg3.png')}
                             resizeMode="contain"
                             style={styles.image}
                         />
@@ -61,7 +61,7 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                 <View style={[styles.imageContainer, { marginBottom: 30 }]}>
                     <View style={styles.imageBox}>
                         <Image
-                            source={require('../../assets/images/magnesiumImg3.png')}
+                            source={require('../../assets/images/magnesiumImg2.png')}
                             resizeMode="contain"
                             style={styles.image}
                         />
