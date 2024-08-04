@@ -1,10 +1,17 @@
+/* eslint-disable react-native/no-inline-styles */
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Header from '@src/components/core/header';
 import HeaderSection from '@src/components/core/headerSection';
 import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import {
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    View
+} from 'react-native';
 import { Text } from 'react-native-paper';
 
 type PhScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Ph'>;
@@ -27,17 +34,74 @@ const PhScreen: FC<PhScreenProps> = () => {
                         เทียบสีมาตรฐาน
                     </Text>
                 </View>
-                <View style={styles.buttonContainer}>
-                    <View style={styles.rowButton}>
-                        <View style={styles.boxButton}>
-                            <View style={styles.textContainer}>
-                                <Text style={styles.buttonText}>0.0</Text>
-                            </View>
+                <View style={styles.imageContainer}>
+                    <View style={styles.imageBox}>
+                        <Image
+                            source={require('../../assets/images/phImg.png')}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
+                </View>
+                <View style={styles.textContainer}>
+                    <View style={styles.rowText}>
+                        <Text
+                            variant="labelMedium"
+                            style={[
+                                styles.textSubDescription,
+                                {
+                                    width: '30%',
+                                    marginRight: 20
+                                }
+                            ]}
+                        >
+                            ค่า PH น้อยกว่า 7.5
+                        </Text>
+                        <View style={styles.columnText}>
+                            <Text
+                                variant="labelMedium"
+                                style={styles.textSubDescriptionWrap}
+                            >
+                                เติมปูนขาว
+                                โดยนำปูนขาวมาละลายน้ำและตั้งทิ้งไว้จนน้ำ
+                                มีความใสจึงนำไปเทใส่บ่อพักน้ำ โดย
+                            </Text>
+                            <Text
+                                variant="labelMedium"
+                                style={styles.textSubDescriptionWrap}
+                            >
+                                pH อยู่ในช่วง 7.2-7.4 ให้เติมปูนขาวปริมาณ 1
+                                กิโลกรัม
+                            </Text>
+                            <Text
+                                variant="labelMedium"
+                                style={styles.textSubDescriptionWrap}
+                            >
+                                pH อยู่ในช่วง 7.0-7.1 ให้เติมขาวปริมาณ 2
+                                กิโลกรัม
+                            </Text>
                         </View>
-                        <View style={styles.boxButton}>
-                            <View style={styles.textContainer}>
-                                <Text style={styles.buttonText}>0.0</Text>
-                            </View>
+                    </View>
+                    <View style={styles.rowText}>
+                        <Text
+                            variant="labelMedium"
+                            style={[
+                                styles.textSubDescription,
+                                {
+                                    width: '30%',
+                                    marginRight: 20
+                                }
+                            ]}
+                        >
+                            ค่า pH มากกว่า 8.5
+                        </Text>
+                        <View style={styles.columnText}>
+                            <Text
+                                variant="labelMedium"
+                                style={styles.textSubDescriptionWrap}
+                            >
+                                เติมน้ำจืดจนกว่าจะมีค่า pH เท่ากับ 8.5
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -55,7 +119,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 75
     },
-    titleContainer: { marginVertical: 5, marginLeft: 30 },
+    titleContainer: { marginBottom: 10, marginLeft: 30 },
     textTitle: {
         color: theme.colors.white,
         fontFamily: 'K2D-Bold'
@@ -64,34 +128,38 @@ const styles = StyleSheet.create({
         color: theme.colors.white,
         fontFamily: 'K2D-Medium'
     },
-    buttonContainer: {
-        alignItems: 'center',
-        width: '80%',
-        alignSelf: 'center'
+    textSubDescriptionWrap: {
+        color: theme.colors.white,
+        fontFamily: 'K2D-Regular'
     },
-    rowButton: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 10,
-        backgroundColor: 'green',
-        width: '100%'
+    textSubDescription: {
+        color: theme.colors.white,
+        fontFamily: 'K2D-Regular'
     },
-    boxButton: {
-        position: 'relative',
-        flexDirection: 'row',
-        backgroundColor: 'red'
+    imageContainer: {
+        alignItems: 'center'
+    },
+    imageBox: {
+        width: 500,
+        height: 400
+    },
+    image: {
+        width: '100%',
+        height: '100%'
     },
     textContainer: {
-        backgroundColor: theme.colors.secondary,
-        padding: 5,
-        borderRadius: 20,
-        alignItems: 'center',
-        width: '50%'
+        marginTop: 20,
+        gap: 10,
+        marginBottom: 30,
+        marginHorizontal: 30
     },
-    buttonText: {
-        fontFamily: 'K2D-Regular',
-        fontSize: 14,
-        color: theme.colors.primary
+    rowText: {
+        flexDirection: 'row',
+        width: '100%'
+    },
+    columnText: {
+        flexDirection: 'column',
+        width: '65%'
     }
 });
 

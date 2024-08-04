@@ -28,8 +28,8 @@ const CrabCircleScreen: FC<CrabCircleScreenProps> = () => {
                     textTitle="ข้อมูลวงจรปู"
                     textSubtitle="Crab Circuit Information"
                 />
-                <View style={styles.menuListContainer}>
-                    <View style={styles.imageContainer}>
+                <View style={styles.imageContainer}>
+                    <View style={styles.imageBox}>
                         <Image
                             source={require('../../assets/images/crabCircuitImg.png')}
                             resizeMode="contain"
@@ -79,11 +79,10 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 75
     },
-    menuListContainer: {
-        alignItems: 'center',
-        marginTop: 0
-    },
     imageContainer: {
+        alignItems: 'center'
+    },
+    imageBox: {
         width: 400,
         height: 300
     },
