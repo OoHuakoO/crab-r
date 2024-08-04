@@ -20,6 +20,8 @@ export type HomeStackParamsList = {
     SaveCrabHatch: undefined;
     CrabCircle: undefined;
     Ph: undefined;
+    Ammonia: undefined;
+    Chlorine: undefined;
 };
 
 export type HistoryStackParamsList = {

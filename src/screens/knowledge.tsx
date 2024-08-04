@@ -43,7 +43,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลค่าแอมโมเนีย',
             textSubtitle: 'Ammonia value information',
             image: require(`../../assets/images/ammonia.png`),
-            path: 'Home'
+            path: 'Ammonia'
         },
         {
             textTitle: 'ข้อมูลค่าแมกนีเซียมและแคลเซียม',
@@ -55,7 +55,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             textTitle: 'ข้อมูลค่าคลอลีน',
             textSubtitle: 'Chlorine value information',
             image: require(`../../assets/images/cl.png`),
-            path: 'Home'
+            path: 'Chlorine'
         }
     ];
     return (

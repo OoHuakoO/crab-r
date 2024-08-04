@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import AmmoniaScreen from '@src/screens/ammonia';
+import ChlorineScreen from '@src/screens/chlorine';
 import CrabCircleScreen from '@src/screens/crabCircle';
 import HomeSreen from '@src/screens/home';
 import knowledgeScreen from '@src/screens/knowledge';
@@ -78,6 +80,20 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={PhScreen}
+            />
+            <Stack.Screen
+                name="Ammonia"
+                options={{
+                    headerShown: false
+                }}
+                component={AmmoniaScreen}
+            />
+            <Stack.Screen
+                name="Chlorine"
+                options={{
+                    headerShown: false
+                }}
+                component={ChlorineScreen}
             />
         </Stack.Navigator>
     );
