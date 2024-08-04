@@ -19,20 +19,23 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
             textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
             textSubtitle: '',
             image: require('../../assets/images/before.png'),
-            path: 'SaveWaterBefore'
+            path: 'HistoryList',
+            namePage: 'before'
         },
         {
             textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
             textSubtitle: '',
             image: require('../../assets/images/after.png'),
-            path: 'SaveWaterAfter'
+            path: 'HistoryList',
+            namePage: 'after'
         },
         {
             textTitle: 'บันทึกข้อมูลการเพาะฟัก',
             textSubtitle: '',
             image: require('../../assets/images/hatching.png'),
-            path: 'SaveCrabHatch',
-            padding: 15
+            path: 'HistoryList',
+            padding: 15,
+            namePage: 'crabHatch'
         }
     ];
     return (
@@ -50,7 +53,10 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
                             key={`menu-list-${index}`}
                             handlePress={() =>
                                 navigation.navigate(
-                                    item?.path as keyof HistoryStackParamsList
+                                    item?.path as keyof HistoryStackParamsList,
+                                    {
+                                        namePage: item?.namePage
+                                    }
                                 )
                             }
                             textTitle={item?.textTitle}

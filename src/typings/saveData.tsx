@@ -62,3 +62,10 @@ export interface GetCrabHatchByIdResponse {
     crabReleaseDate: string;
     crabEggScoopDate: string;
 }
+
+export interface HistoryList {
+    _id: string;
+    createdAt: string;
+    image?: string;
+    path?: string;
+}

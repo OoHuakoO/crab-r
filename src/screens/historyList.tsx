@@ -1,83 +1,122 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import HeaderSection from '@src/components/core/headerSection';
 import MenuList from '@src/components/core/menuList';
+import {
+    GetCrabHatchInquiry,
+    GetWaterQualityAfterInquiry,
+    GetWaterQualityBeforeInquiry
+} from '@src/services/saveData';
 import { theme } from '@src/theme';
-import { HomeStackParamsList } from '@src/typings/navigation';
-import React, { FC } from 'react';
+import { HistoryStackParamsList } from '@src/typings/navigation';
+import { HistoryList } from '@src/typings/saveData';
+import { parseDateStringTime } from '@src/utils/time-manager';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
-type KnowledgeScreenProps = NativeStackScreenProps<
-    HomeStackParamsList,
-    'Knowledge'
+type HistoryListScreenProps = NativeStackScreenProps<
+    HistoryStackParamsList,
+    'HistoryList'
 >;
 
-const HistoryListScreen: FC<KnowledgeScreenProps> = (props) => {
-    const { navigation } = props;
-    const menu = [
-        {
-            textTitle: 'ข้อมูลวงจรปู',
-            textSubtitle: 'Crab circuit information',
-            image: require(`../../assets/images/crabCircuit.png`),
-            path: 'Home'
-        },
-        {
-            textTitle: 'ข้อมูลน้ำขึ้น-น้ำลง',
-            textSubtitle: 'High and low tide information',
-            image: require(`../../assets/images/highAndLow.png`),
-            path: 'Tide'
-        },
-        {
-            textTitle: 'ข้อมูลค่ากรด-ด่าง (pH)',
-            textSubtitle: 'Acid-alkaline (ph) value information',
-            image: require(`../../assets/images/ph.png`),
-            path: 'Home'
-        },
-        {
-            textTitle: 'ข้อมูลค่าอัลคาไลนิตี้รวม',
-            textSubtitle: 'Total alkalinity data',
-            image: require(`../../assets/images/alkalinityTotal.png`),
-            path: 'Home'
-        },
-        {
-            textTitle: 'ข้อมูลค่าแอมโมเนีย',
-            textSubtitle: 'Ammonia value information',
-            image: require(`../../assets/images/ammonia.png`),
-            path: 'Home'
-        },
-        {
-            textTitle: 'ข้อมูลค่าแมกนีเซียมและแคลเซียม',
-            textSubtitle: 'Magnesium and calcium information',
-            image: require(`../../assets/images/mg.png`),
-            path: 'Home'
-        },
-        {
-            textTitle: 'ข้อมูลค่าคลอลีน',
-            textSubtitle: 'Chlorine value information',
-            image: require(`../../assets/images/cl.png`),
-            path: 'Home'
+const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
+    const { navigation, route } = props;
+    const [listHistory, setListHistory] = useState<HistoryList[]>([]);
+    const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
+    const [contentDialog, setContentDialog] = useState<string>('');
+
+    const handleCloseDialog = useCallback(() => {
+        setVisibleDialog(false);
+    }, []);
+
+    const handleGetHistory = useCallback(async () => {
+        try {
+            let histories = [];
+            if (route?.params?.namePage === 'before') {
+                const res = await GetWaterQualityBeforeInquiry();
+                if (res?.status === 200) {
+                    histories = [...res.data];
+                    histories.map((item) => {
+                        item.image = require('../../assets/images/before.png');
+                        item.path = 'WaterBeforeDetail';
+                    });
+                    setListHistory(histories);
+                } else {
+                    setVisibleDialog(true);
+                    setContentDialog('Something went wrong get data');
+                }
+            }
+            if (route?.params?.namePage === 'after') {
+                const res = await GetWaterQualityAfterInquiry();
+                if (res?.status === 200) {
+                    histories = [...res.data];
+                    histories.map((item) => {
+                        item.image = require('../../assets/images/after.png');
+                        item.path = 'WaterAfterDetail';
+                    });
+                    setListHistory(histories);
+                } else {
+                    setVisibleDialog(true);
+                    setContentDialog('Something went wrong get data');
+                }
+            }
+            if (route?.params?.namePage === 'crabHatch') {
+                const res = await GetCrabHatchInquiry();
+                if (res?.status === 200) {
+                    histories = [...res.data];
+                    histories.map((item) => {
+                        item.image = require('../../assets/images/hatching.png');
+                        item.path = 'CrabHatchDetail';
+                    });
+                    setListHistory(histories);
+                } else {
+                    setVisibleDialog(true);
+                    setContentDialog('Something went wrong get data');
+                }
+            }
+        } catch (err) {
+            console.log(err);
+            setVisibleDialog(true);
+            setContentDialog('Something went wrong get data');
         }
-    ];
+    }, [route?.params?.namePage]);
+
+    useEffect(() => {
+        handleGetHistory();
+    }, [handleGetHistory]);
+
     return (
         <SafeAreaView style={styles.container}>
             <Header />
+            <AlertDialog
+                textContent={contentDialog}
+                visible={visibleDialog}
+                handleClose={handleCloseDialog}
+                handleConfirm={handleCloseDialog}
+            />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
                     image={require('../../assets/images/bookKnowledge.png')}
-                    textTitle="องค์ความรู้"
-                    textSubtitle="Knowledge"
+                    textTitle={`บันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพัก`}
+                    fontSizeTextTitle={24}
                 />
                 <View style={styles.menuListContainer}>
-                    {menu?.map((item, index) => (
+                    {listHistory?.map((item, index) => (
                         <MenuList
                             key={`menu-list-${index}`}
                             handlePress={() =>
                                 navigation.navigate(
-                                    item?.path as keyof HomeStackParamsList
+                                    item?.path as keyof HistoryStackParamsList,
+                                    {
+                                        id: item?._id
+                                    }
                                 )
                             }
-                            textTitle={item?.textTitle}
-                            textSubtitle={item?.textSubtitle}
+                            textTitle={`ครั้งที่ ${index + 1}`}
+                            textSubtitle={`วัน เวลา ${parseDateStringTime(
+                                item?.createdAt
+                            )}`}
                             image={item?.image}
                         />
                     ))}

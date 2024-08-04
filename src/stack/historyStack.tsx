@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HistoryListScreen from '@src/screens/historyList';
 import HistorySaveDataScreen from '@src/screens/historySaveData';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 
@@ -14,6 +15,13 @@ const HistorySaveDataStack = () => {
                     headerShown: false
                 }}
                 component={HistorySaveDataScreen}
+            />
+            <Stack.Screen
+                name="HistoryList"
+                options={{
+                    headerShown: false
+                }}
+                component={HistoryListScreen}
             />
         </Stack.Navigator>
     );

@@ -27,7 +27,11 @@ export type HomeStackParamsList = {
 };
 
 export type HistoryStackParamsList = {
-    HistorySaveData: undefined;
+    HistorySaveData: { namePage?: string; id?: string; path?: string };
+    HistoryList: { namePage?: string; id?: string; path?: string };
+    WaterBeforeDetail: { namePage?: string; id?: string; path?: string };
+    WaterAfterDetail: { namePage?: string; id?: string; path?: string };
+    CrabHatchDetail: { namePage?: string; id?: string; path?: string };
 };
 
 export type PrivateStackParamsList = {
