@@ -5,3 +5,5 @@ export const WARNING = 'Warning';
 export const STATUS_CODE = {
     CODE_200: 200
 };
+
+export const LIMIT = 10;

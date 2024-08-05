@@ -56,7 +56,7 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
                             textTitle={item?.textTitle}
                             textSubtitle={item?.textSubtitle}
                             image={item?.image}
-                            padding={item?.padding}
+                            textContainerPadding={item?.padding}
                         />
                     ))}
                 </View>

@@ -77,10 +77,8 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         />
                     </View>
                     <View style={styles.textContainer}>
-                        <View>
-                            <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
-                            <Text style={styles.buttonSubtext}>Save Data</Text>
-                        </View>
+                        <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
+                        <Text style={styles.buttonSubtext}>Save Data</Text>
                     </View>
                 </TouchableOpacity>
             </View>

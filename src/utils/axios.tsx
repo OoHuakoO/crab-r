@@ -37,6 +37,7 @@ apiInstances.interceptors.request.use(
 export interface Response<T = any> {
     data?: T;
     status?: number;
+    total?: number;
 }
 
 export async function get<T = any>(

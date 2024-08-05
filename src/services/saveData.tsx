@@ -1,10 +1,13 @@
 import {
     CreateCrabHatchParams,
     GetCrabHatchByIdResponse,
+    GetCrabHatchInquiryParams,
     GetCrabHatchInquiryResponse,
     GetWaterQualityAfterByIdResponse,
+    GetWaterQualityAfterInquiryParams,
     GetWaterQualityAfterInquiryResponse,
     GetWaterQualityBeforeByIdResponse,
+    GetWaterQualityBeforeInquiryParams,
     GetWaterQualityBeforeInquiryResponse
 } from '@src/typings/saveData';
 import { Response, get, post } from '@src/utils/axios';
@@ -28,26 +31,30 @@ export function CreateCrabHatch(
     return post<any>('/crab-hatch/createCrabHatch', params);
 }
 
-export function GetWaterQualityBeforeInquiry(): Promise<
-    Response<GetWaterQualityBeforeInquiryResponse[]>
-> {
+export function GetWaterQualityBeforeInquiry(
+    params: GetWaterQualityBeforeInquiryParams
+): Promise<Response<GetWaterQualityBeforeInquiryResponse[]>> {
     return get<GetWaterQualityBeforeInquiryResponse[]>(
-        '/water-quality-before/getWaterQualityBefore'
+        '/water-quality-before/getWaterQualityBefore',
+        { params }
     );
 }
 
-export function GetWaterQualityAfterInquiry(): Promise<
-    Response<GetWaterQualityAfterInquiryResponse[]>
-> {
+export function GetWaterQualityAfterInquiry(
+    params: GetWaterQualityAfterInquiryParams
+): Promise<Response<GetWaterQualityAfterInquiryResponse[]>> {
     return get<GetWaterQualityAfterInquiryResponse[]>(
-        '/water-quality-after/getWaterQualityAfter'
+        '/water-quality-after/getWaterQualityAfter',
+        { params }
     );
 }
 
-export function GetCrabHatchInquiry(): Promise<
-    Response<GetCrabHatchInquiryResponse[]>
-> {
-    return get<GetCrabHatchInquiryResponse[]>('/crab-hatch/crabHatchAll');
+export function GetCrabHatchInquiry(
+    params: GetCrabHatchInquiryParams
+): Promise<Response<GetCrabHatchInquiryResponse[]>> {
+    return get<GetCrabHatchInquiryResponse[]>('/crab-hatch/crabHatchAll', {
+        params
+    });
 }
 
 export function GetWaterQualityBeforeById(

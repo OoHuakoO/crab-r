@@ -18,19 +18,39 @@ export interface CreateCrabHatchParams {
     crabReleaseDate: string;
 }
 
+export interface GetWaterQualityBeforeInquiryParams {
+    page: number;
+    limit: number;
+}
+
 export interface GetWaterQualityBeforeInquiryResponse {
     _id: string;
     createdAt: string;
+    location: string;
+    pool: string;
+}
+
+export interface GetWaterQualityAfterInquiryParams {
+    page: number;
+    limit: number;
 }
 
 export interface GetWaterQualityAfterInquiryResponse {
     _id: string;
     createdAt: string;
+    location: string;
+    pool: string;
 }
 
+export interface GetCrabHatchInquiryParams {
+    page: number;
+    limit: number;
+}
 export interface GetCrabHatchInquiryResponse {
     _id: string;
     createdAt: string;
+    location: string;
+    pool: string;
 }
 
 export interface GetWaterQualityBeforeByIdResponse {
@@ -66,6 +86,8 @@ export interface GetCrabHatchByIdResponse {
 export interface HistoryList {
     _id: string;
     createdAt: string;
+    location: string;
+    pool: string;
     image?: string;
     path?: string;
 }

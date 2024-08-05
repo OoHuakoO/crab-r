@@ -16,21 +16,21 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
     const { navigation } = props;
     const menu = [
         {
-            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
+            textTitle: 'ประวัติบันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
             textSubtitle: '',
             image: require('../../assets/images/before.png'),
             path: 'HistoryList',
             namePage: 'before'
         },
         {
-            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
+            textTitle: 'ประวัติบันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
             textSubtitle: '',
             image: require('../../assets/images/after.png'),
             path: 'HistoryList',
             namePage: 'after'
         },
         {
-            textTitle: 'บันทึกข้อมูลการเพาะฟัก',
+            textTitle: 'ประวัติบันทึกข้อมูลการเพาะฟัก',
             textSubtitle: '',
             image: require('../../assets/images/hatching.png'),
             path: 'HistoryList',
@@ -62,7 +62,7 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
                             textTitle={item?.textTitle}
                             textSubtitle={item?.textSubtitle}
                             image={item?.image}
-                            padding={item?.padding}
+                            textContainerPadding={item?.padding}
                         />
                     ))}
                 </View>

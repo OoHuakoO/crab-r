@@ -21,7 +21,12 @@ const HeaderSection: FC<HeaderSectionProps> = (props) => {
         fontSizeTextTitle
     } = props;
     return (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <View
+            style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}
+        >
             <View style={styles.columnTitle}>
                 <View style={styles.imageContainer}>
                     <Image
