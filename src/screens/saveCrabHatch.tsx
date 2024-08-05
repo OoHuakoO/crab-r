@@ -92,8 +92,8 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
                     GetLocations(),
                     GetCrabEggColors()
                 ]);
-            setListLocation(responsePool?.data);
-            setListPool(responseLocation?.data);
+            setListLocation(responseLocation?.data);
+            setListPool(responsePool?.data);
             setListEggColor(responseEggColor?.data);
         } catch (err) {
             console.log(err);
