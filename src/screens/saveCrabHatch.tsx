@@ -107,8 +107,8 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                 location: selectLocation,
                 pool: selectPool,
                 crabEggColor: selectEggColor,
-                crabEggScoopDate: parseDateString(crabEggScoopDate.toString()),
-                crabReleaseDate: parseDateString(crabReleaseDate.toString())
+                crabEggScoopDate: crabEggScoopDate,
+                crabReleaseDate: crabReleaseDate
             });
             if (res?.status === 200) {
                 navigation.navigate('HistoryStack', {

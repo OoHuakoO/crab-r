@@ -1,4 +1,5 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CrabHatchDetailScreen from '@src/screens/crabHatchDetail';
 import HistoryListScreen from '@src/screens/historyList';
 import HistorySaveDataScreen from '@src/screens/historySaveData';
 import WaterAfterDetailScreen from '@src/screens/waterAfterDetail';
@@ -38,6 +39,13 @@ const HistorySaveDataStack = () => {
                     headerShown: false
                 }}
                 component={WaterAfterDetailScreen}
+            />
+            <Stack.Screen
+                name="CrabHatchDetail"
+                options={{
+                    headerShown: false
+                }}
+                component={CrabHatchDetailScreen}
             />
         </Stack.Navigator>
     );
