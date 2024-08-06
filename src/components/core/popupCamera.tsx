@@ -4,14 +4,16 @@ import { theme } from '@src/theme';
 import React, { FC } from 'react';
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Button, Modal, Text } from 'react-native-paper';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 interface PopupCameraProp {
     visible: boolean;
     type: string;
     onClose: () => void;
-    openImagePicker: (type: string) => void;
-    handleCameraLaunch: (type: string) => void;
+    openImagePicker?: (type: string) => void;
+    handleCameraLaunch?: (type: string) => void;
     selectedImage: string | null;
+    viewImage?: boolean;
 }
 
 const PopupCamera: FC<PopupCameraProp> = (props) => {
@@ -19,10 +21,12 @@ const PopupCamera: FC<PopupCameraProp> = (props) => {
         visible,
         type,
         onClose,
+        viewImage,
         selectedImage,
         openImagePicker,
         handleCameraLaunch
     } = props;
+
     const handleImageSelection = (typeImage: string) => {
         onClose();
         openImagePicker(typeImage);
@@ -37,7 +41,11 @@ const PopupCamera: FC<PopupCameraProp> = (props) => {
             <View style={styles.container}>
                 <View style={styles.header}>
                     <TouchableOpacity onPress={onClose} activeOpacity={0.5}>
-                        <FontAwesomeIcon icon={faXmark} size={25} />
+                        <FontAwesomeIcon
+                            icon={faXmark}
+                            size={25}
+                            color={theme.colors.primary}
+                        />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.wraper}>
@@ -51,30 +59,41 @@ const PopupCamera: FC<PopupCameraProp> = (props) => {
                         </View>
                     ) : (
                         <View style={styles.emptyImage}>
-                            <FontAwesomeIcon
-                                color={theme.colors.primary}
-                                icon={faCamera}
-                                size={34}
-                            />
+                            {viewImage ? (
+                                <FontAwesome
+                                    name="picture-o"
+                                    size={30}
+                                    color={theme.colors.primary}
+                                />
+                            ) : (
+                                <FontAwesomeIcon
+                                    color={theme.colors.primary}
+                                    icon={faCamera}
+                                    size={34}
+                                />
+                            )}
                         </View>
                     )}
-
-                    <Button
-                        style={styles.button}
-                        onPress={() => handleImageSelection(type)}
-                    >
-                        <Text style={styles.text} variant="bodyLarge">
-                            Open Gallery
-                        </Text>
-                    </Button>
-                    <Button
-                        style={styles.button}
-                        onPress={() => handleCameraLaunchAndClose(type)}
-                    >
-                        <Text style={styles.text} variant="bodyLarge">
-                            Open Camera
-                        </Text>
-                    </Button>
+                    {openImagePicker && (
+                        <Button
+                            style={styles.button}
+                            onPress={() => handleImageSelection(type)}
+                        >
+                            <Text style={styles.text} variant="bodyLarge">
+                                Open Gallery
+                            </Text>
+                        </Button>
+                    )}
+                    {handleCameraLaunch && (
+                        <Button
+                            style={styles.button}
+                            onPress={() => handleCameraLaunchAndClose(type)}
+                        >
+                            <Text style={styles.text} variant="bodyLarge">
+                                Open Camera
+                            </Text>
+                        </Button>
+                    )}
                 </View>
             </View>
         </Modal>
@@ -85,7 +104,8 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         marginHorizontal: 20,
         backgroundColor: theme.colors.white,
-        zIndex: 1
+        zIndex: 1,
+        paddingBottom: 30
     },
     header: {
         marginRight: 20,

@@ -2,12 +2,16 @@ export interface SaveWaterBefore {
     salinity: string;
     ph: string;
     alkaline: string;
+    location?: string;
+    pool?: string;
 }
 
 export interface SaveWaterAfter {
     ammonia: string;
     calcium: string;
     magnesium: string;
+    location?: string;
+    pool?: string;
 }
 
 export interface CreateCrabHatchParams {

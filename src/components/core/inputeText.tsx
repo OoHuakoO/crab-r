@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface InputTextProps extends TextInputProps {
@@ -21,6 +22,7 @@ interface InputTextProps extends TextInputProps {
     borderColor?: string;
     secureText?: boolean;
     camera?: boolean;
+    picture?: boolean;
     isPasswordVisible?: boolean;
     handleVisiblePassword?: () => void;
     handleTogglePopupCamera?: () => void;
@@ -35,6 +37,7 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
         borderColor,
         secureText,
         camera,
+        picture,
         isPasswordVisible,
         handleVisiblePassword,
         handleTogglePopupCamera
@@ -92,6 +95,19 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
                 >
                     <MaterialCommunityIcons
                         name="camera-plus"
+                        size={30}
+                        color={theme.colors.primary}
+                    />
+                </TouchableOpacity>
+            )}
+
+            {picture && (
+                <TouchableOpacity
+                    style={styles.toggle}
+                    onPress={handleTogglePopupCamera}
+                >
+                    <FontAwesome
+                        name="picture-o"
                         size={30}
                         color={theme.colors.primary}
                     />

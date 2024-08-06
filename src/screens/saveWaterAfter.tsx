@@ -9,7 +9,10 @@ import { GetPools } from '@src/services/pool';
 import { CreateWaterQualityAfter } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { LocationResponse } from '@src/typings/location';
-import { HomeStackParamsList } from '@src/typings/navigation';
+import {
+    HomeStackParamsList,
+    PrivateStackParamsList
+} from '@src/typings/navigation';
 import { PoolResponse } from '@src/typings/pool';
 import { SaveWaterAfter } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
@@ -25,6 +28,8 @@ import {
 } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import FormData from 'form-data';
 import {
     MediaType,
@@ -33,12 +38,13 @@ import {
 } from 'react-native-image-picker';
 import { Text } from 'react-native-paper';
 
-type SaveWaterAfterScreenProps = NativeStackScreenProps<
-    HomeStackParamsList,
-    'SaveWaterAfter'
+type SaveWaterAfterScreenProps = CompositeScreenProps<
+    NativeStackScreenProps<HomeStackParamsList, 'SaveWaterAfter'>,
+    BottomTabScreenProps<PrivateStackParamsList>
 >;
 
-const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = () => {
+const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
+    const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [selectLocation, setSelectLocation] = useState<string>('');
@@ -262,7 +268,14 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = () => {
 
             const res = await CreateWaterQualityAfter(formData);
             if (res?.status === 200) {
-                console.log('success');
+                navigation.navigate('HistoryStack', {
+                    screen: 'HistoryList',
+                    params: { namePage: 'after' }
+                });
+            } else {
+                setVisibleDialog(true);
+                setContentDialog('Something went wrong save data');
+                return;
             }
         } catch (err) {
             console.log(err);

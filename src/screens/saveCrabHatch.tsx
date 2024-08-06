@@ -35,8 +35,8 @@ type SaveCrabHatchScreenProps = CompositeScreenProps<
     BottomTabScreenProps<PrivateStackParamsList>
 >;
 
-const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
-    // const { navigation } = props;
+const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
+    const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [listEggColor, setListEggColor] = useState<EggColorResponse[]>([]);
@@ -111,10 +111,18 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = () => {
                 crabReleaseDate: parseDateString(crabReleaseDate.toString())
             });
             if (res?.status === 200) {
-                console.log('success');
+                navigation.navigate('HistoryStack', {
+                    screen: 'HistoryList',
+                    params: { namePage: 'crabHatch' }
+                });
+            } else {
+                setVisibleDialog(true);
+                setContentDialog('Something went wrong save data');
+                return;
             }
         } catch (err) {
             console.log(err);
+            setVisibleDialog(true);
             setContentDialog('Something went wrong save data');
         }
     };
