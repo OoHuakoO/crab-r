@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Button from '@src/components/core/button';
+import { RemoveFcmToken } from '@src/services/login';
 import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { LoginState } from '@src/typings/common';
@@ -28,8 +29,19 @@ const SettingScreen: FC<SettingScreenProps> = () => {
 
     const handleLogout = useCallback(async () => {
         try {
-            setLogin({ role: '', token: '' });
-            await AsyncStorage.setItem('Login', '');
+            const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+            const FcmTokenJson = JSON.parse(FcmTokenValue);
+            const response = await RemoveFcmToken({
+                fcmToken: FcmTokenJson
+            });
+            if (response.status === 200) {
+                setLogin({ role: '', token: '' });
+                await AsyncStorage.setItem('Login', '');
+            } else {
+                setVisibleDialog(true);
+                setContentDialog(`Something went wrong logout`);
+                return;
+            }
         } catch (err) {
             console.log(err);
             setVisibleDialog(true);

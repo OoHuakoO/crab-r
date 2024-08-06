@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import React, { useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
@@ -6,6 +7,7 @@ import { Provider } from 'react-native-paper';
 import { RecoilRoot } from 'recoil';
 import App from './src';
 import { theme } from './src/theme';
+
 function Main() {
     useEffect(() => {
         const requestUserPermission = async () => {
@@ -18,9 +20,8 @@ function Main() {
                 authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
             if (enabled) {
-                console.log('Authorization status:', authStatus);
                 const token = await messaging().getToken();
-                console.log('FCM token:', token);
+                await AsyncStorage.setItem('FcmToken', JSON.stringify(token));
             }
         };
         requestUserPermission();
