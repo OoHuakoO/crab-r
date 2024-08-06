@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "665472958973",
+    "project_id": "crab-r",
+    "storage_bucket": "crab-r.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665472958973:android:98a9d7a60d64b8cde61994",
+        "android_client_info": {
+          "package_name": "com.crabr"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCHaAvaSYgtOBmoL1yiJJCPzThEDt57_hc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
