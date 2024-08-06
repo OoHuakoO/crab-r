@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HistoryListScreen from '@src/screens/historyList';
 import HistorySaveDataScreen from '@src/screens/historySaveData';
+import WaterAfterDetailScreen from '@src/screens/waterAfterDetail';
 import WaterBeforeDetailScreen from '@src/screens/waterBeforeDetail';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 
@@ -30,6 +31,13 @@ const HistorySaveDataStack = () => {
                     headerShown: false
                 }}
                 component={WaterBeforeDetailScreen}
+            />
+            <Stack.Screen
+                name="WaterAfterDetail"
+                options={{
+                    headerShown: false
+                }}
+                component={WaterAfterDetailScreen}
             />
         </Stack.Navigator>
     );
