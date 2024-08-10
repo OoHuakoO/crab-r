@@ -1,7 +1,13 @@
+import messaging from '@react-native-firebase/messaging';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { theme } from '@src/theme';
-import { HomeStackParamsList } from '@src/typings/navigation';
-import React, { FC } from 'react';
+import {
+    HomeStackParamsList,
+    PrivateStackParamsList
+} from '@src/typings/navigation';
+import React, { FC, useEffect } from 'react';
 import {
     Image,
     ScrollView,
@@ -11,10 +17,39 @@ import {
     View
 } from 'react-native';
 
-type HomeScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Home'>;
+type HomeScreenProps = CompositeScreenProps<
+    NativeStackScreenProps<HomeStackParamsList, 'SaveWaterAfter'>,
+    BottomTabScreenProps<PrivateStackParamsList>
+>;
 
 const HomeScreen: FC<HomeScreenProps> = (props) => {
     const { navigation } = props;
+
+    useEffect(() => {
+        const unsubscribe = messaging().onNotificationOpenedApp(
+            (remoteMessage) => {
+                console.log(
+                    'Notification caused app to open from background state:',
+                    remoteMessage.notification
+                );
+                navigation.navigate('Notification');
+            }
+        );
+
+        messaging()
+            .getInitialNotification()
+            .then((remoteMessage) => {
+                if (remoteMessage) {
+                    console.log(
+                        'Notification caused app to open from quit state:',
+                        remoteMessage.notification
+                    );
+                    navigation.navigate('Notification');
+                }
+            });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <ScrollView style={styles.container}>

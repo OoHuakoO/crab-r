@@ -37,5 +37,6 @@ export type HistoryStackParamsList = {
 export type PrivateStackParamsList = {
     HomeStack: NavigatorScreenParams<HomeStackParamsList>;
     HistoryStack: NavigatorScreenParams<HistoryStackParamsList>;
+    Notification: undefined;
     Setting: undefined;
 };

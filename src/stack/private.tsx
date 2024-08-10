@@ -1,4 +1,4 @@
-import ProfileScreen from '@src/screens/profile';
+import NotificationScreen from '@src/screens/notification';
 import SettingScreen from '@src/screens/setting';
 import { theme } from '@src/theme';
 import React, { memo } from 'react';
@@ -57,7 +57,7 @@ const PrivateStack = () => {
                         />
                     )
                 }}
-                component={ProfileScreen}
+                component={NotificationScreen}
             />
             <Tab.Screen
                 name="Setting"
