@@ -34,9 +34,12 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     const handleRegister = useCallback(
         async (data: LoginParams) => {
             try {
+                const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+                const FcmTokenJson = JSON.parse(FcmTokenValue);
                 const response = await Register({
                     email: data?.email,
-                    password: data?.password
+                    password: data?.password,
+                    fcmToken: FcmTokenJson
                 });
                 if (response?.status !== STATUS_CODE.CODE_200) {
                     setVisibleDialog(true);

@@ -4,7 +4,7 @@ import { SafeAreaView, TouchableOpacity } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
-import Button from '@src/components/core/button';
+import Header from '@src/components/core/header';
 import { RemoveFcmToken } from '@src/services/login';
 import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
@@ -51,16 +51,18 @@ const SettingScreen: FC<SettingScreenProps> = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Header />
             <AlertDialog
                 visible={visibleDialog}
                 textContent={contentDialog}
                 handleClose={handleCloseDialog}
                 handleConfirm={handleCloseDialog}
             />
-            <TouchableOpacity onPress={() => handleLogout()}>
-                <Button mode="contained">
-                    <Text style={styles.textLogin}>ออกจากระบบ</Text>
-                </Button>
+            <TouchableOpacity
+                style={styles.buttonApply}
+                onPress={() => handleLogout()}
+            >
+                <Text style={styles.textLogin}>ออกจากระบบ</Text>
             </TouchableOpacity>
         </SafeAreaView>
     );
@@ -69,13 +71,22 @@ const SettingScreen: FC<SettingScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 50,
-        paddingTop: 50
+        backgroundColor: theme.colors.primary
     },
     textLogin: {
         fontFamily: 'K2D-Medium',
-        color: theme.colors.white,
+        color: theme.colors.primary,
         fontSize: 15
+    },
+    buttonApply: {
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 100,
+        marginHorizontal: 50,
+        backgroundColor: theme.colors.secondary
     }
 });
 
