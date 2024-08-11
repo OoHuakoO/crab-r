@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
@@ -14,7 +15,7 @@ import { theme } from '@src/theme';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 import { HistoryList } from '@src/typings/saveData';
 import { parseDateString } from '@src/utils/time-manager';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
@@ -196,9 +197,11 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
         }
     };
 
-    useEffect(() => {
-        handleGetHistory();
-    }, [handleGetHistory]);
+    useFocusEffect(
+        useCallback(() => {
+            handleGetHistory();
+        }, [handleGetHistory])
+    );
 
     return (
         <SafeAreaView style={styles.container}>
