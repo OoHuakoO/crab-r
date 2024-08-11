@@ -18,6 +18,7 @@ import { SaveWaterAfter } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
+    ActivityIndicator,
     PermissionsAndroid,
     Platform,
     SafeAreaView,
@@ -51,6 +52,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     const [selectPool, setSelectPool] = useState<string>('');
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(false);
 
     const [popupCameraAmmoniaVisible, setPopupCameraAmmoniaVisible] =
         useState(false);
@@ -251,6 +253,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
 
     const handleSaveData = async (data: SaveWaterAfter) => {
         try {
+            setLoading(true);
             var formData = new FormData();
             formData.append('location', selectLocation);
             formData.append('pool', selectPool);
@@ -286,12 +289,15 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                     params: { namePage: 'after' }
                 });
             } else {
+                setLoading(false);
                 setVisibleDialog(true);
                 setContentDialog('Something went wrong save data');
                 return;
             }
+            setLoading(false);
         } catch (err) {
             console.log(err);
+            setLoading(false);
             setVisibleDialog(true);
             setContentDialog('Something went wrong save data');
         }
@@ -436,9 +442,16 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                         ]}
                         onPress={form?.handleSubmit(handleSaveData)}
                     >
-                        <Text variant="bodyLarge" style={styles.buttonText}>
-                            บันทึกข้อมูล
-                        </Text>
+                        {loading ? (
+                            <ActivityIndicator
+                                size="small"
+                                color={theme.colors.white}
+                            />
+                        ) : (
+                            <Text variant="bodyLarge" style={styles.buttonText}>
+                                บันทึกข้อมูล
+                            </Text>
+                        )}
                     </TouchableOpacity>
                 </View>
             </ScrollView>

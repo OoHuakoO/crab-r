@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.primary
     },
     textLogin: {
-        fontFamily: 'K2D-Medium',
+        fontFamily: 'K2D-Bold',
         color: theme.colors.primary,
-        fontSize: 15
+        fontSize: 16
     },
     buttonApply: {
         paddingVertical: 12,
