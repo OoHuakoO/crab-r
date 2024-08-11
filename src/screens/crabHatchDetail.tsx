@@ -1,4 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import HeaderSection from '@src/components/core/headerSection';
@@ -14,13 +14,13 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
 
-type CrabHatchDetailScreenProps = NativeStackScreenProps<
+type CrabHatchDetailScreenProps = BottomTabScreenProps<
     HistoryStackParamsList,
     'WaterAfterDetail'
 >;
 
 const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
-    const { route } = props;
+    const { route, navigation } = props;
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
 
@@ -61,6 +61,16 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
     useEffect(() => {
         handleGetCrabHatch();
     }, [handleGetCrabHatch]);
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('tabPress', (e) => {
+            console.log('ok');
+            e.preventDefault();
+            navigation.navigate('HistorySaveData');
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>

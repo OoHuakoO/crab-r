@@ -54,6 +54,13 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
         setVisibleDialog(false);
     }, []);
 
+    const handleDisableButton = useCallback((): boolean => {
+        if (!selectLocation || !selectPool || !selectEggColor) {
+            return true;
+        }
+        return false;
+    }, [selectEggColor, selectLocation, selectPool]);
+
     const renderItemEggColor = (item: EggColorResponse) => {
         return (
             <View style={styles.dropdownItem}>
@@ -280,7 +287,15 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                     />
 
                     <TouchableOpacity
-                        style={styles.buttonApply}
+                        disabled={handleDisableButton()}
+                        style={[
+                            styles.buttonApply,
+                            {
+                                backgroundColor: handleDisableButton()
+                                    ? theme.colors.textGray
+                                    : theme.colors.gold
+                            }
+                        ]}
                         onPress={() => handleSaveData()}
                     >
                         <Text variant="bodyLarge" style={styles.buttonText}>
@@ -360,8 +375,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 40,
-        marginHorizontal: 50,
-        backgroundColor: theme.colors.gold
+        marginHorizontal: 50
     },
     buttonText: {
         color: theme.colors.white

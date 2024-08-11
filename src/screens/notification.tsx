@@ -1,16 +1,32 @@
 /* eslint-disable react-native/no-inline-styles */
+import { useFocusEffect } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import { LIMIT } from '@src/constant';
 import { GetHistories } from '@src/services/notification';
 import { theme } from '@src/theme';
+import { PrivateStackParamsList } from '@src/typings/navigation';
 import { GetHistoriesResponse } from '@src/typings/notification';
-import React, { FC, useCallback, useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import React, { FC, useCallback, useState } from 'react';
+import {
+    ActivityIndicator,
+    FlatList,
+    SafeAreaView,
+    StyleSheet,
+    TouchableOpacity,
+    View
+} from 'react-native';
 import { Text } from 'react-native-paper';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
-const NotificationScreen: FC = () => {
+type NotificationScreenProps = NativeStackScreenProps<
+    PrivateStackParamsList,
+    'Notification'
+>;
+
+const NotificationScreen: FC<NotificationScreenProps> = (props) => {
+    const { navigation } = props;
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [listNotification, setListNotification] = useState<
@@ -74,9 +90,11 @@ const NotificationScreen: FC = () => {
         }
     }, []);
 
-    useEffect(() => {
-        handleGetHistories();
-    }, [handleGetHistories]);
+    useFocusEffect(
+        useCallback(() => {
+            handleGetHistories();
+        }, [handleGetHistories])
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -101,7 +119,15 @@ const NotificationScreen: FC = () => {
                     <FlatList
                         data={listNotification}
                         renderItem={({ item }) => (
-                            <View style={styles.rowMenu}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.navigate('HistoryStack', {
+                                        screen: 'CrabHatchDetail',
+                                        params: { id: item?.crabHatchId }
+                                    });
+                                }}
+                                style={styles.rowMenu}
+                            >
                                 <View style={styles.imageContainer}>
                                     <IonIcons
                                         name="notifications-outline"
@@ -114,10 +140,16 @@ const NotificationScreen: FC = () => {
                                         {item?.title}
                                     </Text>
                                     <Text style={styles.message}>
+                                        {`สถานที่ : ${item?.location}`}
+                                    </Text>
+                                    <Text style={styles.message}>
+                                        {`บ่อที่ : ${item?.pool}`}
+                                    </Text>
+                                    <Text style={styles.message}>
                                         {item?.message}
                                     </Text>
                                 </View>
-                            </View>
+                            </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item._id.toString()}
                         onRefresh={() => console.log('refreshing')}
@@ -125,6 +157,11 @@ const NotificationScreen: FC = () => {
                         onEndReached={handleOnEndReached}
                         onEndReachedThreshold={0.5}
                         onScrollBeginDrag={() => setStopFetchMore(false)}
+                    />
+                ) : loading ? (
+                    <ActivityIndicator
+                        size="large"
+                        color={theme.colors.white}
                     />
                 ) : (
                     <Text variant="headlineSmall" style={styles.titleNotFound}>
@@ -148,12 +185,13 @@ const styles = StyleSheet.create({
         backgroundColor: theme.colors.secondary,
         borderWidth: 0.5,
         borderBottomColor: theme.colors.primary,
-        padding: 18,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
         marginBottom: 5
     },
     imageContainer: {
-        width: 50,
-        height: 50,
+        width: 60,
+        height: 60,
         backgroundColor: theme.colors.primary,
         alignItems: 'center',
         justifyContent: 'center',

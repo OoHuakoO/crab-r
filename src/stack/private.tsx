@@ -33,6 +33,14 @@ const PrivateStack = () => {
             />
             <Tab.Screen
                 name="HistoryStack"
+                listeners={({ navigation }) => ({
+                    tabPress: (e) => {
+                        e.preventDefault();
+                        navigation.navigate('HistoryStack', {
+                            screen: 'HistorySaveData'
+                        });
+                    }
+                })}
                 options={{
                     // eslint-disable-next-line react/no-unstable-nested-components
                     tabBarIcon: ({ color }) => (

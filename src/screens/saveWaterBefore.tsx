@@ -83,6 +83,19 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
         setVisibleDialog(false);
     }, []);
 
+    const handleDisableButton = useCallback((): boolean => {
+        if (
+            !selectLocation ||
+            !selectPool ||
+            !form.watch('alkaline') ||
+            !form.watch('ph') ||
+            !form.watch('salinity')
+        ) {
+            return true;
+        }
+        return false;
+    }, [form, selectLocation, selectPool]);
+
     const renderItemPool = (item: LocationResponse) => {
         return (
             <View style={styles.dropdownItem}>
@@ -410,7 +423,15 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                         )}
                     />
                     <TouchableOpacity
-                        style={styles.buttonApply}
+                        disabled={handleDisableButton()}
+                        style={[
+                            styles.buttonApply,
+                            {
+                                backgroundColor: handleDisableButton()
+                                    ? theme.colors.textGray
+                                    : theme.colors.gold
+                            }
+                        ]}
                         onPress={form?.handleSubmit(handleSaveData)}
                     >
                         <Text variant="bodyLarge" style={styles.buttonText}>
@@ -509,8 +530,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 40,
-        marginHorizontal: 50,
-        backgroundColor: theme.colors.gold
+        marginHorizontal: 50
     },
     buttonText: {
         color: theme.colors.white
