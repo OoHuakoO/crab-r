@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect } from 'react';
+import SplashScreen from 'react-native-splash-screen';
 import PrivateStack from './stack/private';
 import PublicStack from './stack/public';
 import { loginState, useRecoilState } from './store';
@@ -24,9 +25,19 @@ export default function App() {
         }
     }, [setLogin]);
 
+    const hideSplashScreen = useCallback(() => {
+        setTimeout(() => {
+            SplashScreen.hide();
+        }, 500);
+    }, []);
+
     useEffect(() => {
         getUserLogin();
     }, [getUserLogin]);
+
+    useEffect(() => {
+        hideSplashScreen();
+    }, [hideSplashScreen]);
 
     return (
         <NavigationContainer>
