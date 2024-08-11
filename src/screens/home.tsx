@@ -2,12 +2,14 @@ import messaging from '@react-native-firebase/messaging';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { GetHistoryReadCount } from '@src/services/notification';
+import { notificationState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import React, { FC, useEffect } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import {
     Image,
     ScrollView,
@@ -24,6 +26,8 @@ type HomeScreenProps = CompositeScreenProps<
 
 const HomeScreen: FC<HomeScreenProps> = (props) => {
     const { navigation } = props;
+    const setNotificationReadCount =
+        useSetRecoilState<number>(notificationState);
 
     useEffect(() => {
         const unsubscribe = messaging().onNotificationOpenedApp(
@@ -50,6 +54,17 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
 
         return unsubscribe;
     }, [navigation]);
+
+    const handleGetNotificationReadCount = useCallback(async () => {
+        const response = await GetHistoryReadCount();
+        if (response?.status === 200) {
+            setNotificationReadCount(response?.data);
+        }
+    }, [setNotificationReadCount]);
+
+    useEffect(() => {
+        handleGetNotificationReadCount();
+    }, [handleGetNotificationReadCount]);
 
     return (
         <ScrollView style={styles.container}>

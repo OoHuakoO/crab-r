@@ -9,3 +9,7 @@ export function GetHistories(
 ): Promise<Response<GetHistoriesResponse[]>> {
     return get<GetHistoriesResponse[]>('/notification/histories', { params });
 }
+
+export function GetHistoryReadCount(): Promise<Response<number>> {
+    return get<number>('/notification/histories-read-count');
+}

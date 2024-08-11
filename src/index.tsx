@@ -12,6 +12,7 @@ const Stack = createNativeStackNavigator<RootStackParamsList>();
 
 export default function App() {
     const [login, setLogin] = useRecoilState<LoginState>(loginState);
+
     const getUserLogin = useCallback(async () => {
         try {
             const loginValue = await AsyncStorage.getItem('Login');

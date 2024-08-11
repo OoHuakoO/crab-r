@@ -1,16 +1,22 @@
 import NotificationScreen from '@src/screens/notification';
 import SettingScreen from '@src/screens/setting';
+import { notificationState } from '@src/store';
 import { theme } from '@src/theme';
 import React, { memo } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { createMaterialBottomTabNavigator } from 'react-native-paper/react-navigation';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import OcticonsIcons from 'react-native-vector-icons/Octicons';
+import { useRecoilValue } from 'recoil';
 import HistoryStack from './historyStack';
 import HomeStack from './homeStack';
 
 const Tab = createMaterialBottomTabNavigator();
 const PrivateStack = () => {
+    const notificationReadCount = useRecoilValue<number>(notificationState);
+
     return (
         <Tab.Navigator
             labeled={false}
@@ -58,11 +64,21 @@ const PrivateStack = () => {
                 options={{
                     // eslint-disable-next-line react/no-unstable-nested-components
                     tabBarIcon: ({ color }) => (
-                        <IonIcons
-                            name="notifications-outline"
-                            size={30}
-                            color={color}
-                        />
+                        <View style={styles.containerNotificationIcon}>
+                            {notificationReadCount > 0 && (
+                                <OcticonsIcons
+                                    style={styles.dotIcon}
+                                    name="dot-fill"
+                                    size={20}
+                                    color={theme.colors.error}
+                                />
+                            )}
+                            <IonIcons
+                                name="notifications-outline"
+                                size={30}
+                                color={color}
+                            />
+                        </View>
                     )
                 }}
                 component={NotificationScreen}
@@ -80,5 +96,15 @@ const PrivateStack = () => {
         </Tab.Navigator>
     );
 };
+
+const styles = StyleSheet.create({
+    containerNotificationIcon: {
+        position: 'relative'
+    },
+    dotIcon: {
+        position: 'absolute',
+        right: 5
+    }
+});
 
 export default memo(PrivateStack);

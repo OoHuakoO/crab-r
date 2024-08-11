@@ -4,7 +4,8 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import { LIMIT } from '@src/constant';
-import { GetHistories } from '@src/services/notification';
+import { GetHistories, GetHistoryReadCount } from '@src/services/notification';
+import { notificationState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { PrivateStackParamsList } from '@src/typings/navigation';
 import { GetHistoriesResponse } from '@src/typings/notification';
@@ -35,6 +36,8 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [stopFetchMore, setStopFetchMore] = useState<boolean>(true);
+    const setNotificationReadCount =
+        useSetRecoilState<number>(notificationState);
 
     const handleCloseDialog = useCallback(() => {
         setVisibleDialog(false);
@@ -90,10 +93,18 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
         }
     }, []);
 
+    const handleGetNotificationReadCount = useCallback(async () => {
+        const response = await GetHistoryReadCount();
+        if (response?.status === 200) {
+            setNotificationReadCount(response?.data);
+        }
+    }, [setNotificationReadCount]);
+
     useFocusEffect(
         useCallback(() => {
             handleGetHistories();
-        }, [handleGetHistories])
+            handleGetNotificationReadCount();
+        }, [handleGetHistories, handleGetNotificationReadCount])
     );
 
     return (
