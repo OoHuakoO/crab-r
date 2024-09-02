@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -56,7 +57,9 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
     }, [navigation]);
 
     const handleGetNotificationReadCount = useCallback(async () => {
-        const response = await GetHistoryReadCount();
+        const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+        const FcmTokenJson = JSON.parse(FcmTokenValue);
+        const response = await GetHistoryReadCount(FcmTokenJson);
         if (response?.status === 200) {
             setNotificationReadCount(response?.data);
         }

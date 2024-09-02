@@ -1,6 +1,7 @@
 export interface GetHistoriesParams {
     page: number;
     limit: number;
+    fcmToken: string;
 }
 
 export interface GetHistoriesResponse {
@@ -10,4 +11,8 @@ export interface GetHistoriesResponse {
     message: string;
     location: string;
     pool: string;
+}
+
+export interface GetHistoryReadCountParams {
+    fcmToken: string;
 }

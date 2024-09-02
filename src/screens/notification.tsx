@@ -1,4 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
@@ -47,9 +48,12 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
         try {
             setLoading(true);
             if (!stopFetchMore) {
+                const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+                const FcmTokenJson = JSON.parse(FcmTokenValue);
                 const res = await GetHistories({
                     page: page + 1,
-                    limit: LIMIT
+                    limit: LIMIT,
+                    fcmToken: FcmTokenJson
                 });
                 if (res?.status === 200) {
                     setPage(page + 1);
@@ -74,9 +78,12 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
         try {
             setLoading(true);
             setPage(1);
+            const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+            const FcmTokenJson = JSON.parse(FcmTokenValue);
             const res = await GetHistories({
                 page: 1,
-                limit: LIMIT
+                limit: LIMIT,
+                fcmToken: FcmTokenJson
             });
             if (res?.status === 200) {
                 setListNotification(res?.data);
@@ -94,7 +101,9 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     }, []);
 
     const handleGetNotificationReadCount = useCallback(async () => {
-        const response = await GetHistoryReadCount();
+        const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
+        const FcmTokenJson = JSON.parse(FcmTokenValue);
+        const response = await GetHistoryReadCount(FcmTokenJson);
         if (response?.status === 200) {
             setNotificationReadCount(response?.data);
         }
