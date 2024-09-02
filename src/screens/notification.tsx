@@ -103,7 +103,7 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     const handleGetNotificationReadCount = useCallback(async () => {
         const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
         const FcmTokenJson = JSON.parse(FcmTokenValue);
-        const response = await GetHistoryReadCount(FcmTokenJson);
+        const response = await GetHistoryReadCount({ fcmToken: FcmTokenJson });
         if (response?.status === 200) {
             setNotificationReadCount(response?.data);
         }
