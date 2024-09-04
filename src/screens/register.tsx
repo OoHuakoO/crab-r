@@ -17,6 +17,7 @@ import { PublicStackParamsList } from '@src/typings/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
 import { Portal, Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type RegisterScreenProps = NativeStackScreenProps<
     PublicStackParamsList,
@@ -24,6 +25,7 @@ type RegisterScreenProps = NativeStackScreenProps<
 >;
 
 const RegisterScreen: FC<RegisterScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const setLogin = useSetRecoilState<LoginState>(loginState);
     const form = useForm<LoginParams>({});
@@ -70,7 +72,7 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Portal>
                 <AlertDialog
                     visible={visibleDialog}

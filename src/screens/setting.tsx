@@ -12,6 +12,7 @@ import { LoginState } from '@src/typings/common';
 import { PrivateStackParamsList } from '@src/typings/navigation';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type SettingScreenProps = NativeStackScreenProps<
     PrivateStackParamsList,
@@ -19,6 +20,7 @@ type SettingScreenProps = NativeStackScreenProps<
 >;
 
 const SettingScreen: FC<SettingScreenProps> = () => {
+    const { top } = useSafeAreaInsets();
     const setLogin = useSetRecoilState<LoginState>(loginState);
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
@@ -50,7 +52,7 @@ const SettingScreen: FC<SettingScreenProps> = () => {
     }, [setLogin]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <AlertDialog
                 visible={visibleDialog}

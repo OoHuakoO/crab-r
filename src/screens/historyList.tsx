@@ -16,15 +16,23 @@ import { HistoryStackParamsList } from '@src/typings/navigation';
 import { HistoryList } from '@src/typings/saveData';
 import { parseDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useMemo, useState } from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View } from 'react-native';
+import {
+    FlatList,
+    SafeAreaView,
+    StatusBar,
+    StyleSheet,
+    View
+} from 'react-native';
 
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 type HistoryListScreenProps = NativeStackScreenProps<
     HistoryStackParamsList,
     'HistoryList'
 >;
 
 const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { navigation, route } = props;
     const [listHistory, setListHistory] = useState<HistoryList[]>([]);
     const [totalHistory, setTotalHistory] = useState<number>(0);
@@ -204,7 +212,7 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <AlertDialog
                 textContent={contentDialog}
@@ -268,7 +276,8 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.primary,
+        marginTop: StatusBar.currentHeight
     },
     listContainer: {
         marginBottom: 180

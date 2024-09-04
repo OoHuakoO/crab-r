@@ -6,6 +6,7 @@ import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type SaveDataScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
@@ -13,6 +14,7 @@ type SaveDataScreenProps = NativeStackScreenProps<
 >;
 
 const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const menu = [
         {
@@ -36,7 +38,7 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
         }
     ];
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection

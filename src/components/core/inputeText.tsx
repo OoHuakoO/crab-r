@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     View
 } from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -21,11 +22,15 @@ interface InputTextProps extends TextInputProps {
     marginBottomContainer?: number;
     borderColor?: string;
     secureText?: boolean;
+    calendarEggScoopDate?: boolean;
+    calendarReleaseDate?: boolean;
     camera?: boolean;
     picture?: boolean;
     isPasswordVisible?: boolean;
     handleVisiblePassword?: () => void;
     handleTogglePopupCamera?: () => void;
+    handleOpenCrabEggScoopDate?: () => void;
+    handleOpenCrabReleaseDate?: () => void;
 }
 
 const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
@@ -38,9 +43,13 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
         secureText,
         camera,
         picture,
+        calendarEggScoopDate,
+        calendarReleaseDate,
         isPasswordVisible,
         handleVisiblePassword,
-        handleTogglePopupCamera
+        handleTogglePopupCamera,
+        handleOpenCrabEggScoopDate,
+        handleOpenCrabReleaseDate
     } = props;
     return (
         <View
@@ -108,6 +117,31 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
                 >
                     <FontAwesome
                         name="picture-o"
+                        size={30}
+                        color={theme.colors.primary}
+                    />
+                </TouchableOpacity>
+            )}
+
+            {calendarEggScoopDate && (
+                <TouchableOpacity
+                    style={styles.toggle}
+                    onPress={handleOpenCrabEggScoopDate}
+                >
+                    <AntDesign
+                        name="calendar"
+                        size={30}
+                        color={theme.colors.primary}
+                    />
+                </TouchableOpacity>
+            )}
+            {calendarReleaseDate && (
+                <TouchableOpacity
+                    style={styles.toggle}
+                    onPress={handleOpenCrabReleaseDate}
+                >
+                    <AntDesign
+                        name="calendar"
                         size={30}
                         color={theme.colors.primary}
                     />

@@ -13,12 +13,14 @@ import {
     View
 } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type PhScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Ph'>;
 
 const PhScreen: FC<PhScreenProps> = () => {
+    const { top } = useSafeAreaInsets();
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection

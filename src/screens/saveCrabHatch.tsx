@@ -28,7 +28,9 @@ import {
 } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import { Dropdown } from 'react-native-element-dropdown';
+
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type SaveCrabHatchScreenProps = CompositeScreenProps<
     NativeStackScreenProps<HomeStackParamsList, 'SaveCrabHatch'>,
@@ -36,6 +38,7 @@ type SaveCrabHatchScreenProps = CompositeScreenProps<
 >;
 
 const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
@@ -133,13 +136,22 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
             setContentDialog('Something went wrong save data');
         }
     };
+    const handleOpenCrabEggScoopDate = useCallback(() => {
+        setOpenCrabEggScoopDate(true);
+        setCrabEggScoopDate(new Date());
+    }, []);
+
+    const handleOpenCrabReleaseDate = useCallback(() => {
+        setOpenCrabReleaseDate(true);
+        setCrabReleaseDate(new Date());
+    }, []);
 
     useEffect(() => {
         handleInitDropdown();
     }, [handleInitDropdown]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <AlertDialog
                 textContent={contentDialog}
                 visible={visibleDialog}
@@ -214,24 +226,18 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         วันเขี่ยไข่ปู
                     </Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setOpenCrabEggScoopDate(true);
-                            setCrabEggScoopDate(new Date());
-                        }}
-                    >
-                        <InputText
-                            placeholder="Date"
-                            value={
-                                crabEggScoopDate
-                                    ? parseDateString(
-                                          crabEggScoopDate.toString()
-                                      )
-                                    : null
-                            }
-                            readOnly
-                        />
-                    </TouchableOpacity>
+
+                    <InputText
+                        calendarEggScoopDate
+                        placeholder="Date"
+                        value={
+                            crabEggScoopDate
+                                ? parseDateString(crabEggScoopDate.toString())
+                                : null
+                        }
+                        handleOpenCrabEggScoopDate={handleOpenCrabEggScoopDate}
+                        readOnly
+                    />
 
                     <DatePicker
                         modal
@@ -253,24 +259,18 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                     >
                         วันปล่อยลูกปู
                     </Text>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setOpenCrabReleaseDate(true);
-                            setCrabReleaseDate(new Date());
-                        }}
-                    >
-                        <InputText
-                            placeholder="Date"
-                            value={
-                                crabReleaseDate
-                                    ? parseDateString(
-                                          crabReleaseDate.toString()
-                                      )
-                                    : null
-                            }
-                            readOnly
-                        />
-                    </TouchableOpacity>
+
+                    <InputText
+                        placeholder="Date"
+                        value={
+                            crabReleaseDate
+                                ? parseDateString(crabReleaseDate.toString())
+                                : null
+                        }
+                        calendarReleaseDate
+                        handleOpenCrabReleaseDate={handleOpenCrabReleaseDate}
+                        readOnly
+                    />
 
                     <DatePicker
                         modal

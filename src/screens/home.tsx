@@ -14,11 +14,13 @@ import React, { FC, useCallback, useEffect } from 'react';
 import {
     Image,
     ScrollView,
+    StatusBar,
     StyleSheet,
     Text,
     TouchableOpacity,
     View
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HomeScreenProps = CompositeScreenProps<
     NativeStackScreenProps<HomeStackParamsList, 'SaveWaterAfter'>,
@@ -29,6 +31,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
     const { navigation } = props;
     const setNotificationReadCount =
         useSetRecoilState<number>(notificationState);
+    const { top } = useSafeAreaInsets();
 
     useEffect(() => {
         const unsubscribe = messaging().onNotificationOpenedApp(
@@ -70,7 +73,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
     }, [handleGetNotificationReadCount]);
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView style={[styles.container, { marginTop: top }]}>
             <View style={styles.header}>
                 <View style={styles.imageCrabRTextContainer}>
                     <Image
@@ -142,7 +145,8 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.primary,
+        marginTop: StatusBar.currentHeight
     },
     header: {
         alignItems: 'center',

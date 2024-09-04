@@ -20,6 +20,7 @@ import {
     View
 } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 
 type NotificationScreenProps = NativeStackScreenProps<
@@ -29,6 +30,7 @@ type NotificationScreenProps = NativeStackScreenProps<
 
 const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     const { navigation } = props;
+    const { top } = useSafeAreaInsets();
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [listNotification, setListNotification] = useState<
@@ -117,7 +119,7 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     );
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <AlertDialog
                 textContent={contentDialog}

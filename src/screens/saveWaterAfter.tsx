@@ -38,6 +38,7 @@ import {
     launchImageLibrary
 } from 'react-native-image-picker';
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type SaveWaterAfterScreenProps = CompositeScreenProps<
     NativeStackScreenProps<HomeStackParamsList, 'SaveWaterAfter'>,
@@ -45,6 +46,7 @@ type SaveWaterAfterScreenProps = CompositeScreenProps<
 >;
 
 const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
@@ -308,7 +310,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     }, [handleInitDropdown]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <AlertDialog
                 textContent={contentDialog}
                 visible={visibleDialog}

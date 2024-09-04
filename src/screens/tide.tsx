@@ -5,13 +5,15 @@ import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { WebView } from 'react-native-webview';
 
 type TideScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Tide'>;
 
 const TideScreen: FC<TideScreenProps> = () => {
+    const { top } = useSafeAreaInsets();
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <WebView
                 source={{

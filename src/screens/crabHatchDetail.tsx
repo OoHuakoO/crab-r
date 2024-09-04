@@ -13,6 +13,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type CrabHatchDetailScreenProps = BottomTabScreenProps<
     HistoryStackParamsList,
@@ -21,6 +22,7 @@ type CrabHatchDetailScreenProps = BottomTabScreenProps<
 
 const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
     const { route, navigation } = props;
+    const { top } = useSafeAreaInsets();
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
 
@@ -64,7 +66,6 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('tabPress', (e) => {
-            console.log('ok');
             e.preventDefault();
             navigation.navigate('HistorySaveData');
         });
@@ -73,7 +74,7 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
     }, [navigation]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <AlertDialog
                 textContent={contentDialog}
                 visible={visibleDialog}

@@ -6,6 +6,7 @@ import { theme } from '@src/theme';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HistorySaveDataProps = NativeStackScreenProps<
     HistoryStackParamsList,
@@ -14,6 +15,7 @@ type HistorySaveDataProps = NativeStackScreenProps<
 
 const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
     const { navigation } = props;
+    const { top } = useSafeAreaInsets();
     const menu = [
         {
             textTitle: 'ประวัติบันทึกข้อมูลคุณภาพน้ำ\nก่อนเข้าบ่อพักน้ำ',
@@ -39,7 +41,7 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
         }
     ];
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection

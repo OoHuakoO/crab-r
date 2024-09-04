@@ -13,6 +13,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type WaterAfterDetailScreenProps = NativeStackScreenProps<
     HistoryStackParamsList,
@@ -20,6 +21,7 @@ type WaterAfterDetailScreenProps = NativeStackScreenProps<
 >;
 
 const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
+    const { top } = useSafeAreaInsets();
     const { route } = props;
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
@@ -87,7 +89,7 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
     }, [handleGetWaterQualityAfter]);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <AlertDialog
                 textContent={contentDialog}
                 visible={visibleDialog}

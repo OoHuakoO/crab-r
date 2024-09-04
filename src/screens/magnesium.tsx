@@ -13,6 +13,7 @@ import {
     View
 } from 'react-native';
 import { Text } from 'react-native-paper';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type MagnesiumScreenProps = NativeStackScreenProps<
     HomeStackParamsList,
@@ -20,8 +21,9 @@ type MagnesiumScreenProps = NativeStackScreenProps<
 >;
 
 const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
+    const { top } = useSafeAreaInsets();
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
