@@ -8,25 +8,32 @@ import { RecoilRoot } from 'recoil';
 import App from './src';
 import { theme } from './src/theme';
 
+const requestUserPermission = async () => {
+    try {
+        if (Platform.OS === 'android') {
+            await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+            );
+        }
+
+        const authStatus = await messaging().requestPermission();
+
+        const enabled =
+            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+        if (enabled) {
+            const token = await messaging().getToken();
+            console.log('FCM Token:', token);
+            await AsyncStorage.setItem('FcmToken', JSON.stringify(token));
+        }
+    } catch (err) {
+        console.error('Permission error:', err);
+    }
+};
+
 function Main() {
     useEffect(() => {
-        const requestUserPermission = async () => {
-            if (Platform.OS === 'android') {
-                PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
-                );
-            }
-            const authStatus = await messaging().requestPermission();
-            const enabled =
-                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
-                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
-
-            if (enabled) {
-                const token = await messaging().getToken();
-                console.log('token', token);
-                await AsyncStorage.setItem('FcmToken', JSON.stringify(token));
-            }
-        };
         requestUserPermission();
     }, []);
 

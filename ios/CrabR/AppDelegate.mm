@@ -12,11 +12,17 @@
   self.initialProps = @{};
   BOOL ret = [super application:application didFinishLaunchingWithOptions:launchOptions];
   [FIRApp configure];
+  [application registerForRemoteNotifications];
    if (ret == YES)
   {
     [RNSplashScreen show];
   }
   return ret;
+}
+
+- (void)application:(UIApplication *)application
+ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+ [FIRMessaging messaging].APNSToken = deviceToken;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
