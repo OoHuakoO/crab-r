@@ -18,6 +18,7 @@ import { parseDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
     FlatList,
+    RefreshControl,
     SafeAreaView,
     StatusBar,
     StyleSheet,
@@ -261,10 +262,16 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
                             />
                         )}
                         keyExtractor={(item) => item._id.toString()}
-                        onRefresh={() => console.log('refreshing')}
-                        refreshing={loading}
                         onEndReached={handleOnEndReached}
                         onEndReachedThreshold={0.5}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={loading}
+                                onRefresh={() => console.log('refreshing')}
+                                tintColor={theme.colors.white}
+                                titleColor={theme.colors.white}
+                            />
+                        }
                         onScrollBeginDrag={() => setStopFetchMore(false)}
                     />
                 </View>

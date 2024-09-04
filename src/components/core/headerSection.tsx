@@ -8,18 +8,11 @@ interface HeaderSectionProps {
     textTitle: string;
     textSubtitle?: string;
     widthContainer?: DimensionValue;
-    marginBottomTextTitle?: number;
     fontSizeTextTitle?: number;
 }
 
 const HeaderSection: FC<HeaderSectionProps> = (props) => {
-    const {
-        image,
-        textTitle,
-        textSubtitle,
-        marginBottomTextTitle,
-        fontSizeTextTitle
-    } = props;
+    const { image, textTitle, textSubtitle, fontSizeTextTitle } = props;
     return (
         <View
             style={{
@@ -41,12 +34,11 @@ const HeaderSection: FC<HeaderSectionProps> = (props) => {
                             style={[
                                 styles.buttonText,
                                 {
-                                    marginBottom: marginBottomTextTitle
-                                        ? marginBottomTextTitle
-                                        : -10,
+                                    marginBottom: 10,
                                     fontSize: fontSizeTextTitle
                                         ? fontSizeTextTitle
-                                        : 28
+                                        : 28,
+                                    lineHeight: 35
                                 }
                             ]}
                         >
@@ -98,6 +90,7 @@ const styles = StyleSheet.create({
         fontFamily: 'K2D-Bold',
         fontSize: 20,
         color: theme.colors.white,
+        lineHeight: 30,
         flex: 1,
         flexWrap: 'wrap'
     },

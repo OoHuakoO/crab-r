@@ -56,7 +56,7 @@ export const fontConfig = {
         fontFamily: 'K2D-Regular',
         fontSize: 16,
         letterSpacing: 0.15,
-        lineHeight: 30
+        lineHeight: 28
     },
     titleLarge: {
         fontFamily: 'K2D-Regular',

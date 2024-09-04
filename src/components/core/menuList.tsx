@@ -6,10 +6,10 @@ import {
     FlexAlignType,
     Image,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View
 } from 'react-native';
+import { Text } from 'react-native-paper';
 
 interface MenuListProps {
     handlePress: () => void;
@@ -74,6 +74,7 @@ const MenuList: FC<MenuListProps> = (props) => {
                     }}
                 >
                     <Text
+                        variant="titleMedium"
                         style={[
                             styles.columnButtonText,
                             {
@@ -88,6 +89,7 @@ const MenuList: FC<MenuListProps> = (props) => {
                     </Text>
                     {textSubtitle && (
                         <Text
+                            variant="titleSmall"
                             style={[
                                 styles.columnButtonSubText,
                                 {
@@ -117,8 +119,8 @@ const styles = StyleSheet.create({
         width: '80%'
     },
     imageContainer: {
-        width: 80,
-        height: 80,
+        width: 75,
+        height: 75,
         position: 'absolute',
         zIndex: 1,
         left: -20
@@ -134,12 +136,10 @@ const styles = StyleSheet.create({
     },
     columnButtonText: {
         fontFamily: 'K2D-Bold',
-        fontSize: 16,
         color: theme.colors.primary
     },
     columnButtonSubText: {
-        fontFamily: 'K2D-Regular',
-        fontSize: 14,
-        color: theme.colors.primary
+        color: theme.colors.primary,
+        lineHeight: 27
     }
 });

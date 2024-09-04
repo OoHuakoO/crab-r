@@ -1,7 +1,6 @@
 import {
     GetHistoriesParams,
-    GetHistoriesResponse,
-    GetHistoryReadCountParams
+    GetHistoriesResponse
 } from '@src/typings/notification';
 import { Response, get } from '@src/utils/axios';
 
@@ -11,8 +10,6 @@ export function GetHistories(
     return get<GetHistoriesResponse[]>('/notification/histories', { params });
 }
 
-export function GetHistoryReadCount(
-    params: GetHistoryReadCountParams
-): Promise<Response<number>> {
-    return get<number>('/notification/histories-read-count', { params });
+export function GetHistoryReadCount(): Promise<Response<number>> {
+    return get<number>('/notification/histories-read-count');
 }

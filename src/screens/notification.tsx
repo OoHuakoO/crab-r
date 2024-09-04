@@ -1,5 +1,4 @@
 /* eslint-disable react-native/no-inline-styles */
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
@@ -14,6 +13,7 @@ import React, { FC, useCallback, useState } from 'react';
 import {
     ActivityIndicator,
     FlatList,
+    RefreshControl,
     SafeAreaView,
     StyleSheet,
     TouchableOpacity,
@@ -50,12 +50,9 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
         try {
             setLoading(true);
             if (!stopFetchMore) {
-                const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
-                const FcmTokenJson = JSON.parse(FcmTokenValue);
                 const res = await GetHistories({
                     page: page + 1,
-                    limit: LIMIT,
-                    fcmToken: FcmTokenJson
+                    limit: LIMIT
                 });
                 if (res?.status === 200) {
                     setPage(page + 1);
@@ -80,12 +77,9 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
         try {
             setLoading(true);
             setPage(1);
-            const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
-            const FcmTokenJson = JSON.parse(FcmTokenValue);
             const res = await GetHistories({
                 page: 1,
-                limit: LIMIT,
-                fcmToken: FcmTokenJson
+                limit: LIMIT
             });
             if (res?.status === 200) {
                 setListNotification(res?.data);
@@ -103,9 +97,7 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
     }, []);
 
     const handleGetNotificationReadCount = useCallback(async () => {
-        const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
-        const FcmTokenJson = JSON.parse(FcmTokenValue);
-        const response = await GetHistoryReadCount({ fcmToken: FcmTokenJson });
+        const response = await GetHistoryReadCount();
         if (response?.status === 200) {
             setNotificationReadCount(response?.data);
         }
@@ -174,11 +166,17 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
                             </TouchableOpacity>
                         )}
                         keyExtractor={(item) => item._id.toString()}
-                        onRefresh={() => console.log('refreshing')}
-                        refreshing={loading}
                         onEndReached={handleOnEndReached}
                         onEndReachedThreshold={0.5}
                         onScrollBeginDrag={() => setStopFetchMore(false)}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={loading}
+                                onRefresh={() => console.log('refreshing')}
+                                tintColor={theme.colors.white}
+                                titleColor={theme.colors.white}
+                            />
+                        }
                     />
                 ) : loading ? (
                     <ActivityIndicator

@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
@@ -16,10 +15,10 @@ import {
     ScrollView,
     StatusBar,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View
 } from 'react-native';
+import { Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HomeScreenProps = CompositeScreenProps<
@@ -60,9 +59,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
     }, [navigation]);
 
     const handleGetNotificationReadCount = useCallback(async () => {
-        const FcmTokenValue = await AsyncStorage.getItem('FcmToken');
-        const FcmTokenJson = JSON.parse(FcmTokenValue);
-        const response = await GetHistoryReadCount({ fcmToken: FcmTokenJson });
+        const response = await GetHistoryReadCount();
         if (response?.status === 200) {
             setNotificationReadCount(response?.data);
         }
@@ -116,8 +113,15 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         />
                     </View>
                     <View style={styles.textContainer}>
-                        <Text style={styles.buttonText}>องค์ความรู้</Text>
-                        <Text style={styles.buttonSubtext}>Knowledge</Text>
+                        <Text variant="titleLarge" style={styles.buttonText}>
+                            องค์ความรู้
+                        </Text>
+                        <Text
+                            variant="titleMedium"
+                            style={styles.buttonSubtext}
+                        >
+                            Knowledge
+                        </Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -133,8 +137,15 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         />
                     </View>
                     <View style={styles.textContainer}>
-                        <Text style={styles.buttonText}>บันทึกข้อมูล</Text>
-                        <Text style={styles.buttonSubtext}>Save Data</Text>
+                        <Text variant="titleLarge" style={styles.buttonText}>
+                            บันทึกข้อมูล
+                        </Text>
+                        <Text
+                            variant="titleMedium"
+                            style={styles.buttonSubtext}
+                        >
+                            Save Data
+                        </Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -224,7 +235,7 @@ const styles = StyleSheet.create({
         width: '75%'
     },
     textContainer: {
-        padding: 5,
+        padding: 8,
         borderRadius: 20,
         backgroundColor: theme.colors.secondary,
         width: '100%',
@@ -234,14 +245,11 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontFamily: 'K2D-Bold',
-        fontSize: 22,
         color: theme.colors.primary,
-        marginLeft: 20,
-        marginBottom: -10
+        marginLeft: 20
     },
     buttonSubtext: {
         fontFamily: 'K2D-Bold',
-        fontSize: 16,
         color: theme.colors.primary,
         marginLeft: 20
     },
