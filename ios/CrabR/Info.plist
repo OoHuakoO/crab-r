@@ -28,6 +28,8 @@
 	<string>This app requires access to the photo library.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to the camera.</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>NSUserActivityTypes</key>
 	<array>
     <string>INSendMessageIntent</string>
