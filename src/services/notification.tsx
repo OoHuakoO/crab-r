@@ -18,5 +18,5 @@ export function GetHistoryReadCount(): Promise<Response<number>> {
 export function CreateFcmToken(
     params: CreateFcmTokenParams
 ): Promise<Response<string>> {
-    return post<string>('/common/createFcmToken"', params);
+    return post<string>('/common/createFcmToken', params);
 }
