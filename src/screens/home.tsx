@@ -72,19 +72,22 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
     const requestUserPermissionAndCreateFcmToken = async () => {
         try {
             const authStatus = await messaging().requestPermission();
-            console.log('authStatus', authStatus);
+            console.log('createFcmToken authStatus', authStatus);
 
             const enabled =
                 authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
                 authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-            console.log('before enabled', enabled);
+            console.log('createFcmToken before enabled', enabled);
 
             if (enabled) {
-                console.log('after enabled', enabled);
+                console.log('createFcmToken after enabled', enabled);
                 const token = await messaging().getToken();
                 if (token) {
-                    console.log('FCM Token React Native:', token);
+                    console.log(
+                        'createFcmToken FCM Token React Native:',
+                        token
+                    );
                     await AsyncStorage.setItem(
                         'FcmToken',
                         JSON.stringify(token)
