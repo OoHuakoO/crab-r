@@ -17,18 +17,24 @@ const requestUserPermission = async () => {
         }
 
         const authStatus = await messaging().requestPermission();
+        console.log('authStatus', authStatus);
 
         const enabled =
             authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
             authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
+        console.log('before enabled', enabled);
+
         if (enabled) {
+            console.log('after enabled', enabled);
             const token = await messaging().getToken();
-            console.log('FCM Token:', token);
-            await AsyncStorage.setItem('FcmToken', JSON.stringify(token));
+            if (token) {
+                console.log('FCM Token React Native:', token);
+                await AsyncStorage.setItem('FcmToken', JSON.stringify(token));
+            }
         }
     } catch (err) {
-        console.error('Permission error:', err);
+        console.error('requestUserPermission error:', err);
     }
 };
 

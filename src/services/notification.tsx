@@ -1,8 +1,9 @@
 import {
+    CreateFcmTokenParams,
     GetHistoriesParams,
     GetHistoriesResponse
 } from '@src/typings/notification';
-import { Response, get } from '@src/utils/axios';
+import { Response, get, post } from '@src/utils/axios';
 
 export function GetHistories(
     params: GetHistoriesParams
@@ -12,4 +13,10 @@ export function GetHistories(
 
 export function GetHistoryReadCount(): Promise<Response<number>> {
     return get<number>('/notification/histories-read-count');
+}
+
+export function CreateFcmToken(
+    params: CreateFcmTokenParams
+): Promise<Response<string>> {
+    return post<string>('/common/createFcmToken"', params);
 }

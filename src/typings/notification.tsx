@@ -11,3 +11,7 @@ export interface GetHistoriesResponse {
     location: string;
     pool: string;
 }
+
+export interface CreateFcmTokenParams {
+    fcmToken: string;
+}

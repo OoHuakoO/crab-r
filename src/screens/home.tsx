@@ -1,8 +1,12 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { GetHistoryReadCount } from '@src/services/notification';
+import {
+    CreateFcmToken,
+    GetHistoryReadCount
+} from '@src/services/notification';
 import { notificationState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import {
@@ -64,6 +68,38 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
             setNotificationReadCount(response?.data);
         }
     }, [setNotificationReadCount]);
+
+    const requestUserPermissionAndCreateFcmToken = async () => {
+        try {
+            const authStatus = await messaging().requestPermission();
+            console.log('authStatus', authStatus);
+
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+            console.log('before enabled', enabled);
+
+            if (enabled) {
+                console.log('after enabled', enabled);
+                const token = await messaging().getToken();
+                if (token) {
+                    console.log('FCM Token React Native:', token);
+                    await AsyncStorage.setItem(
+                        'FcmToken',
+                        JSON.stringify(token)
+                    );
+                    await CreateFcmToken({ fcmToken: token });
+                }
+            }
+        } catch (err) {
+            console.error('requestUserPermissionAndCreateFcmToken error:', err);
+        }
+    };
+
+    useEffect(() => {
+        requestUserPermissionAndCreateFcmToken();
+    }, []);
 
     useEffect(() => {
         handleGetNotificationReadCount();

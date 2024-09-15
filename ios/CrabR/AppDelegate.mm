@@ -25,12 +25,13 @@
 // Set APNS Token
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
   [FIRMessaging messaging].APNSToken = deviceToken;
+   NSLog(@"FCM deviceToken IOS: %@",deviceToken);
   // Request FCM token
   [[FIRMessaging messaging] tokenWithCompletion:^(NSString * _Nullable token, NSError * _Nullable error) {
     if (error != nil) {
-      NSLog(@"Error fetching FCM token: %@", error.localizedDescription);
+      NSLog(@"Error fetching FCM token IOS: %@", error.localizedDescription);
     } else {
-      NSLog(@"FCM Token: %@", token);
+      NSLog(@"FCM Token IOS: %@", token);
     }
   }];
 }
