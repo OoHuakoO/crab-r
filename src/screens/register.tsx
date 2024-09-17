@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
 
 import InputText from '@src/components/core/inputeText';
 
@@ -41,7 +41,8 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
                 const response = await Register({
                     email: data?.email,
                     password: data?.password,
-                    fcmToken: FcmTokenJson
+                    fcmToken: FcmTokenJson,
+                    platform: Platform.OS
                 });
                 if (response?.status !== STATUS_CODE.CODE_200) {
                     setVisibleDialog(true);

@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
     BackHandler,
+    Platform,
     SafeAreaView,
     TouchableOpacity,
     View
@@ -43,7 +44,8 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
                 const response = await Login({
                     email: data?.email,
                     password: data?.password,
-                    fcmToken: FcmTokenJson
+                    fcmToken: FcmTokenJson,
+                    platform: Platform.OS
                 });
                 if (response?.status !== STATUS_CODE.CODE_200) {
                     setVisibleDialog(true);

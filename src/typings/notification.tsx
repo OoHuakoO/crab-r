@@ -14,4 +14,5 @@ export interface GetHistoriesResponse {
 
 export interface CreateFcmTokenParams {
     fcmToken: string;
+    platform: string;
 }

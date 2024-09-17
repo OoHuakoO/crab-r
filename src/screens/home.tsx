@@ -16,6 +16,7 @@ import {
 import React, { FC, useCallback, useEffect } from 'react';
 import {
     Image,
+    Platform,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -92,7 +93,10 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         'FcmToken',
                         JSON.stringify(token)
                     );
-                    await CreateFcmToken({ fcmToken: token });
+                    await CreateFcmToken({
+                        fcmToken: token,
+                        platform: Platform.OS
+                    });
                 }
             }
         } catch (err) {

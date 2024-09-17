@@ -17,6 +17,12 @@ export function Register(
 
 export function RemoveFcmToken(
     params: RemoveFcmTokenParams
-): Promise<Response<LoginResponse>> {
-    return post<any>('/user/remove-fcm-token', params);
+): Promise<Response<string>> {
+    return post<string>('/user/remove-fcm-token', params);
+}
+
+export function RemoveUser(
+    params: RemoveFcmTokenParams
+): Promise<Response<string>> {
+    return post<string>('/user/removeUser', params);
 }
