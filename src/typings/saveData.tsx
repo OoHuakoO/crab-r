@@ -3,15 +3,14 @@ export interface SaveWaterBefore {
     ph: string;
     alkaline: string;
     location?: string;
-    pool?: string;
 }
 
 export interface SaveWaterAfter {
+    chlorine: string;
     ammonia: string;
     calcium: string;
     magnesium: string;
     location?: string;
-    pool?: string;
 }
 
 export interface SaveCrabHatch {
@@ -39,7 +38,6 @@ export interface GetWaterQualityBeforeInquiryResponse {
     _id: string;
     createdAt: string;
     location: string;
-    pool: string;
 }
 
 export interface GetWaterQualityAfterInquiryParams {
@@ -51,7 +49,6 @@ export interface GetWaterQualityAfterInquiryResponse {
     _id: string;
     createdAt: string;
     location: string;
-    pool: string;
 }
 
 export interface GetCrabHatchInquiryParams {
@@ -67,7 +64,6 @@ export interface GetCrabHatchInquiryResponse {
 
 export interface GetWaterQualityBeforeByIdResponse {
     location: string;
-    pool: string;
     salinity: string;
     ph: string;
     alkaline: string;
@@ -78,10 +74,11 @@ export interface GetWaterQualityBeforeByIdResponse {
 
 export interface GetWaterQualityAfterByIdResponse {
     location: string;
-    pool: string;
+    chlorine: string;
     ammonia: string;
     calcium: string;
     magnesium: string;
+    chlorineImg: string;
     ammoniaImg: string;
     calciumImg: string;
     magnesiumImg: string;
@@ -91,7 +88,6 @@ export interface GetCrabHatchByIdResponse {
     location: string;
     pool: string;
     crabEggColor: string;
-    crabReleaseDate: Date;
     crabEggScoopDate: Date;
 }
 

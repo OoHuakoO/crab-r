@@ -4,6 +4,7 @@ import AmmoniaScreen from '@src/screens/ammonia';
 import ChlorineScreen from '@src/screens/chlorine';
 import CrabCircleScreen from '@src/screens/crabCircle';
 import HomeSreen from '@src/screens/home';
+import InnovationScreen from '@src/screens/innovation';
 import knowledgeScreen from '@src/screens/knowledge';
 import MagnesiumScreen from '@src/screens/magnesium';
 import PhScreen from '@src/screens/ph';
@@ -33,6 +34,13 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={knowledgeScreen}
+            />
+            <Stack.Screen
+                name="Innovation"
+                options={{
+                    headerShown: false
+                }}
+                component={InnovationScreen}
             />
             <Stack.Screen
                 name="SaveData"

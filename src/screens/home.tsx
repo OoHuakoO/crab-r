@@ -191,6 +191,30 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                         </Text>
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('Innovation');
+                    }}
+                    style={styles.rowMenu3}
+                >
+                    <View style={styles.imagePencilBookIconContainer}>
+                        <Image
+                            source={require('../../assets/images/pencilBookIcon.png')}
+                            style={styles.imagePencilBookIcon}
+                        />
+                    </View>
+                    <View style={styles.textContainer}>
+                        <Text variant="titleLarge" style={styles.buttonText}>
+                            ระบบนวัตกรรม
+                        </Text>
+                        <Text
+                            variant="titleMedium"
+                            style={styles.buttonSubtext}
+                        >
+                            Innovation System
+                        </Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </ScrollView>
     );
@@ -272,6 +296,13 @@ const styles = StyleSheet.create({
         width: '75%'
     },
     rowMenu2: {
+        flexDirection: 'row',
+        position: 'relative',
+        alignItems: 'center',
+        marginBottom: 50,
+        width: '75%'
+    },
+    rowMenu3: {
         flexDirection: 'row',
         position: 'relative',
         alignItems: 'center',

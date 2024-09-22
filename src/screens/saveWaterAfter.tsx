@@ -5,7 +5,6 @@ import HeaderSection from '@src/components/core/headerSection';
 import InputText from '@src/components/core/inputeText';
 import PopupCamera from '@src/components/core/popupCamera';
 import { GetLocations } from '@src/services/location';
-import { GetPools } from '@src/services/pool';
 import { CreateWaterQualityAfter } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { LocationResponse } from '@src/typings/location';
@@ -13,7 +12,6 @@ import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import { PoolResponse } from '@src/typings/pool';
 import { SaveWaterAfter } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -49,19 +47,23 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
-    const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [selectLocation, setSelectLocation] = useState<string>('');
-    const [selectPool, setSelectPool] = useState<string>('');
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [popupCameraChlorineVisible, setPopupCameraChlorineVisible] =
+        useState(false);
     const [popupCameraAmmoniaVisible, setPopupCameraAmmoniaVisible] =
         useState(false);
     const [popupCameraCalciumVisible, setPopupCameraCalciumVisible] =
         useState(false);
     const [popupCameraMagnesiumVisible, setPopupCameraMagnesiumVisible] =
         useState(false);
+
+    const [selectedImageChlorine, setSelectedImageChlorine] = useState<
+        string | null
+    >(null);
     const [selectedImageAmmonia, setSelectedImageAmmonia] = useState<
         string | null
     >(null);
@@ -73,6 +75,10 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     >(null);
 
     const form = useForm<SaveWaterAfter>({});
+
+    const togglePopupCameraChlorine = () => {
+        setPopupCameraChlorineVisible(!popupCameraChlorineVisible);
+    };
 
     const togglePopupCameraAmmonia = () => {
         setPopupCameraAmmoniaVisible(!popupCameraAmmoniaVisible);
@@ -93,7 +99,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     const handleDisableButton = useCallback((): boolean => {
         if (
             !selectLocation ||
-            !selectPool ||
+            !form.watch('chlorine') ||
             !form.watch('ammonia') ||
             !form.watch('calcium') ||
             !form.watch('magnesium')
@@ -101,17 +107,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
             return true;
         }
         return false;
-    }, [form, selectLocation, selectPool]);
-
-    const renderItemPool = (item: LocationResponse) => {
-        return (
-            <View style={styles.dropdownItem}>
-                <Text style={styles.dropdownItemText} variant="bodyLarge">
-                    {item?.name}
-                </Text>
-            </View>
-        );
-    };
+    }, [form, selectLocation]);
 
     const renderItemLocation = (item: LocationResponse) => {
         return (
@@ -137,6 +133,9 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                 } else if (response?.assets && response?.assets?.length > 0) {
                     const uri = response.assets[0].uri;
                     switch (type) {
+                        case 'chlorine':
+                            setSelectedImageChlorine(uri);
+                            break;
                         case 'ammonia':
                             setSelectedImageAmmonia(uri);
                             break;
@@ -191,6 +190,9 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                         ) {
                             const uri = response.assets[0].uri;
                             switch (type) {
+                                case 'chlorine':
+                                    setSelectedImageChlorine(uri);
+                                    break;
                                 case 'ammonia':
                                     setSelectedImageAmmonia(uri);
                                     break;
@@ -217,6 +219,9 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                     } else {
                         const uri = response.assets[0].uri;
                         switch (type) {
+                            case 'chlorine':
+                                setSelectedImageChlorine(uri);
+                                break;
                             case 'ammonia':
                                 setSelectedImageAmmonia(uri);
                                 break;
@@ -241,12 +246,8 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
 
     const handleInitDropdown = useCallback(async () => {
         try {
-            const [responsePool, responseLocation] = await Promise.all([
-                GetPools(),
-                GetLocations()
-            ]);
+            const [responseLocation] = await Promise.all([GetLocations()]);
             setListLocation(responseLocation?.data);
-            setListPool(responsePool?.data);
         } catch (err) {
             console.log(err);
             setVisibleDialog(true);
@@ -258,10 +259,17 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
             setLoading(true);
             var formData = new FormData();
             formData.append('location', selectLocation);
-            formData.append('pool', selectPool);
+            formData.append('chlorine', data?.chlorine || '');
             formData.append('ammonia', data?.ammonia || '');
             formData.append('calcium', data?.calcium || '');
             formData.append('magnesium', data?.magnesium || '');
+            if (selectedImageChlorine) {
+                formData.append('chlorineImg', {
+                    uri: selectedImageChlorine,
+                    name: 'chlorineImg.jpg',
+                    type: 'image/jpeg'
+                });
+            }
             if (selectedImageAmmonia) {
                 formData.append('ammoniaImg', {
                     uri: selectedImageAmmonia,
@@ -345,23 +353,27 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                         renderItem={renderItemLocation}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
-                        บ่อที่
+                        ค่าคลอลีน
                     </Text>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        data={listPool}
-                        maxHeight={300}
-                        labelField="name"
-                        valueField="name"
-                        placeholder={'เลือกบ่อ'}
-                        value={selectPool}
-                        onChange={(item) => {
-                            setSelectPool(item?.name);
-                        }}
-                        renderItem={renderItemPool}
+                    <Controller
+                        name="chlorine"
+                        defaultValue=""
+                        control={form?.control}
+                        render={({ field }) => (
+                            <InputText
+                                {...field}
+                                handleTogglePopupCamera={
+                                    togglePopupCameraChlorine
+                                }
+                                marginBottomContainer={1}
+                                placeholder="ระบุค่าคลอลีน"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                textContentType="none"
+                                camera
+                                onChangeText={(value) => field?.onChange(value)}
+                            />
+                        )}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         ค่าแอมโมเนีย
@@ -458,6 +470,14 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                 </View>
             </ScrollView>
 
+            <PopupCamera
+                selectedImage={selectedImageChlorine}
+                visible={popupCameraChlorineVisible}
+                onClose={togglePopupCameraChlorine}
+                type="chlorine"
+                openImagePicker={openImagePicker}
+                handleCameraLaunch={handleCameraLaunch}
+            />
             <PopupCamera
                 selectedImage={selectedImageAmmonia}
                 visible={popupCameraAmmoniaVisible}

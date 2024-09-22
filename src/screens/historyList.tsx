@@ -251,9 +251,17 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
                                     )
                                 }
                                 textTitle={`${item?.location}`}
-                                textSubtitle={`บ่อที่ ${
+                                textSubtitle={
                                     item?.pool
-                                } วันที่ ${parseDateString(item?.createdAt)}`}
+                                        ? `บ่อที่ ${
+                                              item?.pool
+                                          } วันที่ ${parseDateString(
+                                              item?.createdAt
+                                          )}`
+                                        : `วันที่ ${parseDateString(
+                                              item?.createdAt
+                                          )}`
+                                }
                                 textBoxMarginLeft={0.1}
                                 textBoxAlignItems="flex-start"
                                 textBoxGap={10}

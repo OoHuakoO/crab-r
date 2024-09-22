@@ -65,7 +65,6 @@ const WaterBeforeDetailScreen: FC<WaterBeforeDetailScreenProps> = (props) => {
                 setSelectedImagePh(res?.data?.phImg);
                 setSelectedImageSalinity(res?.data?.salinityImg);
                 form.setValue('location', res?.data?.location || '');
-                form.setValue('pool', res?.data?.pool || '');
                 form.setValue('alkaline', res?.data?.alkaline || '');
                 form.setValue('ph', res?.data?.ph || '');
                 form.setValue('salinity', res?.data?.salinity || '');
@@ -113,26 +112,6 @@ const WaterBeforeDetailScreen: FC<WaterBeforeDetailScreenProps> = (props) => {
                                 {...field}
                                 marginBottomContainer={1}
                                 placeholder="ระบุสถานที่"
-                                returnKeyType="next"
-                                autoCapitalize="none"
-                                textContentType="none"
-                                onChangeText={(value) => field?.onChange(value)}
-                                readOnly
-                            />
-                        )}
-                    />
-                    <Text variant="bodyLarge" style={styles.textTitle}>
-                        บ่อที่
-                    </Text>
-                    <Controller
-                        name="pool"
-                        defaultValue=""
-                        control={form?.control}
-                        render={({ field }) => (
-                            <InputText
-                                {...field}
-                                marginBottomContainer={1}
-                                placeholder="ระบุบ่อ"
                                 returnKeyType="next"
                                 autoCapitalize="none"
                                 textContentType="none"

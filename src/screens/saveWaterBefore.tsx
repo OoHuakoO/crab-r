@@ -5,7 +5,6 @@ import HeaderSection from '@src/components/core/headerSection';
 import InputText from '@src/components/core/inputeText';
 import PopupCamera from '@src/components/core/popupCamera';
 import { GetLocations } from '@src/services/location';
-import { GetPools } from '@src/services/pool';
 import { CreateWaterQualityBefore } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { LocationResponse } from '@src/typings/location';
@@ -13,7 +12,6 @@ import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import { PoolResponse } from '@src/typings/pool';
 import { SaveWaterBefore } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -49,9 +47,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
     const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
-    const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [selectLocation, setSelectLocation] = useState<string>('');
-    const [selectPool, setSelectPool] = useState<string>('');
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -90,7 +86,6 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
     const handleDisableButton = useCallback((): boolean => {
         if (
             !selectLocation ||
-            !selectPool ||
             !form.watch('alkaline') ||
             !form.watch('ph') ||
             !form.watch('salinity')
@@ -98,17 +93,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
             return true;
         }
         return false;
-    }, [form, selectLocation, selectPool]);
-
-    const renderItemPool = (item: LocationResponse) => {
-        return (
-            <View style={styles.dropdownItem}>
-                <Text style={styles.dropdownItemText} variant="bodyLarge">
-                    {item?.name}
-                </Text>
-            </View>
-        );
-    };
+    }, [form, selectLocation]);
 
     const renderItemLocation = (item: LocationResponse) => {
         return (
@@ -241,12 +226,8 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
 
     const handleInitDropdown = useCallback(async () => {
         try {
-            const [responsePool, responseLocation] = await Promise.all([
-                GetPools(),
-                GetLocations()
-            ]);
+            const [responseLocation] = await Promise.all([GetLocations()]);
             setListLocation(responseLocation?.data);
-            setListPool(responsePool?.data);
         } catch (err) {
             console.log(err);
             setVisibleDialog(true);
@@ -258,7 +239,6 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
             setLoading(true);
             var formData = new FormData();
             formData.append('location', selectLocation);
-            formData.append('pool', selectPool);
             formData.append('salinity', data?.salinity || '');
             formData.append('ph', data?.ph || '');
             formData.append('alkaline', data?.alkaline || '');
@@ -343,25 +323,6 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                             setSelectLocation(item?.name);
                         }}
                         renderItem={renderItemLocation}
-                    />
-                    <Text variant="bodyLarge" style={styles.textTitle}>
-                        บ่อที่
-                    </Text>
-                    <Dropdown
-                        style={styles.dropdown}
-                        placeholderStyle={styles.placeholderStyle}
-                        selectedTextStyle={styles.selectedTextStyle}
-                        inputSearchStyle={styles.inputSearchStyle}
-                        data={listPool}
-                        maxHeight={300}
-                        labelField="name"
-                        valueField="name"
-                        placeholder={'เลือกบ่อ'}
-                        value={selectPool}
-                        onChange={(item) => {
-                            setSelectPool(item?.name);
-                        }}
-                        renderItem={renderItemPool}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         ค่าความเค็ม

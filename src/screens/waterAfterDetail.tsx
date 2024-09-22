@@ -26,12 +26,18 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
 
+    const [popupCameraChlorineVisible, setPopupCameraChlorineVisible] =
+        useState(false);
     const [popupCameraAmmoniaVisible, setPopupCameraAmmoniaVisible] =
         useState(false);
     const [popupCameraCalciumVisible, setPopupCameraCalciumVisible] =
         useState(false);
     const [popupCameraMagnesiumVisible, setPopupCameraMagnesiumVisible] =
         useState(false);
+
+    const [selectedImageChlorine, setSelectedImageChlorine] = useState<
+        string | null
+    >(null);
     const [selectedImageAmmonia, setSelectedImageAmmonia] = useState<
         string | null
     >(null);
@@ -43,6 +49,10 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
     >(null);
 
     const form = useForm<SaveWaterAfter>({});
+
+    const togglePopupCameraChlorine = () => {
+        setPopupCameraChlorineVisible(!popupCameraChlorineVisible);
+    };
 
     const togglePopupCameraAmmonia = () => {
         setPopupCameraAmmoniaVisible(!popupCameraAmmoniaVisible);
@@ -64,11 +74,12 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
         try {
             const res = await GetWaterQualityAfterById(route?.params?.id);
             if (res?.status === 200) {
+                setSelectedImageChlorine(res?.data?.chlorineImg);
                 setSelectedImageAmmonia(res?.data?.ammoniaImg);
                 setSelectedImageCalcium(res?.data?.calciumImg);
                 setSelectedImageMagnesium(res?.data?.magnesiumImg);
                 form.setValue('location', res?.data?.location || '');
-                form.setValue('pool', res?.data?.pool || '');
+                form.setValue('chlorine', res?.data?.chlorine || '');
                 form.setValue('ammonia', res?.data?.ammonia || '');
                 form.setValue('calcium', res?.data?.calcium || '');
                 form.setValue('magnesium', res?.data?.magnesium || '');
@@ -125,20 +136,24 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
                         )}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
-                        บ่อที่
+                        ค่าคลอลีน
                     </Text>
                     <Controller
-                        name="pool"
+                        name="chlorine"
                         defaultValue=""
                         control={form?.control}
                         render={({ field }) => (
                             <InputText
                                 {...field}
+                                handleTogglePopupCamera={
+                                    togglePopupCameraChlorine
+                                }
                                 marginBottomContainer={1}
-                                placeholder="ระบุบ่อ"
+                                placeholder="ระบุค่าคลอลีน"
                                 returnKeyType="next"
                                 autoCapitalize="none"
                                 textContentType="none"
+                                picture
                                 onChangeText={(value) => field?.onChange(value)}
                                 readOnly
                             />
@@ -218,6 +233,13 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
                     />
                 </View>
             </ScrollView>
+            <PopupCamera
+                viewImage
+                selectedImage={selectedImageChlorine}
+                visible={popupCameraChlorineVisible}
+                onClose={togglePopupCameraChlorine}
+                type="chlorine"
+            />
             <PopupCamera
                 viewImage
                 selectedImage={selectedImageAmmonia}
