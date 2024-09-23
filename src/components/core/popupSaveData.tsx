@@ -16,10 +16,11 @@ interface PopupSaveDataProp {
     listData: ListPopupData[];
     onSave: () => void;
     loading: boolean;
+    remark?: boolean;
 }
 
 const PopupSaveData: FC<PopupSaveDataProp> = (props) => {
-    const { visible, onClose, listData, onSave, loading } = props;
+    const { visible, onClose, listData, onSave, loading, remark } = props;
 
     return (
         <Modal visible={visible} onDismiss={onClose}>
@@ -46,6 +47,11 @@ const PopupSaveData: FC<PopupSaveDataProp> = (props) => {
                         </Text>
                     </View>
                 ))}
+                {remark && (
+                    <Text variant="bodyLarge" style={styles.remark}>
+                        * นำค่าเปรียบเทียบตามตารางองค์ความรู้
+                    </Text>
+                )}
                 <TouchableOpacity style={styles.buttonSave} onPress={onSave}>
                     {loading ? (
                         <ActivityIndicator
@@ -103,6 +109,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    remark: {
+        color: theme.colors.primary,
+        marginBottom: 5
     }
 });
 

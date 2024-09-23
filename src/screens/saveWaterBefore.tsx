@@ -164,6 +164,10 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
         setListPopupData(listData);
     };
 
+    const onClosePopupSaveData = () => {
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+    };
+
     const togglePopupCameraSalinity = () => {
         setPopupCameraSalinityVisible(!popupCameraSalinityVisible);
     };
@@ -513,7 +517,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                 onSave={handlePopupOnSave}
                 listData={listPopupData}
                 visible={popupSaveDataVisible}
-                onClose={togglePopupSaveData}
+                onClose={onClosePopupSaveData}
             />
 
             <PopupCamera

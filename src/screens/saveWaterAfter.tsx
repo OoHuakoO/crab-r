@@ -12,11 +12,10 @@ import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import { SaveWaterAfter } from '@src/typings/saveData';
+import { ListPopupData, SaveWaterAfter } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-    ActivityIndicator,
     PermissionsAndroid,
     Platform,
     SafeAreaView,
@@ -29,6 +28,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
+import PopupSaveData from '@src/components/core/popupSaveData';
 import FormData from 'form-data';
 import {
     MediaType,
@@ -51,7 +51,9 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
+    const [listPopupData, setListPopupData] = useState<ListPopupData[]>([]);
 
+    const [popupSaveDataVisible, setPopupSaveDataVisible] = useState(false);
     const [popupCameraChlorineVisible, setPopupCameraChlorineVisible] =
         useState(false);
     const [popupCameraAmmoniaVisible, setPopupCameraAmmoniaVisible] =
@@ -75,6 +77,10 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
     >(null);
 
     const form = useForm<SaveWaterAfter>({});
+
+    const onClosePopupSaveData = () => {
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+    };
 
     const togglePopupCameraChlorine = () => {
         setPopupCameraChlorineVisible(!popupCameraChlorineVisible);
@@ -254,15 +260,55 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
         }
     }, []);
 
-    const handleSaveData = async (data: SaveWaterAfter) => {
+    const togglePopupSaveData = () => {
+        const listData: ListPopupData[] = [];
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+
+        const chlorineValue = parseFloat(form.watch('chlorine'));
+        const ammoniaValue = parseFloat(form.watch('ammonia'));
+        const calciumValue = parseFloat(form.watch('calcium'));
+        const magnesiumValue = parseFloat(form.watch('magnesium'));
+
+        // Salinity conditions
+        if (chlorineValue === 0) {
+            listData.push({
+                primary: 'ค่าคลอรีน',
+                secondary: 'เหมาะสมเพาะฟักลูกปู'
+            });
+        } else {
+            listData.push({
+                primary: 'ค่าคลอรีน',
+                secondary: 'ไม่เหมาะสมเพาะฟักลูกปู'
+            });
+        }
+
+        listData.push({
+            primary: 'ค่าแอมโมเนีย',
+            secondary: `${ammoniaValue} mg/L *`
+        });
+
+        listData.push({
+            primary: 'ค่าแคลเซียม',
+            secondary: `${calciumValue} mg/L *`
+        });
+
+        listData.push({
+            primary: 'ค่าแมกนีเซียม',
+            secondary: `${magnesiumValue} mg/L *`
+        });
+
+        setListPopupData(listData);
+    };
+
+    const handlePopupOnSave = async () => {
         try {
             setLoading(true);
             var formData = new FormData();
             formData.append('location', selectLocation);
-            formData.append('chlorine', data?.chlorine || '');
-            formData.append('ammonia', data?.ammonia || '');
-            formData.append('calcium', data?.calcium || '');
-            formData.append('magnesium', data?.magnesium || '');
+            formData.append('chlorine', form?.watch('chlorine') || '');
+            formData.append('ammonia', form?.watch('ammonia') || '');
+            formData.append('calcium', form?.watch('calcium') || '');
+            formData.append('magnesium', form?.watch('magnesium') || '');
             if (selectedImageChlorine) {
                 formData.append('chlorineImg', {
                     uri: selectedImageChlorine,
@@ -305,6 +351,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                 return;
             }
             setLoading(false);
+            setPopupSaveDataVisible(false);
         } catch (err) {
             console.log(err);
             setLoading(false);
@@ -454,21 +501,23 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                                     : theme.colors.gold
                             }
                         ]}
-                        onPress={form?.handleSubmit(handleSaveData)}
+                        onPress={togglePopupSaveData}
                     >
-                        {loading ? (
-                            <ActivityIndicator
-                                size="small"
-                                color={theme.colors.white}
-                            />
-                        ) : (
-                            <Text variant="bodyLarge" style={styles.buttonText}>
-                                บันทึกข้อมูล
-                            </Text>
-                        )}
+                        <Text variant="bodyLarge" style={styles.buttonText}>
+                            บันทึกข้อมูล
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <PopupSaveData
+                remark={true}
+                loading={loading}
+                onSave={handlePopupOnSave}
+                listData={listPopupData}
+                visible={popupSaveDataVisible}
+                onClose={onClosePopupSaveData}
+            />
 
             <PopupCamera
                 selectedImage={selectedImageChlorine}
