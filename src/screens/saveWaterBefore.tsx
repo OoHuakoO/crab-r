@@ -5,18 +5,16 @@ import HeaderSection from '@src/components/core/headerSection';
 import InputText from '@src/components/core/inputeText';
 import PopupCamera from '@src/components/core/popupCamera';
 import { GetLocations } from '@src/services/location';
-import { CreateWaterQualityBefore } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { LocationResponse } from '@src/typings/location';
 import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import { SaveWaterBefore } from '@src/typings/saveData';
+import { ListPopupData, SaveWaterBefore } from '@src/typings/saveData';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import {
-    ActivityIndicator,
     PermissionsAndroid,
     Platform,
     SafeAreaView,
@@ -29,6 +27,8 @@ import { Dropdown } from 'react-native-element-dropdown';
 
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps } from '@react-navigation/native';
+import PopupSaveData from '@src/components/core/popupSaveData';
+import { CreateWaterQualityBefore } from '@src/services/saveData';
 import FormData from 'form-data';
 import {
     MediaType,
@@ -52,6 +52,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
     const [contentDialog, setContentDialog] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(false);
 
+    const [popupSaveDataVisible, setPopupSaveDataVisible] = useState(false);
     const [popupCameraSalinityVisible, setPopupCameraSalinityVisible] =
         useState(false);
     const [popupCameraPhVisible, setPopupCameraPhVisible] = useState(false);
@@ -64,8 +65,104 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
     const [selectedImageAlkaline, setSelectedImageAlkaline] = useState<
         string | null
     >(null);
+    const [listPopupData, setListPopupData] = useState<ListPopupData[]>([]);
 
     const form = useForm<SaveWaterBefore>({});
+
+    const togglePopupSaveData = () => {
+        const listData: ListPopupData[] = [];
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+
+        const salinityValue = parseFloat(form.watch('salinity'));
+        const phValue = parseFloat(form.watch('ph'));
+        const alkalineValue = parseFloat(form.watch('alkaline'));
+
+        // Salinity conditions
+        if (salinityValue > 9) {
+            listData.push({
+                primary: 'ค่าความเค็ม',
+                secondary: 'เหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (salinityValue === 9) {
+            listData.push({
+                primary: 'เติมเกลือ',
+                secondary: '5 กิโลกรัมเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (salinityValue === 8) {
+            listData.push({
+                primary: 'เติมเกลือ',
+                secondary: '10 กิโลกรัมเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else {
+            listData.push({
+                primary: 'ค่าความเค็ม',
+                secondary: 'ไม่เหมาะสมเพาะฟักลูกปู'
+            });
+        }
+
+        // pH conditions
+        if (phValue >= 7.5 && phValue <= 8.5) {
+            listData.push({
+                primary: 'ค่า pH',
+                secondary: 'เหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (phValue >= 7.0 && phValue <= 7.1) {
+            listData.push({
+                primary: 'เติมปูนขาว',
+                secondary: '2 กิโลกรัมเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (phValue >= 7.2 && phValue <= 7.4) {
+            listData.push({
+                primary: 'เติมปูนขาว',
+                secondary: '1 กิโลกรัมเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (phValue >= 8.6 && phValue <= 8.8) {
+            listData.push({
+                primary: 'เติมน้ำจืด',
+                secondary: '500 ลิตรเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (phValue >= 8.9 && phValue <= 9.0) {
+            listData.push({
+                primary: 'เติมน้ำจืด',
+                secondary: '1000 ลิตรเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else {
+            listData.push({
+                primary: 'ค่า pH',
+                secondary: 'ไม่เหมาะสมเพาะฟักลูกปู'
+            });
+        }
+
+        // Alkaline conditions
+        if (alkalineValue < 100) {
+            listData.push({
+                primary: 'ค่าอัลคาไลน์',
+                secondary: 'ไม่เหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (alkalineValue >= 100 && alkalineValue <= 120) {
+            listData.push({
+                primary: 'เติมโซเดียมไบคาร์บอเนต',
+                secondary: '720 กรัมเพื่อความเหมาะสมเพาะฟักลูกปู'
+            });
+        } else if (alkalineValue > 120 && alkalineValue <= 170) {
+            listData.push({
+                primary: 'ค่าอัลคาไลน์',
+                secondary: 'เหมาะสมที่สุดเพาะฟักลูกปู'
+            });
+        } else if (alkalineValue >= 170) {
+            listData.push({
+                primary: 'ค่าอัลคาไลน์',
+                secondary: 'เหมาะสมเพาะฟักลูกปู'
+            });
+        } else {
+            listData.push({
+                primary: 'ค่าอัลคาไลน์',
+                secondary: 'ไม่เหมาะสมเพาะฟักลูกปู'
+            });
+        }
+
+        setListPopupData(listData);
+    };
 
     const togglePopupCameraSalinity = () => {
         setPopupCameraSalinityVisible(!popupCameraSalinityVisible);
@@ -234,14 +331,14 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
         }
     }, []);
 
-    const handleSaveData = async (data: SaveWaterBefore) => {
+    const handlePopupOnSave = async () => {
         try {
             setLoading(true);
             var formData = new FormData();
             formData.append('location', selectLocation);
-            formData.append('salinity', data?.salinity || '');
-            formData.append('ph', data?.ph || '');
-            formData.append('alkaline', data?.alkaline || '');
+            formData.append('salinity', form?.watch('salinity') || '');
+            formData.append('ph', form?.watch('ph') || '');
+            formData.append('alkaline', form?.watch('alkaline') || '');
             if (selectedImageSalinity) {
                 formData.append('salinityImg', {
                     uri: selectedImageSalinity,
@@ -277,6 +374,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                 return;
             }
             setLoading(false);
+            setPopupSaveDataVisible(false);
         } catch (err) {
             console.log(err);
             setLoading(false);
@@ -401,21 +499,22 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                                     : theme.colors.gold
                             }
                         ]}
-                        onPress={form?.handleSubmit(handleSaveData)}
+                        onPress={togglePopupSaveData}
                     >
-                        {loading ? (
-                            <ActivityIndicator
-                                size="small"
-                                color={theme.colors.white}
-                            />
-                        ) : (
-                            <Text variant="bodyLarge" style={styles.buttonText}>
-                                บันทึกข้อมูล
-                            </Text>
-                        )}
+                        <Text variant="bodyLarge" style={styles.buttonText}>
+                            บันทึกข้อมูล
+                        </Text>
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <PopupSaveData
+                loading={loading}
+                onSave={handlePopupOnSave}
+                listData={listPopupData}
+                visible={popupSaveDataVisible}
+                onClose={togglePopupSaveData}
+            />
 
             <PopupCamera
                 selectedImage={selectedImageSalinity}

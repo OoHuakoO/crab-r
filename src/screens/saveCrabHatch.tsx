@@ -50,8 +50,6 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const [contentDialog, setContentDialog] = useState<string>('');
     const [crabEggScoopDate, setCrabEggScoopDate] = useState(new Date());
     const [openCrabEggScoopDate, setOpenCrabEggScoopDate] = useState(false);
-    const [crabReleaseDate, setCrabReleaseDate] = useState(new Date());
-    const [openCrabReleaseDate, setOpenCrabReleaseDate] = useState(false);
 
     const handleCloseDialog = useCallback(() => {
         setVisibleDialog(false);
@@ -117,8 +115,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                 location: selectLocation,
                 pool: selectPool,
                 crabEggColor: selectEggColor,
-                crabEggScoopDate: crabEggScoopDate,
-                crabReleaseDate: crabReleaseDate
+                crabEggScoopDate: crabEggScoopDate
             });
             if (res?.status === 200) {
                 navigation.navigate('HistoryStack', {
@@ -139,11 +136,6 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const handleOpenCrabEggScoopDate = useCallback(() => {
         setOpenCrabEggScoopDate(true);
         setCrabEggScoopDate(new Date());
-    }, []);
-
-    const handleOpenCrabReleaseDate = useCallback(() => {
-        setOpenCrabReleaseDate(true);
-        setCrabReleaseDate(new Date());
     }, []);
 
     useEffect(() => {
@@ -250,39 +242,6 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         }}
                         onCancel={() => {
                             setOpenCrabEggScoopDate(false);
-                        }}
-                    />
-
-                    <Text
-                        variant="bodyLarge"
-                        style={styles.textTitleCrabReleaseDate}
-                    >
-                        วันปล่อยลูกปู
-                    </Text>
-
-                    <InputText
-                        placeholder="Date"
-                        value={
-                            crabReleaseDate
-                                ? parseDateString(crabReleaseDate.toString())
-                                : null
-                        }
-                        calendarReleaseDate
-                        handleOpenCrabReleaseDate={handleOpenCrabReleaseDate}
-                        readOnly
-                    />
-
-                    <DatePicker
-                        modal
-                        mode="date"
-                        open={openCrabReleaseDate}
-                        date={crabReleaseDate}
-                        onConfirm={(date) => {
-                            setOpenCrabReleaseDate(false);
-                            setCrabReleaseDate(date);
-                        }}
-                        onCancel={() => {
-                            setOpenCrabReleaseDate(false);
                         }}
                     />
 

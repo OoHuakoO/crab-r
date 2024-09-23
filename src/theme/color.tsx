@@ -16,5 +16,6 @@ export const colorConfig = {
     buttonConfirm: '#386BA9',
     textBody: '#828282',
     textYellow: '#FBAF41',
-    backgroundImg: '#1F3F77'
+    backgroundImg: '#1F3F77',
+    checkColor: '#97c355'
 };

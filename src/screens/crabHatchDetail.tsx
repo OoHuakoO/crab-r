@@ -44,10 +44,6 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
                     parseDateString(res?.data?.crabEggScoopDate?.toString()) ||
                         ''
                 );
-                form.setValue(
-                    'crabReleaseDate',
-                    parseDateString(res?.data?.crabReleaseDate.toString()) || ''
-                );
             } else {
                 setVisibleDialog(true);
                 setContentDialog('Something went wrong get data');
@@ -161,26 +157,6 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
                                 {...field}
                                 marginBottomContainer={1}
                                 placeholder="ระบุวันเขี่ยไข่ปู"
-                                returnKeyType="next"
-                                autoCapitalize="none"
-                                textContentType="none"
-                                onChangeText={(value) => field?.onChange(value)}
-                                readOnly
-                            />
-                        )}
-                    />
-                    <Text variant="bodyLarge" style={styles.textTitle}>
-                        วันปล่อยลูกปู
-                    </Text>
-                    <Controller
-                        name="crabReleaseDate"
-                        defaultValue=""
-                        control={form?.control}
-                        render={({ field }) => (
-                            <InputText
-                                {...field}
-                                marginBottomContainer={1}
-                                placeholder="ระบุวันปล่อยลูกปู"
                                 returnKeyType="next"
                                 autoCapitalize="none"
                                 textContentType="none"
