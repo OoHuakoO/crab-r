@@ -14,7 +14,7 @@ import {
 import { theme } from '@src/theme';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 import { HistoryList } from '@src/typings/saveData';
-import { parseDateString } from '@src/utils/time-manager';
+import { parseThaiDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import {
     FlatList,
@@ -255,10 +255,10 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
                                     item?.pool
                                         ? `บ่อที่ ${
                                               item?.pool
-                                          } วันที่ ${parseDateString(
+                                          } วันที่ ${parseThaiDateString(
                                               item?.createdAt
                                           )}`
-                                        : `วันที่ ${parseDateString(
+                                        : `วันที่ ${parseThaiDateString(
                                               item?.createdAt
                                           )}`
                                 }

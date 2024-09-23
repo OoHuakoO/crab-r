@@ -11,7 +11,6 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import { Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type CrabCircleScreenProps = NativeStackScreenProps<
@@ -27,8 +26,8 @@ const CrabCircleScreen: FC<CrabCircleScreenProps> = () => {
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
                     image={require('../../assets/images/crabCircuitWhite.png')}
-                    textTitle="ข้อมูลวงจรปู"
-                    textSubtitle="Crab Circuit Information"
+                    textTitle="ข้อมูลวงจรลูกปู"
+                    textSubtitle="Crab Life Cycle"
                 />
                 <View style={styles.imageContainer}>
                     <View style={styles.imageBox}>
@@ -39,7 +38,18 @@ const CrabCircleScreen: FC<CrabCircleScreenProps> = () => {
                         />
                     </View>
                 </View>
-                <View style={styles.textContainer}>
+                <View style={styles.divider} />
+                <View style={styles.imageContainer}>
+                    <View style={styles.imageBox}>
+                        <Image
+                            source={require('../../assets/images/crabCircuitImg2.png')}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
+                </View>
+
+                {/* <View style={styles.textContainer}>
                     <Text variant="titleLarge" style={styles.textTitle}>
                         อายุได้ไข่
                     </Text>
@@ -66,7 +76,7 @@ const CrabCircleScreen: FC<CrabCircleScreenProps> = () => {
                         ลูกปูเติบโตเต็มที่และพร้อมจะปล่อยสู่ทะเลในระยะเวลา 15-30
                         วัน
                     </Text>
-                </View>
+                </View> */}
             </ScrollView>
         </SafeAreaView>
     );
@@ -75,14 +85,15 @@ const CrabCircleScreen: FC<CrabCircleScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.backgroundImg
     },
     scrollView: {
         flex: 1,
         marginTop: 75
     },
     imageContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginBottom: 20
     },
     imageBox: {
         width: 400,
@@ -106,6 +117,13 @@ const styles = StyleSheet.create({
         color: theme.colors.white,
         fontSize: 16,
         marginLeft: 20
+    },
+    divider: {
+        height: 3,
+        backgroundColor: theme.colors.white,
+        width: '80%',
+        alignSelf: 'center',
+        marginBottom: 20
     }
 });
 

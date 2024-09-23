@@ -7,7 +7,7 @@ import { GetCrabHatchById } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { HistoryStackParamsList } from '@src/typings/navigation';
 import { SaveCrabHatch } from '@src/typings/saveData';
-import { parseDateString } from '@src/utils/time-manager';
+import { parseThaiDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
@@ -41,8 +41,9 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
                 form.setValue('crabEggColor', res?.data?.crabEggColor || '');
                 form.setValue(
                     'crabEggScoopDate',
-                    parseDateString(res?.data?.crabEggScoopDate?.toString()) ||
-                        ''
+                    parseThaiDateString(
+                        res?.data?.crabEggScoopDate?.toString()
+                    ) || ''
                 );
             } else {
                 setVisibleDialog(true);

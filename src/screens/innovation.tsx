@@ -20,32 +20,25 @@ type InnovationScreenProps = NativeStackScreenProps<
     'Innovation'
 >;
 
-const InnovationScreen: FC<InnovationScreenProps> = (props) => {
-    const { navigation } = props;
+const InnovationScreen: FC<InnovationScreenProps> = () => {
     const { top } = useSafeAreaInsets();
     const menu = [
         {
-            textTitle: 'ระบบนวัตกรรมเพาะฟัก',
-            textSubtitle: '',
-            image: require(`../../assets/images/crabCircuit.png`),
-            path: 'CrabCircle'
-        },
-        {
             textTitle: 'ระบบดูดน้ำทะเล',
             textSubtitle: '',
-            image: require(`../../assets/images/highAndLow.png`),
+            image: require(`../../assets/images/seawater.png`),
             app: 'eWeLink'
         },
         {
             textTitle: 'ระบบดูดน้ำเข้าระบบ',
             textSubtitle: '',
-            image: require(`../../assets/images/ph.png`),
+            image: require(`../../assets/images/waterIntake.png`),
             app: 'eWeLink'
         },
         {
             textTitle: 'ระบบโซลาร์เซลล์',
             textSubtitle: '',
-            image: require(`../../assets/images/alkalinityTotal.png`),
+            image: require(`../../assets/images/solarCell.png`),
             app: 'fusionSolar'
         }
     ];
@@ -85,13 +78,7 @@ const InnovationScreen: FC<InnovationScreenProps> = (props) => {
                         <MenuList
                             key={`menu-list-${index}`}
                             handlePress={() => {
-                                if (item?.path) {
-                                    navigation.navigate(
-                                        item?.path as keyof HomeStackParamsList
-                                    );
-                                } else {
-                                    handleOpenUrl(item?.app);
-                                }
+                                handleOpenUrl(item?.app);
                             }}
                             textTitle={item?.textTitle}
                             textSubtitle={item?.textSubtitle}

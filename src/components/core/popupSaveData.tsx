@@ -15,7 +15,7 @@ interface PopupSaveDataProp {
     onClose: () => void;
     listData: ListPopupData[];
     onSave: () => void;
-    loading: boolean;
+    loading?: boolean;
     remark?: boolean;
 }
 

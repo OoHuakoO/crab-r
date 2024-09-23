@@ -18,6 +18,7 @@ export interface SaveCrabHatch {
     pool: string;
     crabEggColor: string;
     crabEggScoopDate: string;
+    crabReleaseDate: Date;
 }
 
 export interface CreateCrabHatchParams {
@@ -25,6 +26,7 @@ export interface CreateCrabHatchParams {
     pool: string;
     crabEggColor: string;
     crabEggScoopDate: Date;
+    crabReleaseDate: Date;
 }
 
 export interface GetWaterQualityBeforeInquiryParams {
@@ -57,6 +59,7 @@ export interface GetCrabHatchInquiryResponse {
     _id: string;
     createdAt: string;
     location: string;
+    crabReleaseDate: string;
     pool: string;
 }
 
@@ -87,11 +90,14 @@ export interface GetCrabHatchByIdResponse {
     pool: string;
     crabEggColor: string;
     crabEggScoopDate: Date;
+    crabReleaseDate: Date;
 }
 
 export interface HistoryList {
     _id: string;
     createdAt: string;
+    crabEggScoopDate: string;
+    crabReleaseDate: string;
     location: string;
     pool: string;
     image?: string;

@@ -199,7 +199,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                 >
                     <View style={styles.imagePencilBookIconContainer}>
                         <Image
-                            source={require('../../assets/images/pencilBookIcon.png')}
+                            source={require('../../assets/images/innovation.png')}
                             style={styles.imagePencilBookIcon}
                         />
                     </View>

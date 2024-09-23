@@ -38,7 +38,7 @@ const HeaderSection: FC<HeaderSectionProps> = (props) => {
                                     fontSize: fontSizeTextTitle
                                         ? fontSizeTextTitle
                                         : 28,
-                                    lineHeight: 35
+                                    lineHeight: 42
                                 }
                             ]}
                         >
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap'
     },
     divider: {
-        height: 5,
+        height: 3,
         backgroundColor: theme.colors.white,
         width: '80%',
         alignSelf: 'center',

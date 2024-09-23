@@ -5,6 +5,7 @@ import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
 import HeaderSection from '@src/components/core/headerSection';
 import InputText from '@src/components/core/inputeText';
+import PopupSaveData from '@src/components/core/popupSaveData';
 import { GetCrabEggColors } from '@src/services/eggColor';
 import { GetLocations } from '@src/services/location';
 import { GetPools } from '@src/services/pool';
@@ -17,7 +18,11 @@ import {
     PrivateStackParamsList
 } from '@src/typings/navigation';
 import { PoolResponse } from '@src/typings/pool';
-import { parseDateString } from '@src/utils/time-manager';
+import { ListPopupData } from '@src/typings/saveData';
+import {
+    getCrabReleaseDate,
+    parseThaiDateString
+} from '@src/utils/time-manager';
 import React, { FC, useCallback, useEffect, useState } from 'react';
 import {
     SafeAreaView,
@@ -49,11 +54,18 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [crabEggScoopDate, setCrabEggScoopDate] = useState(new Date());
+    const [crabReleaseDate, setCrabReleaseDate] = useState(new Date());
     const [openCrabEggScoopDate, setOpenCrabEggScoopDate] = useState(false);
+    const [listPopupData, setListPopupData] = useState<ListPopupData[]>([]);
+    const [popupSaveDataVisible, setPopupSaveDataVisible] = useState(false);
 
     const handleCloseDialog = useCallback(() => {
         setVisibleDialog(false);
     }, []);
+
+    const onClosePopupSaveData = () => {
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+    };
 
     const handleDisableButton = useCallback((): boolean => {
         if (!selectLocation || !selectPool || !selectEggColor) {
@@ -109,13 +121,61 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
         }
     }, []);
 
-    const handleSaveData = async () => {
+    const togglePopupSaveData = () => {
+        const listData: ListPopupData[] = [];
+        setPopupSaveDataVisible(!popupSaveDataVisible);
+
+        const crabReleaseDateStringValue = getCrabReleaseDate(
+            selectEggColor,
+            crabEggScoopDate
+        );
+
+        if (selectEggColor === 'ดำ (1 วัน)') {
+            listData.push({
+                primary: 'กำหนดปล่อย',
+                secondary: `วันที่ ${crabReleaseDateStringValue}`
+            });
+        } else if (selectEggColor === 'เทา (2 วัน)') {
+            listData.push({
+                primary: 'กำหนดปล่อย',
+                secondary: `วันที่ ${crabReleaseDateStringValue}`
+            });
+        } else if (selectEggColor === 'น้ำตาล (3 วัน)') {
+            listData.push({
+                primary: 'กำหนดปล่อย',
+                secondary: `วันที่ ${crabReleaseDateStringValue}`
+            });
+        } else if (selectEggColor === 'เหลือง-ส้ม (5 วัน)') {
+            listData.push({
+                primary: 'กำหนดปล่อย',
+                secondary: `วันที่ ${crabReleaseDateStringValue}`
+            });
+        } else {
+            listData.push({
+                primary: 'กำหนดปล่อย',
+                secondary: `วันที่ ${crabReleaseDateStringValue}`
+            });
+        }
+
+        const crabReleaseDateToDateValue = getCrabReleaseDate(
+            selectEggColor,
+            crabEggScoopDate,
+            true
+        );
+
+        setCrabReleaseDate(crabReleaseDateToDateValue as Date);
+        setListPopupData(listData);
+    };
+
+    const handlePopupOnSave = async () => {
         try {
+            console.log(crabReleaseDate);
             const res = await CreateCrabHatch({
                 location: selectLocation,
                 pool: selectPool,
                 crabEggColor: selectEggColor,
-                crabEggScoopDate: crabEggScoopDate
+                crabEggScoopDate: crabEggScoopDate,
+                crabReleaseDate: crabReleaseDate
             });
             if (res?.status === 200) {
                 navigation.navigate('HistoryStack', {
@@ -127,6 +187,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                 setContentDialog('Something went wrong save data');
                 return;
             }
+            setPopupSaveDataVisible(false);
         } catch (err) {
             console.log(err);
             setVisibleDialog(true);
@@ -224,7 +285,9 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         placeholder="Date"
                         value={
                             crabEggScoopDate
-                                ? parseDateString(crabEggScoopDate.toString())
+                                ? parseThaiDateString(
+                                      crabEggScoopDate.toString()
+                                  )
                                 : null
                         }
                         handleOpenCrabEggScoopDate={handleOpenCrabEggScoopDate}
@@ -255,7 +318,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                                     : theme.colors.gold
                             }
                         ]}
-                        onPress={() => handleSaveData()}
+                        onPress={togglePopupSaveData}
                     >
                         <Text variant="bodyLarge" style={styles.buttonText}>
                             บันทึกข้อมูล
@@ -263,6 +326,12 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
+            <PopupSaveData
+                onSave={handlePopupOnSave}
+                listData={listPopupData}
+                visible={popupSaveDataVisible}
+                onClose={onClosePopupSaveData}
+            />
         </SafeAreaView>
     );
 };
