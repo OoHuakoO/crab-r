@@ -25,6 +25,7 @@ export type HomeStackParamsList = {
     Chlorine: undefined;
     Magnesium: undefined;
     Alkaline: undefined;
+    InnovationCrabHatch: undefined;
 };
 
 export type HistoryStackParamsList = {

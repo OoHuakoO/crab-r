@@ -20,9 +20,16 @@ type InnovationScreenProps = NativeStackScreenProps<
     'Innovation'
 >;
 
-const InnovationScreen: FC<InnovationScreenProps> = () => {
+const InnovationScreen: FC<InnovationScreenProps> = (props) => {
     const { top } = useSafeAreaInsets();
+    const { navigation } = props;
     const menu = [
+        {
+            textTitle: 'ระบบนวัตกรรมเพาะฟัก',
+            textSubtitle: '',
+            image: require(`../../assets/images/innovationCrabHatch.png`),
+            path: 'InnovationCrabHatch'
+        },
         {
             textTitle: 'ระบบดูดน้ำทะเล',
             textSubtitle: '',
@@ -78,7 +85,13 @@ const InnovationScreen: FC<InnovationScreenProps> = () => {
                         <MenuList
                             key={`menu-list-${index}`}
                             handlePress={() => {
-                                handleOpenUrl(item?.app);
+                                if (item?.path) {
+                                    navigation.navigate(
+                                        item?.path as keyof HomeStackParamsList
+                                    );
+                                } else {
+                                    handleOpenUrl(item?.app);
+                                }
                             }}
                             textTitle={item?.textTitle}
                             textSubtitle={item?.textSubtitle}

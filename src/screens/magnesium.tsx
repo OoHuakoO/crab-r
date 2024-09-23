@@ -33,7 +33,7 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                 />
                 <View style={styles.titleContainer}>
                     <Text variant="titleLarge" style={styles.textTitle}>
-                        วิธีวัดค่าแมกนีเซียมและแคลเซียม
+                        วิธีวัดค่าแมกนีเซียม
                     </Text>
                 </View>
                 <View style={styles.imageContainer}>
@@ -44,6 +44,11 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                             style={styles.image}
                         />
                     </View>
+                </View>
+                <View style={styles.titleContainer}>
+                    <Text variant="titleLarge" style={styles.textTitle}>
+                        วิธีวัดค่าแคลเซียม
+                    </Text>
                 </View>
                 <View style={styles.boxTitleButton}>
                     <Text style={styles.textTitleButton}>การทดสอบ A</Text>
@@ -69,6 +74,15 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                         />
                     </View>
                 </View>
+                <View style={[styles.imageContainer, { marginBottom: 30 }]}>
+                    <View style={styles.imageBox2}>
+                        <Image
+                            source={require('../../assets/images/magnesiumImg4.png')}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginTop: 75
     },
-    titleContainer: { marginBottom: 10, marginLeft: 30 },
+    titleContainer: { marginBottom: 10, marginLeft: 20 },
     textTitle: {
         color: theme.colors.white,
         fontFamily: 'K2D-Bold'
@@ -106,6 +120,10 @@ const styles = StyleSheet.create({
     imageBox: {
         width: 380,
         height: 170
+    },
+    imageBox2: {
+        width: 380,
+        height: 250
     },
     image: {
         width: '100%',

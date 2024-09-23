@@ -5,6 +5,7 @@ import ChlorineScreen from '@src/screens/chlorine';
 import CrabCircleScreen from '@src/screens/crabCircle';
 import HomeSreen from '@src/screens/home';
 import InnovationScreen from '@src/screens/innovation';
+import InnovationCrabHatchScreen from '@src/screens/innovationCrabHatch';
 import knowledgeScreen from '@src/screens/knowledge';
 import MagnesiumScreen from '@src/screens/magnesium';
 import PhScreen from '@src/screens/ph';
@@ -118,6 +119,13 @@ const HomeStack = () => {
                     headerShown: false
                 }}
                 component={AlkalineScreen}
+            />
+            <Stack.Screen
+                name="InnovationCrabHatch"
+                options={{
+                    headerShown: false
+                }}
+                component={InnovationCrabHatchScreen}
             />
         </Stack.Navigator>
     );

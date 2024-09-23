@@ -11,7 +11,6 @@ import {
     StyleSheet,
     View
 } from 'react-native';
-import { Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type AmmoniaScreenProps = NativeStackScreenProps<HomeStackParamsList, 'Ph'>;
@@ -27,16 +26,18 @@ const AmmoniaScreen: FC<AmmoniaScreenProps> = () => {
                     textTitle="ข้อมูลค่าแอมโมเนีย"
                     textSubtitle="Ammonia Value Information"
                 />
-                <View style={styles.titleContainer}>
-                    <Text variant="titleMedium" style={styles.textTitle}>
-                        Standard Color Chart
-                    </Text>
-                    <Text variant="titleSmall" style={styles.textDescription}>
-                        เทียบสีมาตรฐาน
-                    </Text>
+
+                <View style={styles.imageContainer}>
+                    <View style={styles.imageBox1}>
+                        <Image
+                            source={require('../../assets/images/ammoniaTest.png')}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
                 </View>
                 <View style={styles.imageContainer}>
-                    <View style={styles.imageBox}>
+                    <View style={styles.imageBox2}>
                         <Image
                             source={require('../../assets/images/ammoniaImg.png')}
                             resizeMode="contain"
@@ -62,7 +63,7 @@ const AmmoniaScreen: FC<AmmoniaScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.backgroundImg
     },
     scrollView: {
         flex: 1,
@@ -79,11 +80,15 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignItems: 'center',
-        marginBottom: 30
+        marginBottom: 10
     },
-    imageBox: {
-        width: 350,
-        height: 300
+    imageBox1: {
+        width: 380,
+        height: 380
+    },
+    imageBox2: {
+        width: 380,
+        height: 340
     },
     imageGraphBox: {
         width: 380,
