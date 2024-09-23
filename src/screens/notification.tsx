@@ -9,6 +9,7 @@ import { notificationState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { PrivateStackParamsList } from '@src/typings/navigation';
 import { GetHistoriesResponse } from '@src/typings/notification';
+import { parseThaiDateString } from '@src/utils/time-manager';
 import React, { FC, useCallback, useState } from 'react';
 import {
     ActivityIndicator,
@@ -150,9 +151,7 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
                                     />
                                 </View>
                                 <View style={{ marginLeft: 20 }}>
-                                    <Text style={styles.title}>
-                                        {item?.title}
-                                    </Text>
+                                    <Text style={styles.title}>ปล่อยปู</Text>
                                     <Text style={styles.message}>
                                         {`สถานที่ : ${item?.location}`}
                                     </Text>
@@ -160,7 +159,9 @@ const NotificationScreen: FC<NotificationScreenProps> = (props) => {
                                         {`บ่อที่ : ${item?.pool}`}
                                     </Text>
                                     <Text style={styles.message}>
-                                        {item?.message}
+                                        {`วันที่ : ${parseThaiDateString(
+                                            item?.createdAt
+                                        )}`}
                                     </Text>
                                 </View>
                             </TouchableOpacity>

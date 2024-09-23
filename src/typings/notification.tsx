@@ -5,6 +5,7 @@ export interface GetHistoriesParams {
 
 export interface GetHistoriesResponse {
     _id: string;
+    createdAt: string;
     crabHatchId: string;
     title: string;
     message: string;
