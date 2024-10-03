@@ -44,7 +44,7 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
                 <HeaderSection
                     image={require('../../assets/images/saveData.png')}
                     textTitle="บันทึกข้อมูล"
-                    textSubtitle="Save Data"
+                    textSubtitle="Record"
                 />
                 <View style={styles.menuListContainer}>
                     {menu?.map((item, index) => (

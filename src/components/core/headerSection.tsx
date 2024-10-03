@@ -88,9 +88,9 @@ const styles = StyleSheet.create({
     },
     buttonSubtext: {
         fontFamily: 'K2D-Bold',
-        fontSize: 20,
+        fontSize: 16,
         color: theme.colors.white,
-        lineHeight: 30,
+        lineHeight: 18,
         flex: 1,
         flexWrap: 'wrap'
     },

@@ -44,38 +44,14 @@ const AlkalineScreen: FC<AlkalineScreenProps> = () => {
                         />
                     </View>
                 </View>
-                <View style={styles.boxTitleButton}>
-                    <Text style={styles.textTitleButton}>
-                        ค่าอัลคาไลนิตี้รวม
-                    </Text>
-                </View>
-                <View style={styles.textContainer}>
-                    <Text style={styles.textDescription}>
-                        - แสดงถึงความสามารถในการทำปฏิกิริยากับกรด
-                    </Text>
-                    <Text style={styles.textDescription}>
-                        - ประกอบด้วยค่าคาร์บอเนต ค่าไบคาร์บอเนตและค่าไฮดรอกไซด์
-                    </Text>
-                    <Text style={styles.textDescription}>
-                        - ความสามารถในการต้านทานการเพิ่มและลดพีเอชของน้ำ
-                        เป็นปัจจัยที่ทำให้ค่าพีเอชในรอบวันไม่เปลี่ยนแปลงมาก
-                    </Text>
-                    <Text style={styles.textDescription}>
-                        - ถ้าค่าอัลคาไลนิตี้ต่ำ ค่าพีเอชก็จะตำและเปลี่ยนแปลงมาก
-                        เป็นผลทำให้แพลงก์ตอนตายครั้งละมาก ๆ (น้ำล้ม)
-                        ปูก็จะเครียดและป่วยเป็นโรคในเวลาต่อมา การแปลผล :
-                        ค่าพี่เอชและค่าอัลคาไลนิตี้ที่เหมาะสมในการเลี้ยงปู
-                    </Text>
-                    <Text style={styles.textDescription}>
-                        - ค่าพีเอชควรอยู่ในช่วง 7.5-8.5 ในช่วงเช้าและไม่เกิน
-                        8.1-8.2 ในช่วงบ่ายและค่าอัลคาไลนิตี้อยู่ในช่วง 90-150
-                        พีพีเอ็ม ไม่ควรต่ำกว่า 50 และไม่เกิน 180 พีพีเอ็ม
-                    </Text>
-                    <Text style={styles.textDescription}>
-                        - ในเขตน้ำจืด ค่าพีเอชอาจสูง 7.9-8.2
-                        ในช่วงเช้าและพยายามอย่าให้เกิน 8.5 ในช่วงบ่าย
-                        และค่าอัลคาไลนิตี้ ควรอยู่ในช่วง 120-10 พีพีเอ็ม
-                    </Text>
+                <View style={styles.imageContainer}>
+                    <View style={styles.imageBox2}>
+                        <Image
+                            source={require('../../assets/images/alkalineImg2.png')}
+                            resizeMode="contain"
+                            style={styles.image}
+                        />
+                    </View>
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -102,6 +78,10 @@ const styles = StyleSheet.create({
     imageBox: {
         width: 380,
         height: 380
+    },
+    imageBox2: {
+        width: 400,
+        height: 250
     },
     image: {
         width: '100%',

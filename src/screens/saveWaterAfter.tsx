@@ -400,7 +400,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                         renderItem={renderItemLocation}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
-                        ค่าคลอลีน
+                        ค่าคลอรีน
                     </Text>
                     <Controller
                         name="chlorine"
@@ -413,7 +413,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
                                     togglePopupCameraChlorine
                                 }
                                 marginBottomContainer={1}
-                                placeholder="ระบุค่าคลอลีน"
+                                placeholder="ระบุค่าคลอรีน"
                                 returnKeyType="next"
                                 autoCapitalize="none"
                                 textContentType="none"

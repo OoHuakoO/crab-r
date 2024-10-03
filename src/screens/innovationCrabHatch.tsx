@@ -5,11 +5,11 @@ import { theme } from '@src/theme';
 import { HomeStackParamsList } from '@src/typings/navigation';
 import React, { FC } from 'react';
 import {
-  Image,
-  SafeAreaView,
-  ScrollView,
-  StyleSheet,
-  View
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    View
 } from 'react-native';
 
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -78,28 +78,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%'
-    },
-    textContainer: {
-        marginLeft: 20,
-        marginTop: 20,
-        gap: 10,
-        marginBottom: 30
-    },
-    textTitle: {
-        color: theme.colors.textYellow,
-        fontSize: 20
-    },
-    textDescription: {
-        color: theme.colors.white,
-        fontSize: 16,
-        marginLeft: 20
-    },
-    divider: {
-        height: 3,
-        backgroundColor: theme.colors.white,
-        width: '80%',
-        alignSelf: 'center',
-        marginBottom: 20
     }
 });
 

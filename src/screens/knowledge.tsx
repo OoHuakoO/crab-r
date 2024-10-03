@@ -54,7 +54,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
             path: 'Magnesium'
         },
         {
-            textTitle: 'ข้อมูลค่าคลอลีน',
+            textTitle: 'ข้อมูลค่าคลอรีน',
             textSubtitle: 'Chlorine value information',
             image: require(`../../assets/images/cl.png`),
             path: 'Chlorine'

@@ -187,7 +187,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                             variant="titleMedium"
                             style={styles.buttonSubtext}
                         >
-                            Save Data
+                            Record
                         </Text>
                     </View>
                 </TouchableOpacity>

@@ -50,23 +50,9 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                         วิธีวัดค่าแคลเซียม
                     </Text>
                 </View>
-                <View style={styles.boxTitleButton}>
-                    <Text style={styles.textTitleButton}>การทดสอบ A</Text>
-                </View>
+
                 <View style={styles.imageContainer}>
-                    <View style={styles.imageBox}>
-                        <Image
-                            source={require('../../assets/images/magnesiumImg3.png')}
-                            resizeMode="contain"
-                            style={styles.image}
-                        />
-                    </View>
-                </View>
-                <View style={styles.boxTitleButton}>
-                    <Text style={styles.textTitleButton}>การทดสอบ B</Text>
-                </View>
-                <View style={[styles.imageContainer, { marginBottom: 30 }]}>
-                    <View style={styles.imageBox}>
+                    <View style={styles.imageBox2}>
                         <Image
                             source={require('../../assets/images/magnesiumImg2.png')}
                             resizeMode="contain"
@@ -74,10 +60,11 @@ const MagnesiumScreen: FC<MagnesiumScreenProps> = () => {
                         />
                     </View>
                 </View>
+
                 <View style={[styles.imageContainer, { marginBottom: 30 }]}>
-                    <View style={styles.imageBox2}>
+                    <View style={styles.imageBox3}>
                         <Image
-                            source={require('../../assets/images/magnesiumImg4.png')}
+                            source={require('../../assets/images/magnesiumImg3.png')}
                             resizeMode="contain"
                             style={styles.image}
                         />
@@ -122,7 +109,11 @@ const styles = StyleSheet.create({
         height: 170
     },
     imageBox2: {
-        width: 380,
+        width: 400,
+        height: 420
+    },
+    imageBox3: {
+        width: 400,
         height: 250
     },
     image: {
