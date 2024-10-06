@@ -11,6 +11,7 @@ import { GetLocations } from '@src/services/location';
 import { GetPools } from '@src/services/pool';
 import { CreateCrabHatch } from '@src/services/saveData';
 import { theme } from '@src/theme';
+import { ListCountCrab } from '@src/typings/common';
 import { EggColorResponse } from '@src/typings/eggColor';
 import { LocationResponse } from '@src/typings/location';
 import {
@@ -48,9 +49,22 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
     const [listPool, setListPool] = useState<PoolResponse[]>([]);
     const [listEggColor, setListEggColor] = useState<EggColorResponse[]>([]);
+    const [listCountCrab] = useState<ListCountCrab[]>([
+        { count: '1' },
+        { count: '2' },
+        { count: '3' },
+        { count: '4' },
+        { count: '5' },
+        { count: '6' },
+        { count: '7' },
+        { count: '8' },
+        { count: '9' },
+        { count: '10' }
+    ]);
     const [selectLocation, setSelectLocation] = useState<string>('');
     const [selectPool, setSelectPool] = useState<string>('');
     const [selectEggColor, setSelectEggColor] = useState<string>('');
+    const [selectCountCrab, setSelectCountCrab] = useState<string>('');
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [crabEggScoopDate, setCrabEggScoopDate] = useState(new Date());
@@ -79,6 +93,16 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
             <View style={styles.dropdownItem}>
                 <Text style={styles.dropdownItemText} variant="bodyLarge">
                     {item?.color}
+                </Text>
+            </View>
+        );
+    };
+
+    const renderItemCountCrab = (item: ListCountCrab) => {
+        return (
+            <View style={styles.dropdownItem}>
+                <Text style={styles.dropdownItemText} variant="bodyLarge">
+                    {item?.count}
                 </Text>
             </View>
         );
@@ -169,10 +193,10 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
 
     const handlePopupOnSave = async () => {
         try {
-            console.log(crabReleaseDate);
             const res = await CreateCrabHatch({
                 location: selectLocation,
                 pool: selectPool,
+                countCrab: parseFloat(selectCountCrab),
                 crabEggColor: selectEggColor,
                 crabEggScoopDate: crabEggScoopDate,
                 crabReleaseDate: crabReleaseDate
@@ -276,6 +300,27 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         }}
                         renderItem={renderItemEggColor}
                     />
+
+                    <Text variant="bodyLarge" style={styles.textTitle}>
+                        จำนวนปู
+                    </Text>
+                    <Dropdown
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        data={listCountCrab}
+                        maxHeight={300}
+                        placeholder={'จำนวนปู'}
+                        value={selectCountCrab}
+                        onChange={(item) => {
+                            setSelectCountCrab(item?.count);
+                        }}
+                        valueField="count"
+                        labelField="count"
+                        renderItem={renderItemCountCrab}
+                    />
+
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         วันเขี่ยไข่ปู
                     </Text>

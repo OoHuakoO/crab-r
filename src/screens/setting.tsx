@@ -1,11 +1,11 @@
-import React, { FC, useCallback, useState } from 'react';
-import { Platform, SafeAreaView, TouchableOpacity } from 'react-native';
+import React, { FC, useCallback, useEffect, useState } from 'react';
+import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Header from '@src/components/core/header';
-import { RemoveFcmToken, RemoveUser } from '@src/services/login';
+import { GetUser, RemoveFcmToken, RemoveUser } from '@src/services/login';
 import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { LoginState } from '@src/typings/common';
@@ -25,6 +25,8 @@ const SettingScreen: FC<SettingScreenProps> = () => {
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [isRemoveUser, setIsRemoveUser] = useState<boolean>(false);
+    const [name, setName] = useState<string>('');
+    const [location, setLocation] = useState<string>('');
 
     const handleCloseDialog = () => {
         setVisibleDialog(false);
@@ -88,6 +90,28 @@ const SettingScreen: FC<SettingScreenProps> = () => {
         }
     }, [setLogin]);
 
+    const handleGetUser = useCallback(async () => {
+        try {
+            const res = await GetUser();
+            if (res?.status === 200) {
+                setName(`${res?.data?.name} ${res?.data?.surname}`);
+                setLocation(res?.data?.location);
+            } else {
+                setVisibleDialog(true);
+                setContentDialog('Something went wrong get data');
+                return;
+            }
+        } catch (err) {
+            console.log(err);
+            setVisibleDialog(true);
+            setContentDialog('Something went wrong get data');
+        }
+    }, []);
+
+    useEffect(() => {
+        handleGetUser();
+    }, [handleGetUser]);
+
     return (
         <SafeAreaView style={[styles.container, { marginTop: top }]}>
             <Header />
@@ -100,6 +124,15 @@ const SettingScreen: FC<SettingScreenProps> = () => {
                 }
                 showCloseDialog={isRemoveUser}
             />
+            <View style={styles.boxName}>
+                <Text style={styles.textShow}>ชื่อ-นามสกุล : </Text>
+                <Text style={styles.textShow}>{name} </Text>
+            </View>
+            <View style={styles.boxLocation}>
+                <Text style={styles.textShow}>สถานที่ : </Text>
+                <Text style={styles.textShow}>{location} </Text>
+            </View>
+
             <TouchableOpacity
                 style={styles.buttonApply}
                 onPress={() => handleLogout()}
@@ -120,32 +153,48 @@ const SettingScreen: FC<SettingScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary
+        backgroundColor: theme.colors.primary,
+        alignItems: 'center'
     },
     textLogin: {
         fontFamily: 'K2D-Bold',
         color: theme.colors.primary,
         fontSize: 16
     },
+    textShow: {
+        fontFamily: 'K2D-Bold',
+        color: theme.colors.white,
+        fontSize: 18,
+        letterSpacing: 0,
+        lineHeight: 36
+    },
     buttonApply: {
+        marginTop: 30,
         paddingVertical: 12,
-        paddingHorizontal: 24,
+        paddingHorizontal: 100,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 100,
-        marginHorizontal: 50,
         backgroundColor: theme.colors.secondary
     },
     buttonRemove: {
         paddingVertical: 12,
-        paddingHorizontal: 24,
+        paddingHorizontal: 100,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 20,
-        marginHorizontal: 50,
         backgroundColor: theme.colors.secondary
+    },
+    boxName: {
+        marginTop: 100,
+        marginHorizontal: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    boxLocation: {
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 });
 

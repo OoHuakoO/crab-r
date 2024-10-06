@@ -36,9 +36,14 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
         try {
             const res = await GetCrabHatchById(route?.params?.id);
             if (res?.status === 200) {
+                console.log(res?.data);
                 form.setValue('location', res?.data?.location || '');
                 form.setValue('pool', res?.data?.pool || '');
                 form.setValue('crabEggColor', res?.data?.crabEggColor || '');
+                form.setValue(
+                    'countCrab',
+                    res?.data?.countCrab.toString() || ''
+                );
                 form.setValue(
                     'crabEggScoopDate',
                     parseThaiDateString(
@@ -131,6 +136,26 @@ const CrabHatchDetailScreen: FC<CrabHatchDetailScreenProps> = (props) => {
                     </Text>
                     <Controller
                         name="crabEggColor"
+                        defaultValue=""
+                        control={form?.control}
+                        render={({ field }) => (
+                            <InputText
+                                {...field}
+                                marginBottomContainer={1}
+                                placeholder="ระบุค่าสีไข่ปู"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                textContentType="none"
+                                onChangeText={(value) => field?.onChange(value)}
+                                readOnly
+                            />
+                        )}
+                    />
+                    <Text variant="bodyLarge" style={styles.textTitle}>
+                        จำนวนปู
+                    </Text>
+                    <Controller
+                        name="countCrab"
                         defaultValue=""
                         control={form?.control}
                         render={({ field }) => (

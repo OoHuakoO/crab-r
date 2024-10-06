@@ -1,9 +1,10 @@
 import {
+    GetUserResponse,
     LoginParams,
     LoginResponse,
     RemoveFcmTokenParams
 } from '@src/typings/login';
-import { Response, post } from '@src/utils/axios';
+import { Response, get, post } from '@src/utils/axios';
 
 export function Login(params: LoginParams): Promise<Response<LoginResponse>> {
     return post<LoginResponse>('/user/login', params);
@@ -25,4 +26,8 @@ export function RemoveUser(
     params: RemoveFcmTokenParams
 ): Promise<Response<string>> {
     return post<string>('/user/removeUser', params);
+}
+
+export function GetUser(): Promise<Response<GetUserResponse>> {
+    return get<GetUserResponse>('/user');
 }

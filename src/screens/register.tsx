@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
 
 import InputText from '@src/components/core/inputeText';
@@ -8,14 +8,17 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AlertDialog from '@src/components/core/alertDialog';
 import Button from '@src/components/core/button';
 import { STATUS_CODE } from '@src/constant';
+import { GetLocations } from '@src/services/location';
 import { Register } from '@src/services/login';
 import { loginState, useSetRecoilState } from '@src/store';
 import { theme } from '@src/theme';
 import { LoginState } from '@src/typings/common';
+import { LocationResponse } from '@src/typings/location';
 import { LoginParams } from '@src/typings/login';
 import { PublicStackParamsList } from '@src/typings/navigation';
 import { Controller, useForm } from 'react-hook-form';
 import { Image, StyleSheet } from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
 import { Portal, Text } from 'react-native-paper';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -32,6 +35,18 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+    const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
+    const [selectLocation, setSelectLocation] = useState<string>('');
+
+    const renderItemLocation = (item: LocationResponse) => {
+        return (
+            <View style={styles.dropdownItem}>
+                <Text style={styles.dropdownItemText} variant="bodyLarge">
+                    {item?.name}
+                </Text>
+            </View>
+        );
+    };
 
     const handleRegister = useCallback(
         async (data: LoginParams) => {
@@ -41,6 +56,9 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
                 const response = await Register({
                     email: data?.email,
                     password: data?.password,
+                    name: data?.name,
+                    surname: data?.surname,
+                    location: selectLocation,
                     fcmToken: FcmTokenJson,
                     platform: Platform.OS
                 });
@@ -61,7 +79,7 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
                 setContentDialog(`Something went wrong register`);
             }
         },
-        [setLogin]
+        [selectLocation, setLogin]
     );
 
     const handleVisiblePassword = useCallback(() => {
@@ -71,6 +89,20 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     const handleCloseDialog = () => {
         setVisibleDialog(false);
     };
+
+    const handleInitDropdown = useCallback(async () => {
+        try {
+            const responseLocation = await GetLocations();
+            setListLocation(responseLocation?.data);
+        } catch (err) {
+            console.log(err);
+            setVisibleDialog(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        handleInitDropdown();
+    }, [handleInitDropdown]);
 
     return (
         <SafeAreaView style={[styles.container, { marginTop: top }]}>
@@ -121,6 +153,52 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
                             onChangeText={(value) => field?.onChange(value)}
                         />
                     )}
+                />
+                <Controller
+                    name="name"
+                    defaultValue=""
+                    control={form?.control}
+                    render={({ field }) => (
+                        <InputText
+                            {...field}
+                            placeholder="ชื่อ"
+                            returnKeyType="next"
+                            autoCapitalize="none"
+                            textContentType="none"
+                            onChangeText={(value) => field?.onChange(value)}
+                        />
+                    )}
+                />
+                <Controller
+                    name="surname"
+                    defaultValue=""
+                    control={form?.control}
+                    render={({ field }) => (
+                        <InputText
+                            {...field}
+                            placeholder="นามสกุล"
+                            returnKeyType="next"
+                            autoCapitalize="none"
+                            textContentType="none"
+                            onChangeText={(value) => field?.onChange(value)}
+                        />
+                    )}
+                />
+                <Dropdown
+                    style={styles.dropdown}
+                    placeholderStyle={styles.placeholderStyle}
+                    selectedTextStyle={styles.selectedTextStyle}
+                    inputSearchStyle={styles.inputSearchStyle}
+                    data={listLocation}
+                    maxHeight={300}
+                    labelField="name"
+                    valueField="name"
+                    placeholder={'เลือกสถานที่'}
+                    value={selectLocation}
+                    onChange={(item) => {
+                        setSelectLocation(item?.name);
+                    }}
+                    renderItem={renderItemLocation}
                 />
                 <TouchableOpacity onPress={form?.handleSubmit(handleRegister)}>
                     <Button mode="contained">
@@ -176,6 +254,44 @@ const styles = StyleSheet.create({
         fontFamily: 'K2D-Medium',
         color: theme.colors.textGray,
         fontSize: 15
+    },
+    dropdown: {
+        height: 50,
+        borderColor: theme.colors.borderAutocomplete,
+        backgroundColor: theme.colors.white,
+        borderWidth: 1,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+        color: theme.colors.blackGray,
+        marginBottom: 30
+    },
+    placeholderStyle: {
+        fontFamily: 'K2D-Regular',
+        fontSize: 16,
+        color: theme.colors.textBody
+    },
+    selectedTextStyle: {
+        fontSize: 16,
+        color: theme.colors.blackGray,
+        fontFamily: 'K2D-Regular'
+    },
+    inputSearchStyle: {
+        height: 40,
+        fontSize: 16,
+        color: theme.colors.blackGray,
+        fontFamily: 'K2D-Regular'
+    },
+    dropdownItem: {
+        padding: 17,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    dropdownItemText: {
+        flex: 1,
+        fontSize: 16,
+        color: theme.colors.blackGray,
+        fontFamily: 'K2D-Regular'
     }
 });
 

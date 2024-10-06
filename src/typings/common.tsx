@@ -7,3 +7,7 @@ export interface LoginState {
     role: string;
     token: string;
 }
+
+export interface ListCountCrab {
+    count: string;
+}
