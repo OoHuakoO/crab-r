@@ -3,14 +3,18 @@ import React, { memo } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button as PaperButton } from 'react-native-paper';
 
-type Props = React.ComponentProps<typeof PaperButton>;
+type Props = React.ComponentProps<typeof PaperButton> & {
+    isDisabled?: boolean;
+};
 
-const Button = ({ mode, style, children, ...props }: Props) => (
+const Button = ({ isDisabled, mode, style, children, ...props }: Props) => (
     <PaperButton
         style={[
             styles.button,
             mode === 'contained' && {
-                backgroundColor: theme.colors.primary
+                backgroundColor: isDisabled
+                    ? theme.colors.textGray
+                    : theme.colors.primary
             },
             style
         ]}

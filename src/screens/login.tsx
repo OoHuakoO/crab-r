@@ -155,6 +155,17 @@ const LoginScreen: FC<LoginScreenProps> = (props) => {
                         </Text>
                     </Button>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('ForgetPassword');
+                    }}
+                >
+                    <Button mode="text">
+                        <Text variant="titleMedium" style={styles.textRegister}>
+                            ลืมรหัสผ่าน
+                        </Text>
+                    </Button>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );

@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ChangePasswordScreen from '@src/screens/changePassword';
+import ForgetPasswordScreen from '@src/screens/forgetPassword';
 import LoginScreen from '@src/screens/login';
 import RegisterScreen from '@src/screens/register';
 import { PublicStackParamsList } from '@src/typings/navigation';
@@ -22,6 +24,20 @@ const PublicStack = () => {
                     headerShown: false
                 }}
                 component={RegisterScreen}
+            />
+            <Stack.Screen
+                name="ForgetPassword"
+                options={{
+                    headerShown: false
+                }}
+                component={ForgetPasswordScreen}
+            />
+            <Stack.Screen
+                name="ChangePassword"
+                options={{
+                    headerShown: false
+                }}
+                component={ChangePasswordScreen}
             />
         </Stack.Navigator>
     );

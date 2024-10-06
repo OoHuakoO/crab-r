@@ -1,4 +1,6 @@
 import {
+    ChangePasswordParams,
+    ForgetPasswordParams,
     GetUserResponse,
     LoginParams,
     LoginResponse,
@@ -30,4 +32,16 @@ export function RemoveUser(
 
 export function GetUser(): Promise<Response<GetUserResponse>> {
     return get<GetUserResponse>('/user');
+}
+
+export function ForgetPassword(
+    params: ForgetPasswordParams
+): Promise<Response<string>> {
+    return post<string>('/user/forget-password', params);
+}
+
+export function ChangePassword(
+    params: ChangePasswordParams
+): Promise<Response<string>> {
+    return post<string>('/user/change-password', params);
 }

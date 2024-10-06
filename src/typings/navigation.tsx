@@ -8,6 +8,8 @@ export type RootStackParamsList = {
 export type PublicStackParamsList = {
     Login: undefined;
     Register: undefined;
+    ForgetPassword: undefined;
+    ChangePassword: undefined;
 };
 
 export type HomeStackParamsList = {

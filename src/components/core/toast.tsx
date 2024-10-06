@@ -13,7 +13,7 @@ const ToastComponent = () => {
     return (
         <View style={styles.container}>
             <Snackbar
-                style={{ backgroundColor: theme.colors.success }}
+                style={{ backgroundColor: theme.colors.primary }}
                 duration={3000}
                 visible={toast?.open}
                 onDismiss={onDismissSnackBar}
