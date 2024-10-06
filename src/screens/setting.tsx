@@ -126,11 +126,11 @@ const SettingScreen: FC<SettingScreenProps> = () => {
             />
             <View style={styles.boxName}>
                 <Text style={styles.textShow}>ชื่อ-นามสกุล : </Text>
-                <Text style={styles.textShow}>{name} </Text>
+                <Text style={styles.textWrap1}>{name}</Text>
             </View>
             <View style={styles.boxLocation}>
                 <Text style={styles.textShow}>สถานที่ : </Text>
-                <Text style={styles.textShow}>{location} </Text>
+                <Text style={styles.textWrap2}>{location}</Text>
             </View>
 
             <TouchableOpacity
@@ -153,8 +153,7 @@ const SettingScreen: FC<SettingScreenProps> = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: theme.colors.primary,
-        alignItems: 'center'
+        backgroundColor: theme.colors.primary
     },
     textLogin: {
         fontFamily: 'K2D-Bold',
@@ -168,10 +167,26 @@ const styles = StyleSheet.create({
         letterSpacing: 0,
         lineHeight: 36
     },
+    textWrap1: {
+        fontFamily: 'K2D-Bold',
+        color: theme.colors.white,
+        fontSize: 18,
+        letterSpacing: 0,
+        lineHeight: 36,
+        width: 260
+    },
+    textWrap2: {
+        fontFamily: 'K2D-Bold',
+        color: theme.colors.white,
+        fontSize: 18,
+        letterSpacing: 0,
+        lineHeight: 36,
+        width: 300
+    },
     buttonApply: {
         marginTop: 30,
         paddingVertical: 12,
-        paddingHorizontal: 100,
+        marginHorizontal: 60,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -179,7 +194,7 @@ const styles = StyleSheet.create({
     },
     buttonRemove: {
         paddingVertical: 12,
-        paddingHorizontal: 100,
+        marginHorizontal: 60,
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
@@ -188,11 +203,13 @@ const styles = StyleSheet.create({
     },
     boxName: {
         marginTop: 100,
-        marginHorizontal: 10,
+        marginLeft: 20,
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '90%'
     },
     boxLocation: {
+        marginLeft: 20,
         flexDirection: 'row',
         alignItems: 'center'
     }
