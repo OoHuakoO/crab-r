@@ -137,7 +137,7 @@ const HomeScreen: FC<HomeScreenProps> = (props) => {
                 </Text>
                 <View style={styles.divider} />
                 <Text style={styles.companyText}>
-                    บริษัท ปตท.สำรวจและผลิตปิโตรเลียมจำกัด (มหาชน){'\n'}
+                    บริษัท ปตท.สำรวจและผลิตปิโตรเลียม จำกัด (มหาชน){'\n'}
                     ร่วมกับ {'\n'}
                     มหาวิทยาลัยราชภัฏรำไพพรรณี จ.จันทบุรี
                 </Text>
