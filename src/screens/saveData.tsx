@@ -24,7 +24,7 @@ const SaveDataScreen: FC<SaveDataScreenProps> = (props) => {
             path: 'SaveWaterBefore'
         },
         {
-            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
+            textTitle: 'บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 3 วัน',
             textSubtitle: '',
             image: require('../../assets/images/after.png'),
             path: 'SaveWaterAfter'

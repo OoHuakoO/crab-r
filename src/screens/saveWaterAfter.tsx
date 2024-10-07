@@ -376,7 +376,7 @@ const SaveWaterAfterScreen: FC<SaveWaterAfterScreenProps> = (props) => {
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
                     image={require('../../assets/images/saveWaterAfterIcon.png')}
-                    textTitle={`บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน`}
+                    textTitle={`บันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 3 วัน`}
                     fontSizeTextTitle={24}
                 />
                 <View style={styles.containerInput}>

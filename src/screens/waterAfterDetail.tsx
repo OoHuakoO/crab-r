@@ -111,7 +111,7 @@ const WaterAfterDetailScreen: FC<WaterAfterDetailScreenProps> = (props) => {
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
                     image={require('../../assets/images/saveWaterBeforeIcon.png')}
-                    textTitle={`ประวัติบันทึกข้อมูลคุณภาพน้ำก่อนเข้าบ่อพัก`}
+                    textTitle={`ประวัติบันทึกข้อมูลคุณภาพน้ำหลังการพักน้ำได้ 3 วัน`}
                     fontSizeTextTitle={24}
                 />
                 <View style={styles.containerInput}>

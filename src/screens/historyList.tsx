@@ -61,7 +61,7 @@ const HistoryListScreen: FC<HistoryListScreenProps> = (props) => {
             case 'before':
                 return 'ประวัติบันทึกข้อมูลคุณภาพ\nน้ำก่อนเข้าบ่อพักน้ำ';
             case 'after':
-                return 'ประวัติบันทึกข้อมูลคุณภาพ\nน้ำหลังการพักน้ำได้ 7 วัน';
+                return 'ประวัติบันทึกข้อมูลคุณภาพ\nน้ำหลังการพักน้ำได้ 3 วัน';
             case 'crabHatch':
                 return 'ประวัติบันทึกข้อมูล\nการเพาะฟัก';
             default:

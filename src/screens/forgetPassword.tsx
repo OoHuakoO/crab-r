@@ -1,9 +1,9 @@
 import React, { FC, useCallback, useState } from 'react';
 import {
-  ActivityIndicator,
-  SafeAreaView,
-  TouchableOpacity,
-  View
+    ActivityIndicator,
+    SafeAreaView,
+    TouchableOpacity,
+    View
 } from 'react-native';
 
 import InputText from '@src/components/core/inputeText';

@@ -25,7 +25,7 @@ const HistorySaveData: FC<HistorySaveDataProps> = (props) => {
             namePage: 'before'
         },
         {
-            textTitle: 'ประวัติบันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 7 วัน',
+            textTitle: 'ประวัติบันทึกข้อมูลคุณภาพน้ำ\nหลังการพักน้ำได้ 3 วัน',
             textSubtitle: '',
             image: require('../../assets/images/after.png'),
             path: 'HistoryList',

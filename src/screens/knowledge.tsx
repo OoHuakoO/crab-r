@@ -31,7 +31,7 @@ const KnowledgeScreen: FC<KnowledgeScreenProps> = (props) => {
         },
         {
             textTitle: 'ข้อมูลค่ากรด-ด่าง (pH)',
-            textSubtitle: 'Acid-alkaline (ph) value information',
+            textSubtitle: 'Acid-alkaline (pH) value information',
             image: require(`../../assets/images/ph.png`),
             path: 'Ph'
         },
