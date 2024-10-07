@@ -450,7 +450,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                         )}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
-                        ค่า PH
+                        ค่า pH
                     </Text>
                     <Controller
                         name="ph"
@@ -461,7 +461,7 @@ const SaveWaterBeforeScreen: FC<SaveWaterBeforeScreenProps> = (props) => {
                                 {...field}
                                 handleTogglePopupCamera={togglePopupCameraPh}
                                 marginBottomContainer={1}
-                                placeholder="ระบุค่า PH"
+                                placeholder="ระบุค่า pH"
                                 returnKeyType="next"
                                 autoCapitalize="none"
                                 textContentType="none"

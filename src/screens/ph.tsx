@@ -25,8 +25,8 @@ const PhScreen: FC<PhScreenProps> = () => {
             <ScrollView style={styles.scrollView}>
                 <HeaderSection
                     image={require('../../assets/images/phWhite.png')}
-                    textTitle="ข้อมูลค่ากรด-ด่าง (PH)"
-                    textSubtitle="Acid-alkaline (PH) Value Information"
+                    textTitle="ข้อมูลค่ากรด-ด่าง (pH)"
+                    textSubtitle="Acid-alkaline (pH) Value Information"
                 />
                 <View style={styles.titleContainer}>
                     <Text variant="titleMedium" style={styles.textTitle}>
@@ -57,7 +57,7 @@ const PhScreen: FC<PhScreenProps> = () => {
                                 }
                             ]}
                         >
-                            ค่า PH น้อยกว่า 7.5
+                            ค่า pH น้อยกว่า 7.5
                         </Text>
                         <View style={styles.columnText}>
                             <Text
