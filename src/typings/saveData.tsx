@@ -29,6 +29,7 @@ export interface CreateCrabHatchParams {
     crabEggScoopDate: Date;
     crabReleaseDate: Date;
     countCrab: number;
+    countCrabString?: string;
 }
 
 export interface GetWaterQualityBeforeInquiryParams {
