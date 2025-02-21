@@ -23,7 +23,7 @@ const requestUserPermission = async () => {
             authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
             authStatus === messaging.AuthorizationStatus.PROVISIONAL;
 
-        console.log('before enabled', enabled);
+        console.log('before enable2d', enabled);
 
         if (enabled) {
             console.log('after enabled', enabled);
