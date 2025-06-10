@@ -8,7 +8,6 @@ import InputText from '@src/components/core/inputeText';
 import PopupSaveData from '@src/components/core/popupSaveData';
 import { GetCrabEggColors } from '@src/services/eggColor';
 import { GetLocations } from '@src/services/location';
-import { GetPools } from '@src/services/pool';
 import { CreateCrabHatch } from '@src/services/saveData';
 import { theme } from '@src/theme';
 import { EggColorResponse } from '@src/typings/eggColor';
@@ -17,8 +16,10 @@ import {
     HomeStackParamsList,
     PrivateStackParamsList
 } from '@src/typings/navigation';
-import { PoolResponse } from '@src/typings/pool';
-import { CreateCrabHatchParams, ListPopupData } from '@src/typings/saveData';
+import {
+    CreateUpdateCrabHatchParams,
+    ListPopupData
+} from '@src/typings/saveData';
 import {
     getCrabReleaseDate,
     parseThaiDateString
@@ -47,7 +48,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const [listLocation, setListLocation] = useState<LocationResponse[]>([]);
-    const [listPool, setListPool] = useState<PoolResponse[]>([]);
+    const [listPool, setListPool] = useState<{ name: string }[]>([]);
     const [listEggColor, setListEggColor] = useState<EggColorResponse[]>([]);
     const [selectLocation, setSelectLocation] = useState<string>('');
     const [selectPool, setSelectPool] = useState<string>('');
@@ -60,7 +61,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
     const [listPopupData, setListPopupData] = useState<ListPopupData[]>([]);
     const [popupSaveDataVisible, setPopupSaveDataVisible] = useState(false);
 
-    const form = useForm<CreateCrabHatchParams>({});
+    const form = useForm<CreateUpdateCrabHatchParams>({});
 
     const handleCloseDialog = useCallback(() => {
         setVisibleDialog(false);
@@ -87,7 +88,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
         );
     };
 
-    const renderItemPool = (item: LocationResponse) => {
+    const renderItemPool = (item: { name: string }) => {
         return (
             <View style={styles.dropdownItem}>
                 <Text style={styles.dropdownItemText} variant="bodyLarge">
@@ -109,14 +110,11 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
 
     const handleInitDropdown = useCallback(async () => {
         try {
-            const [responsePool, responseLocation, responseEggColor] =
-                await Promise.all([
-                    GetPools(),
-                    GetLocations(),
-                    GetCrabEggColors()
-                ]);
+            const [responseLocation, responseEggColor] = await Promise.all([
+                GetLocations(),
+                GetCrabEggColors()
+            ]);
             setListLocation(responseLocation?.data);
-            setListPool(responsePool?.data);
             setListEggColor(responseEggColor?.data);
         } catch (err) {
             console.log(err);
@@ -238,6 +236,15 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         value={selectLocation}
                         onChange={(item) => {
                             setSelectLocation(item?.name);
+                            const maxPool = Number(item?.maxPool);
+                            const poolArray = Array.from(
+                                { length: maxPool },
+                                (_, i) => ({
+                                    name: (i + 1).toString()
+                                })
+                            );
+                            setListPool(poolArray);
+                            setSelectPool('');
                         }}
                         renderItem={renderItemLocation}
                     />
@@ -245,7 +252,12 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         บ่อที่
                     </Text>
                     <Dropdown
-                        style={styles.dropdown}
+                        style={[
+                            styles.dropdown,
+                            selectLocation === '' && {
+                                backgroundColor: theme.colors.disableInput
+                            }
+                        ]}
                         placeholderStyle={styles.placeholderStyle}
                         selectedTextStyle={styles.selectedTextStyle}
                         inputSearchStyle={styles.inputSearchStyle}
@@ -258,11 +270,13 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                         onChange={(item) => {
                             setSelectPool(item?.name);
                         }}
+                        disable={selectLocation === ''}
                         renderItem={renderItemPool}
                     />
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         สีไข่ปู
                     </Text>
+
                     <Dropdown
                         style={styles.dropdown}
                         placeholderStyle={styles.placeholderStyle}
@@ -283,6 +297,7 @@ const SaveCrabHatchScreen: FC<SaveCrabHatchScreenProps> = (props) => {
                     <Text variant="bodyLarge" style={styles.textTitle}>
                         จำนวนปู
                     </Text>
+
                     <Controller
                         name="countCrabString"
                         defaultValue=""

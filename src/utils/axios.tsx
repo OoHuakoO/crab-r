@@ -15,7 +15,7 @@ const getToken = async () => {
 
 apiInstances.interceptors.request.use(
     async (config: InternalAxiosRequestConfig) => {
-        config.baseURL = `https://crab-r-service-e8f2ec48f8ed.herokuapp.com`;
+        config.baseURL = `https://ea0b-2405-9800-b641-3532-94c5-46a4-452c-57b.ngrok-free.app`;
         config.responseType = 'json';
         config.headers.set('Authorization', `Bearer ${await getToken()}`);
         if (config.data instanceof FormData) {

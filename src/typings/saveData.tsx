@@ -22,7 +22,8 @@ export interface SaveCrabHatch {
     countCrab: string;
 }
 
-export interface CreateCrabHatchParams {
+export interface CreateUpdateCrabHatchParams {
+    id?: string;
     location: string;
     pool: string;
     crabEggColor: string;

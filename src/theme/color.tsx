@@ -17,5 +17,6 @@ export const colorConfig = {
     textBody: '#828282',
     textYellow: '#FFF100',
     backgroundImg: '#1F3F77',
-    checkColor: '#97c355'
+    checkColor: '#97c355',
+    disableInput: '#E5E5E5'
 };

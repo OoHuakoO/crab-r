@@ -10,6 +10,8 @@ interface AlertDialogProps {
     disableClose?: boolean;
     showCloseDialog?: boolean;
     showProgressBar?: boolean;
+    textConfirm?: string;
+    textCancel?: string;
     handleClose: () => void;
     handleConfirm: () => void;
     handleDismiss?: () => void;
@@ -20,6 +22,8 @@ const AlertDialog: FC<AlertDialogProps> = (props) => {
         visible,
         textTitle,
         textContent,
+        textConfirm,
+        textCancel,
         handleClose,
         disableClose,
         showCloseDialog,
@@ -62,6 +66,13 @@ const AlertDialog: FC<AlertDialogProps> = (props) => {
                     />
                 ) : (
                     <Dialog.Actions>
+                        <TouchableOpacity onPress={handleConfirm}>
+                            <Button style={styles.dialogActionConfirm}>
+                                <Text style={styles.text} variant="bodyLarge">
+                                    {textConfirm || 'ยืนยัน'}
+                                </Text>
+                            </Button>
+                        </TouchableOpacity>
                         {showCloseDialog && (
                             <TouchableOpacity onPress={handleClose}>
                                 <Button style={styles.dialogActionCancel}>
@@ -69,18 +80,11 @@ const AlertDialog: FC<AlertDialogProps> = (props) => {
                                         style={styles.text}
                                         variant="bodyLarge"
                                     >
-                                        Cancel
+                                        {textCancel || 'ยกเลิก'}
                                     </Text>
                                 </Button>
                             </TouchableOpacity>
                         )}
-                        <TouchableOpacity onPress={handleConfirm}>
-                            <Button style={styles.dialogActionConfirm}>
-                                <Text style={styles.text} variant="bodyLarge">
-                                    Confirm
-                                </Text>
-                            </Button>
-                        </TouchableOpacity>
                     </Dialog.Actions>
                 )}
             </Dialog>

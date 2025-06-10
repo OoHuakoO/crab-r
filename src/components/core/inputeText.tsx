@@ -18,7 +18,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 interface InputTextProps extends TextInputProps {
     errorText?: string;
     placeholder?: string;
-    width?: number;
+    height?: number;
     marginBottomContainer?: number;
     borderColor?: string;
     secureText?: boolean;
@@ -37,7 +37,7 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
     const {
         placeholder,
         errorText,
-        width,
+        height,
         marginBottomContainer,
         borderColor,
         secureText,
@@ -66,7 +66,7 @@ const InputText = forwardRef<TextInput, InputTextProps>((props, ref) => {
                 style={[
                     styles.input,
                     {
-                        width: width || '100%',
+                        height: height || 48,
                         borderColor: borderColor || 'gray',
                         backgroundColor: theme.colors.white
                     }
@@ -159,11 +159,9 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'center'
     },
     input: {
-        height: 48,
         borderColor: theme.colors.textGray,
         borderWidth: 0.5,
         paddingHorizontal: 10,
