@@ -159,8 +159,7 @@ const styles = StyleSheet.create({
     },
     container: {
         width: '100%',
-        justifyContent: 'center',
-        alignItems: 'center'
+        justifyContent: 'center'
     },
     input: {
         height: 48,
@@ -174,7 +173,7 @@ const styles = StyleSheet.create({
     error: {
         fontSize: 14,
         color: theme.colors.error,
-        paddingHorizontal: 4,
+        marginLeft: 10,
         paddingTop: 4
     }
 });

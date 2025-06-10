@@ -210,8 +210,7 @@ const styles = StyleSheet.create({
     },
     boxLocation: {
         marginLeft: 20,
-        flexDirection: 'row',
-        alignItems: 'center'
+        flexDirection: 'row'
     }
 });
 

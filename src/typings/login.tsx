@@ -4,6 +4,7 @@ export interface LoginParams {
     name?: string;
     surname?: string;
     location?: string;
+    phone?: string;
     fcmToken: string;
     platform: string;
 }

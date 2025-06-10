@@ -1,5 +1,11 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Platform, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import {
+    Platform,
+    SafeAreaView,
+    ScrollView,
+    TouchableOpacity,
+    View
+} from 'react-native';
 
 import InputText from '@src/components/core/inputeText';
 
@@ -31,7 +37,17 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
     const { top } = useSafeAreaInsets();
     const { navigation } = props;
     const setLogin = useSetRecoilState<LoginState>(loginState);
-    const form = useForm<LoginParams>({});
+    const form = useForm<LoginParams>({
+        mode: 'onChange',
+        defaultValues: {
+            email: '',
+            password: '',
+            location: '',
+            name: '',
+            surname: '',
+            phone: ''
+        }
+    });
     const [visibleDialog, setVisibleDialog] = useState<boolean>(false);
     const [contentDialog, setContentDialog] = useState<string>('');
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
@@ -58,6 +74,7 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
                     password: data?.password,
                     name: data?.name,
                     surname: data?.surname,
+                    phone: data?.phone,
                     location: selectLocation,
                     fcmToken: FcmTokenJson,
                     platform: Platform.OS
@@ -106,118 +123,190 @@ const RegisterScreen: FC<RegisterScreenProps> = (props) => {
 
     return (
         <SafeAreaView style={[styles.container, { marginTop: top }]}>
-            <Portal>
-                <AlertDialog
-                    visible={visibleDialog}
-                    textContent={contentDialog}
-                    handleClose={handleCloseDialog}
-                    handleConfirm={handleCloseDialog}
-                />
-            </Portal>
-            <View style={styles.sectionLogin}>
-                <View style={styles.imagesContainer}>
-                    <Image
-                        style={styles.image}
-                        source={require('../../assets/images/carbRIcon.png')}
-                        resizeMode="contain"
+            <ScrollView>
+                <Portal>
+                    <AlertDialog
+                        visible={visibleDialog}
+                        textContent={contentDialog}
+                        handleClose={handleCloseDialog}
+                        handleConfirm={handleCloseDialog}
                     />
-                </View>
-                <Controller
-                    name="email"
-                    defaultValue=""
-                    control={form?.control}
-                    render={({ field }) => (
-                        <InputText
-                            {...field}
-                            placeholder="Email"
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            textContentType="emailAddress"
-                            keyboardType="email-address"
-                            onChangeText={(value) => field?.onChange(value)}
+                </Portal>
+                <View style={styles.sectionLogin}>
+                    <View style={styles.imagesContainer}>
+                        <Image
+                            style={styles.image}
+                            source={require('../../assets/images/carbRIcon.png')}
+                            resizeMode="contain"
                         />
-                    )}
-                />
-                <Controller
-                    name="password"
-                    defaultValue=""
-                    control={form?.control}
-                    render={({ field }) => (
-                        <InputText
-                            {...field}
-                            isPasswordVisible={isPasswordVisible}
-                            handleVisiblePassword={handleVisiblePassword}
-                            placeholder="Password"
-                            returnKeyType="done"
-                            secureText
-                            onChangeText={(value) => field?.onChange(value)}
-                        />
-                    )}
-                />
-                <Controller
-                    name="name"
-                    defaultValue=""
-                    control={form?.control}
-                    render={({ field }) => (
-                        <InputText
-                            {...field}
-                            placeholder="ชื่อ"
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            textContentType="none"
-                            onChangeText={(value) => field?.onChange(value)}
-                        />
-                    )}
-                />
-                <Controller
-                    name="surname"
-                    defaultValue=""
-                    control={form?.control}
-                    render={({ field }) => (
-                        <InputText
-                            {...field}
-                            placeholder="นามสกุล"
-                            returnKeyType="next"
-                            autoCapitalize="none"
-                            textContentType="none"
-                            onChangeText={(value) => field?.onChange(value)}
-                        />
-                    )}
-                />
-                <Dropdown
-                    style={styles.dropdown}
-                    placeholderStyle={styles.placeholderStyle}
-                    selectedTextStyle={styles.selectedTextStyle}
-                    inputSearchStyle={styles.inputSearchStyle}
-                    data={listLocation}
-                    maxHeight={300}
-                    labelField="name"
-                    valueField="name"
-                    placeholder={'เลือกสถานที่'}
-                    value={selectLocation}
-                    onChange={(item) => {
-                        setSelectLocation(item?.name);
-                    }}
-                    renderItem={renderItemLocation}
-                />
-                <TouchableOpacity onPress={form?.handleSubmit(handleRegister)}>
-                    <Button mode="contained">
-                        <Text style={styles.textLogin}>สมัครสมาชิก</Text>
-                    </Button>
-                </TouchableOpacity>
+                    </View>
+                    <Controller
+                        name="email"
+                        defaultValue=""
+                        control={form?.control}
+                        rules={{
+                            required: 'กรุณากรอกอีเมล',
+                            pattern: {
+                                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                                message: 'รูปแบบอีเมลไม่ถูกต้อง'
+                            }
+                        }}
+                        render={({ field, fieldState: { error } }) => (
+                            <>
+                                <InputText
+                                    {...field}
+                                    placeholder="Email"
+                                    returnKeyType="next"
+                                    autoCapitalize="none"
+                                    textContentType="emailAddress"
+                                    keyboardType="email-address"
+                                    borderColor={
+                                        error ? theme.colors.error : 'gray'
+                                    }
+                                    errorText={error && error.message}
+                                    onChangeText={(value) => {
+                                        field?.onChange(value);
+                                    }}
+                                />
+                            </>
+                        )}
+                    />
+                    <Controller
+                        name="password"
+                        defaultValue=""
+                        rules={{
+                            required: 'กรุณากรอก Password'
+                        }}
+                        control={form?.control}
+                        render={({ field, fieldState: { error } }) => (
+                            <InputText
+                                {...field}
+                                isPasswordVisible={isPasswordVisible}
+                                handleVisiblePassword={handleVisiblePassword}
+                                placeholder="Password"
+                                returnKeyType="done"
+                                secureText
+                                borderColor={
+                                    error ? theme.colors.error : 'gray'
+                                }
+                                errorText={error && error.message}
+                                onChangeText={(value) => field?.onChange(value)}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="name"
+                        defaultValue=""
+                        rules={{
+                            required: 'กรุณากรอกชื่อ'
+                        }}
+                        control={form?.control}
+                        render={({ field, fieldState: { error } }) => (
+                            <InputText
+                                {...field}
+                                placeholder="ชื่อ"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                textContentType="none"
+                                borderColor={
+                                    error ? theme.colors.error : 'gray'
+                                }
+                                errorText={error && error.message}
+                                onChangeText={(value) => field?.onChange(value)}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="surname"
+                        defaultValue=""
+                        rules={{
+                            required: 'กรุณากรอกนามสกุล'
+                        }}
+                        control={form?.control}
+                        render={({ field, fieldState: { error } }) => (
+                            <InputText
+                                {...field}
+                                placeholder="นามสกุล"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                borderColor={
+                                    error ? theme.colors.error : 'gray'
+                                }
+                                errorText={error && error.message}
+                                textContentType="none"
+                                onChangeText={(value) => field?.onChange(value)}
+                            />
+                        )}
+                    />
+                    <Controller
+                        name="phone"
+                        defaultValue=""
+                        rules={{
+                            required: 'กรุณากรอกเบอร์โทรศัพท์'
+                        }}
+                        control={form?.control}
+                        render={({ field, fieldState: { error } }) => (
+                            <InputText
+                                {...field}
+                                placeholder="เบอร์โทรศัพท์"
+                                returnKeyType="next"
+                                autoCapitalize="none"
+                                textContentType="telephoneNumber"
+                                borderColor={
+                                    error ? theme.colors.error : 'gray'
+                                }
+                                errorText={error && error.message}
+                                keyboardType="phone-pad"
+                                onChangeText={(value) => field?.onChange(value)}
+                            />
+                        )}
+                    />
+                    <Dropdown
+                        style={styles.dropdown}
+                        placeholderStyle={styles.placeholderStyle}
+                        selectedTextStyle={styles.selectedTextStyle}
+                        inputSearchStyle={styles.inputSearchStyle}
+                        data={listLocation}
+                        maxHeight={300}
+                        labelField="name"
+                        valueField="name"
+                        placeholder={'เลือกสถานที่'}
+                        value={selectLocation}
+                        onChange={(item) => {
+                            setSelectLocation(item?.name);
+                        }}
+                        renderItem={renderItemLocation}
+                    />
+                    <TouchableOpacity
+                        disabled={!form.formState.isValid || !selectLocation}
+                        onPress={form?.handleSubmit(handleRegister)}
+                    >
+                        <Button
+                            isDisabled={
+                                !form.formState.isValid || !selectLocation
+                            }
+                            mode="contained"
+                        >
+                            <Text style={styles.textLogin}>สมัครสมาชิก</Text>
+                        </Button>
+                    </TouchableOpacity>
 
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('Login');
-                    }}
-                >
-                    <Button mode="text">
-                        <Text variant="titleMedium" style={styles.textRegister}>
-                            ลงชื่อเข้าใช้
-                        </Text>
-                    </Button>
-                </TouchableOpacity>
-            </View>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('Login');
+                        }}
+                    >
+                        <Button mode="text">
+                            <Text
+                                variant="titleMedium"
+                                style={styles.textRegister}
+                            >
+                                ลงชื่อเข้าใช้
+                            </Text>
+                        </Button>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };
